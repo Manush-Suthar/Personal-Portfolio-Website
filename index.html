@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
     <style>
         :root {
             --primary: #00D1FF; 
@@ -23,7 +21,7 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Security: Disable Text Selection */
+        /* Security: Disable Highlight and Selection */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
@@ -68,7 +66,7 @@
         .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
         .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
 
-        /* --- Hero Section Fix --- */
+        /* --- Hero Section - Fixed Alignment --- */
         #home {
             height: 100vh; width: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
@@ -76,14 +74,14 @@
             padding: 0 20px;
         }
         
-        /* Centered log container with fixed height to prevent vertical jitter */
+        /* Container for log text to prevent buttons from moving */
         .hero-log-wrapper { height: 24px; width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
         #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
 
         .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
         .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; width: 100%; }
         
-        /* Centered button container */
+        /* Buttons container - Centered and Reactive */
         .hero-btns { 
             display: flex; flex-direction: row; gap: 20px; 
             justify-content: center; align-items: center;
@@ -187,13 +185,11 @@
     </footer>
 
     <script>
-        // Security Script: Block Inspect Element & Source View
+        // Security Script: Block Inspect & Source View Shortcuts
         document.onkeydown = function(e) {
             if(event.keyCode == 123) return false; // F12
             if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Ctrl+Shift+C
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U (View Source)
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
         }
 
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
@@ -217,21 +213,46 @@
             typeLog(logs[logIdx]);
         }
 
-        (function() { emailjs.init("B-sLF3wAsl0pidF78"); })();
-
-        document.getElementById('collabForm').addEventListener('submit', function(e) {
+        // --- NEW SECURE FORM LOGIC ---
+        document.getElementById('collabForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('sendBtn');
+            const status = document.getElementById('form-status');
+            
             btn.innerText = "TRANSMITTING...";
-            emailjs.sendForm('service_mque3po', 'template_wstkcmc', this)
-                .then(() => {
+            btn.disabled = true;
+
+            const formData = {
+                user_name: this.user_name.value,
+                user_email: this.user_email.value,
+                message: this.message.value
+            };
+
+            try {
+                // Hits your hidden Vercel server function
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
                     btn.innerText = "SENT";
-                    document.getElementById('form-status').style.display = "block";
+                    status.style.display = "block";
                     this.reset();
-                    setTimeout(() => { btn.innerText = "SEND PROPOSAL"; document.getElementById('form-status').style.display = "none"; }, 5000);
-                }, () => { btn.innerText = "RETRY SIGNAL"; });
+                    setTimeout(() => { 
+                        btn.innerText = "SEND PROPOSAL"; 
+                        btn.disabled = false;
+                        status.style.display = "none"; 
+                    }, 5000);
+                } else { throw new Error('Failed'); }
+            } catch (err) {
+                btn.innerText = "RETRY SIGNAL";
+                btn.disabled = false;
+            }
         });
 
+        // Auth Logic
         document.getElementById('pass-input').addEventListener('input', (e) => {
             if (e.target.value === '1111') {
                 document.getElementById('access-gate').style.transform = 'translateY(-100%)';
@@ -242,16 +263,14 @@
             }
         });
 
+        // YouTube Logic
         async function initYT() {
             const channelId = 'UCEmiGP-gPZ0WGAYlGfoXJZw';
             const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId)}`;
             try {
                 const res = await fetch(api);
                 const data = await res.json();
-                
-                const isRealLive = data.items[0].link.includes('/live') || 
-                                 (data.items[0].title.toLowerCase().includes('live now') && !data.items[0].title.toLowerCase().includes('vod'));
-                
+                const isRealLive = data.items[0].link.includes('/live');
                 const badge = document.getElementById('live-indicator');
                 const text = document.getElementById('status-text');
                 if(isRealLive) { badge.classList.add('online'); text.innerText = 'LIVE NOW'; }
