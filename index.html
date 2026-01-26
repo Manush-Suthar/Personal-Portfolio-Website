@@ -20,7 +20,7 @@
   --ease:cubic-bezier(.4,0,.2,1);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+*{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
 
 body{
@@ -34,7 +34,7 @@ body{
   overflow:hidden;
 }
 
-/* CURSOR GLOW */
+/* CURSOR GLOW (desktop only feel) */
 #cursor-glow{
   position:fixed;
   width:520px;
@@ -43,6 +43,9 @@ body{
   pointer-events:none;
   transform:translate(-50%,-50%);
   z-index:0;
+}
+@media(max-width:768px){
+  #cursor-glow{display:none}
 }
 
 /* ACCESS GATE */
@@ -79,7 +82,6 @@ body{
 #gate input.denied{
   border-color:var(--danger);
   color:var(--danger);
-  box-shadow:0 0 20px var(--danger);
 }
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .shake{animation:shake .2s ease-in-out 2}
@@ -89,11 +91,11 @@ nav{
   position:fixed;
   top:0;left:0;
   width:100%;
-  height:80px;
+  height:72px;
   padding:0 6%;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   background:var(--glass);
   backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
@@ -106,10 +108,9 @@ nav.active{transform:none}
 .logo{
   font-family:Syncopate;
   letter-spacing:3px;
-  cursor:pointer;
 }
 
-/* DESKTOP NAV LINKS */
+/* DESKTOP NAV */
 .nav-links{
   display:flex;
   gap:28px;
@@ -120,65 +121,97 @@ nav.active{transform:none}
 }
 .nav-links a:hover{color:var(--c)}
 
+/* MOBILE HAMBURGER */
+.hamburger{
+  display:none;
+  font-size:1.3rem;
+  color:var(--c);
+  cursor:pointer;
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:block}
+}
+
+/* MOBILE MENU */
+.mobile-menu{
+  position:fixed;
+  top:72px;
+  left:0;
+  width:100%;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:none;
+  flex-direction:column;
+  text-align:center;
+  z-index:999;
+}
+.mobile-menu a{
+  padding:16px;
+  font-family:Syncopate;
+  font-size:.75rem;
+  letter-spacing:3px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.mobile-menu.show{display:flex}
+
+/* SOCIAL + LIVE */
 .nav-right{
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:12px;
 }
-
 .nav-social{
   display:flex;
-  gap:14px;
+  gap:12px;
 }
 .nav-social a{
-  width:34px;height:34px;
+  width:32px;height:32px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:8px;
   border:1px solid var(--border);
   color:var(--muted);
-  transition:.3s;
-}
-.nav-social a:hover{
-  color:var(--c);
-  border-color:var(--c);
-  transform:translateY(-3px);
 }
 
-/* CLEAN LIVE INDICATOR */
+/* LIVE INDICATOR */
 .live{
   display:flex;
   align-items:center;
   gap:6px;
-  padding:6px 12px;
+  padding:6px 10px;
   border-radius:999px;
   border:1px solid rgba(0,209,255,.25);
   font-size:.6rem;
   letter-spacing:1px;
   color:var(--muted);
-  background:rgba(255,255,255,.02);
 }
 .live.online{color:var(--c)}
 .dot{
-  width:5px;
-  height:5px;
+  width:5px;height:5px;
   border-radius:50%;
   background:currentColor;
-  opacity:.8;
+}
+@media(max-width:768px){
+  .live{
+    padding:4px 8px;
+    font-size:.55rem;
+  }
 }
 
 /* SECTIONS */
 .panel{
   min-height:100vh;
-  padding:140px 8%;
+  padding:120px 16px;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:44px;
+  gap:40px;
   opacity:0;
-  transform:translateY(40px);
-  transition:1s var(--ease);
+  transform:translateY(30px);
+  transition:.8s var(--ease);
   position:relative;
   z-index:1;
 }
@@ -188,12 +221,12 @@ nav.active{transform:none}
 /* HERO */
 .hero-title{
   font-family:Syncopate;
-  font-size:clamp(3rem,8vw,6rem);
+  font-size:clamp(2.5rem,8vw,5rem);
   letter-spacing:6px;
 }
 .hero-sub{
-  margin-top:18px;
-  font-size:.85rem;
+  margin-top:16px;
+  font-size:.8rem;
   letter-spacing:4px;
   color:var(--muted);
 }
@@ -201,12 +234,12 @@ nav.active{transform:none}
 /* CTA */
 .cta{
   display:flex;
-  gap:20px;
+  gap:16px;
   justify-content:center;
   flex-wrap:wrap;
 }
 .btn{
-  padding:16px 40px;
+  padding:14px 32px;
   font-family:Syncopate;
   font-size:.7rem;
   letter-spacing:3px;
@@ -214,103 +247,94 @@ nav.active{transform:none}
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
   color:#fff;
-  cursor:pointer;
-  transition:.3s;
 }
 .btn.primary{
   background:var(--c);
   color:#000;
   border-color:var(--c);
 }
-.btn:hover{transform:translateY(-4px)}
 
-/* HERO SOCIALS */
+/* HERO SOCIAL */
 .hero-social{
   display:flex;
   justify-content:center;
-  gap:22px;
+  gap:18px;
 }
 .hero-social a{
-  width:52px;height:52px;
+  width:48px;height:48px;
   border-radius:14px;
   border:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:1.4rem;
+  font-size:1.3rem;
   color:var(--muted);
-  transition:.3s;
-}
-.hero-social a:hover{
-  color:var(--c);
-  border-color:var(--c);
-  transform:translateY(-4px);
 }
 
 /* VIDEOS */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:32px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:28px;
 }
 .card{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:16px;
   overflow:hidden;
-  transition:.4s;
-}
-.card:hover{
-  transform:translateY(-10px);
-  border-color:var(--c);
 }
 .thumb{
   aspect-ratio:16/9;
   background-size:cover;
   background-position:center;
 }
-.info{padding:26px}
-.info h3{font-size:.9rem;line-height:1.5}
+.info{
+  padding:20px;
+}
+.info h3{
+  font-size:.85rem;
+  line-height:1.4;
+  margin-bottom:14px;
+}
+.watch{
+  display:block;
+  text-align:center;
+  padding:12px;
+  font-family:Syncopate;
+  font-size:.65rem;
+  letter-spacing:2px;
+  border-radius:6px;
+  background:var(--c);
+  color:#000;
+}
 
 /* CONTACT */
 .contact{
-  max-width:640px;
-  margin:auto;
+  max-width:100%;
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:20px;
-  padding:50px;
+  padding:28px 20px;
 }
 .contact input,
 .contact textarea{
   width:100%;
-  padding:16px;
-  margin-bottom:20px;
+  padding:14px;
+  margin-bottom:18px;
   background:rgba(0,0,0,.4);
   border:1px solid var(--border);
   border-radius:10px;
   color:#fff;
-  outline:none;
 }
 
 /* FOOTER */
 footer{
-  padding:50px 20px;
+  padding:40px 20px;
   text-align:center;
   border-top:1px solid var(--border);
-  font-size:.65rem;
+  font-size:.6rem;
   letter-spacing:3px;
   color:var(--muted);
-}
-
-/* MOBILE FIXES */
-@media(max-width:768px){
-  .panel{padding:120px 16px}
-  .contact{padding:32px 20px}
-  .nav-links{display:none}
-}
-@media(max-width:480px){
-  .dot{display:none}
 }
 </style>
 </head>
@@ -327,7 +351,7 @@ footer{
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo" onclick="scrollToSection('home')">DORP <span style="color:var(--c)">PLAYS</span></div>
+  <div class="logo">DORP <span style="color:var(--c)">PLAYS</span></div>
 
   <div class="nav-links">
     <a href="#home">HOME</a>
@@ -344,8 +368,15 @@ footer{
     <div class="live" id="live">
       <div class="dot"></div><span id="liveText">NOT LIVE</span>
     </div>
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMenu()">HOME</a>
+  <a href="#content" onclick="closeMenu()">CONTENT</a>
+  <a href="#contact" onclick="closeMenu()">COLLAB</a>
+</div>
 
 <!-- HOME -->
 <section class="panel center" id="home">
@@ -374,14 +405,14 @@ footer{
 <!-- CONTACT -->
 <section class="panel" id="contact">
   <div class="contact">
-    <h2 class="center" style="font-family:Syncopate;margin-bottom:30px">COLLABORATIONS</h2>
+    <h2 class="center" style="font-family:Syncopate;margin-bottom:24px">COLLABORATIONS</h2>
     <form id="collabForm">
       <input type="text" name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
       <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
     </form>
-    <div id="formStatus" style="display:none;margin-top:20px;color:var(--success);text-align:center;font-size:.75rem">
+    <div id="formStatus" style="display:none;margin-top:16px;color:var(--success);text-align:center;font-size:.7rem">
       MESSAGE RECEIVED
     </div>
   </div>
@@ -416,10 +447,18 @@ document.getElementById("pass").addEventListener("input",e=>{
   }
 });
 
+/* MOBILE MENU */
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+}
+function closeMenu(){
+  document.getElementById("mobileMenu").classList.remove("show");
+}
+
 /* REVEAL */
 function reveal(){
   document.querySelectorAll(".panel").forEach(p=>{
-    if(p.getBoundingClientRect().top < window.innerHeight - 120){
+    if(p.getBoundingClientRect().top < window.innerHeight - 100){
       p.classList.add("active");
     }
   });
@@ -446,7 +485,10 @@ async function init(){
     return `
       <div class="card">
         <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
-        <div class="info"><h3>${v.title}</h3></div>
+        <div class="info">
+          <h3>${v.title}</h3>
+          <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
+        </div>
       </div>`;
   }).join("");
 }
@@ -486,11 +528,6 @@ document.getElementById("collabForm").addEventListener("submit",async function(e
     btn.disabled=false;
   }
 });
-
-/* NAV SCROLL */
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
 </script>
 
 </body>
