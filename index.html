@@ -12,11 +12,9 @@
         :root {
             --primary: #00D1FF; 
             --bg-dark: #05070a; 
-            /* Glass Effect Variables */
-            --glass-bg: rgba(13, 17, 23, 0.7);
+            --glass-bg: rgba(13, 17, 23, 0.75);
             --glass-border: rgba(0, 209, 255, 0.15);
-            --glass-blur: blur(12px);
-            
+            --glass-blur: blur(15px);
             --text-light: #e6edf3;
             --text-gray: #8b949e;
             --success: #00ff88;
@@ -26,7 +24,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
-        h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; text-decoration: none; }
+        h1, h2, h4, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; text-decoration: none; }
         span { color: var(--primary); }
 
         /* --- Access Gate --- */
@@ -49,7 +47,7 @@
         }
         .shake { animation: shake 0.2s ease-in-out 0s 2; }
 
-        /* --- Navigation (Glass) --- */
+        /* --- Navigation --- */
         nav {
             position: fixed; top: 0; width: 100%; height: 80px;
             display: flex; justify-content: space-between; align-items: center;
@@ -63,12 +61,12 @@
         .hamburger { display: none; cursor: pointer; font-size: 1.4rem; color: var(--primary); }
         
         .live-badge {
-            display: flex; align-items: center; gap: 8px; font-size: 0.6rem;
+            display: flex; align-items: center; gap: 10px; font-size: 0.75rem;
             font-weight: 900; color: var(--text-gray); border: 1px solid var(--glass-border);
-            padding: 5px 12px; border-radius: 20px; background: rgba(0,0,0,0.3);
+            padding: 8px 18px; border-radius: 20px; background: rgba(0,0,0,0.4);
         }
-        .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
-        .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+        .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+        .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
         /* --- Hero Section --- */
         #home {
@@ -77,9 +75,11 @@
             background: radial-gradient(circle at center, #0a1c31 0%, #05070a 100%);
             padding: 0 20px;
         }
-        .hero-log-wrapper { height: 24px; margin-bottom: 20px; }
+        .hero-log-wrapper { height: 24px; margin-bottom: 15px; }
         #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 10px; line-height: 1; }
+        .professional-titles { font-family: 'Syncopate'; font-size: 0.7rem; letter-spacing: 4px; color: var(--text-gray); margin-bottom: 40px; }
+
         .hero-btns { display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; margin-bottom: 40px; }
 
         /* --- Social Row --- */
@@ -88,34 +88,25 @@
             color: var(--text-gray); font-size: 1.5rem; transition: var(--transition);
             width: 55px; height: 55px; border: 1px solid var(--glass-border);
             display: flex; align-items: center; justify-content: center; border-radius: 8px;
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            text-decoration: none;
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); text-decoration: none;
         }
         .social-link:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 209, 255, 0.2); }
 
-        /* --- Video Section (Glass Cards) --- */
+        /* --- Content Sections --- */
         section { padding: 100px 8%; }
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
         .video-card { 
-            background: var(--glass-bg); 
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             border-radius: 12px; border: 1px solid var(--glass-border); 
             overflow: hidden; transition: var(--transition);
             display: flex; flex-direction: column; height: 100%;
         }
-        .video-card:hover { border-color: var(--primary); transform: scale(1.02); }
-        .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
-        
-        .video-info { 
-            padding: 25px; flex-grow: 1; 
-            display: flex; flex-direction: column; justify-content: space-between; 
-        }
+        .video-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .video-info h3 { font-size: 0.8rem; margin-bottom: 25px; line-height: 1.5; color: var(--text-light); }
 
-        /* --- Buttons --- */
         .btn-main { 
             padding: 18px 40px; background: var(--primary); color: var(--bg-dark); 
             font-weight: 900; border: none; cursor: pointer; transition: 0.3s;
@@ -124,10 +115,9 @@
             font-size: 0.75rem; min-width: 250px; border-radius: 4px;
         }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-main:hover { box-shadow: 0 0 25px var(--primary); transform: translateY(-3px); }
         .btn-watch { width: 100%; min-width: unset; padding: 12px; font-size: 0.7rem; margin-top: auto; }
 
-        /* --- Contact Box (Glass) --- */
+        /* --- Glass Contact Box --- */
         .contact-box {
             max-width: 600px; margin: 0 auto; 
             background: var(--glass-bg); backdrop-filter: var(--glass-blur);
@@ -138,6 +128,8 @@
             border:1px solid var(--glass-border); color:white; 
             margin-bottom:20px; outline:none; font-family:'Inter'; border-radius: 8px;
         }
+
+        footer { border-top: 1px solid var(--glass-border); }
 
         @media (max-width: 992px) {
             .nav-links {
@@ -160,7 +152,7 @@
 
     <nav>
         <div class="logo" onclick="window.scrollTo(0,0)" style="cursor:pointer;">DORP <span>PLAYS</span></div>
-        <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
             <ul class="nav-links" id="navMenu">
                 <li><a href="#home" onclick="closeMenu()">HOME</a></li>
                 <li><a href="#uploads" onclick="closeMenu()">VIDEOS</a></li>
@@ -175,10 +167,9 @@
 
     <section id="home">
         <div class="hero-content reveal">
-            <div class="hero-log-wrapper">
-                <p id="changing-log"></p>
-            </div>
+            <div class="hero-log-wrapper"><p id="changing-log"></p></div>
             <h1>DORP <span>PLAYS</span></h1>
+            <div class="professional-titles">GAMER | STREAMER | CONTENT CREATOR</div>
             <div class="hero-btns">
                 <a href="#uploads" class="btn-main">SHOW CONTENT</a>
                 <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main btn-outline">SUBSCRIBE</a>
@@ -198,7 +189,7 @@
 
     <section id="contact">
         <div class="contact-box reveal">
-            <h2 style="text-align: center; margin-bottom: 30px;">PR & COLLAB</h2>
+            <h2 style="text-align: center; margin-bottom: 30px;">COLLABORATIONS</h2>
             <form id="collabForm">
                 <input type="text" name="user_name" placeholder="YOUR NAME" required>
                 <input type="email" name="user_email" placeholder="YOUR GMAIL" required>
@@ -210,17 +201,15 @@
     </section>
 
     <footer>
-        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // SECURE ACCESS GRANTED</p>
+        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // EXCLUSIVE ACCESS </p>
     </footer>
 
     <script>
-        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; }
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
 
         const logs = ["ESTABLISHING SECURE CONNECTION...", "ENJOYING CLASSIFIED CONTENT?...", "DECRYPTING ARCHIVED GAMEPLAY...", "OPTIMIZING DATA STREAMS..."];
-        let logIdx = 0;
-        const logEl = document.getElementById('changing-log');
+        let logIdx = 0; const logEl = document.getElementById('changing-log');
 
         async function typeLog(text) {
             for (let i = 0; i <= text.length; i++) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 60)); }
@@ -229,12 +218,10 @@
             logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
         }
 
-        // Email Form Logic
         document.getElementById('collabForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('sendBtn');
-            btn.innerText = "TRANSMITTING...";
-            btn.disabled = true;
+            btn.innerText = "TRANSMITTING..."; btn.disabled = true;
             try {
                 const response = await fetch('/api/send-email', {
                     method: 'POST',
@@ -242,15 +229,12 @@
                     body: JSON.stringify({ user_name: this.user_name.value, user_email: this.user_email.value, message: this.message.value })
                 });
                 if (response.ok) {
-                    btn.innerText = "SENT";
-                    document.getElementById('form-status').style.display = "block";
-                    this.reset();
-                    setTimeout(() => { btn.innerText = "SEND PROPOSAL"; btn.disabled = false; document.getElementById('form-status').style.display = "none"; }, 5000);
+                    btn.innerText = "SENT"; document.getElementById('form-status').style.display = "block";
+                    this.reset(); setTimeout(() => { btn.innerText = "SEND PROPOSAL"; btn.disabled = false; document.getElementById('form-status').style.display = "none"; }, 5000);
                 } else { throw new Error(); }
             } catch (err) { btn.innerText = "RETRY SIGNAL"; btn.disabled = false; }
         });
 
-        // Password logic
         document.getElementById('pass-input').addEventListener('input', (e) => {
             const input = e.target;
             if (input.value.length === 4) {
@@ -289,6 +273,3 @@
     </script>
 </body>
 </html>
-
-
-
