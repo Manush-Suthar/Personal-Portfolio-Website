@@ -3,17 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
 <title>DORP PLAYS | Gamer · Streamer · Content Creator</title>
-
-<meta name="description" content="DORP PLAYS — Gaming content, livestreams, clips, and collaborations. Watch featured uploads and join the community.">
-
-<meta property="og:title" content="DORP PLAYS">
-<meta property="og:description" content="Gaming content, livestreams, and high-skill gameplay.">
-<meta property="og:image" content="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg">
-<meta property="og:type" content="website">
-
-<meta name="twitter:card" content="summary_large_image">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
@@ -30,6 +20,7 @@
   --danger:#ff4d4d;
 }
 
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
 html{scroll-behavior:smooth}
@@ -41,7 +32,18 @@ body{
   overflow:hidden;
 }
 
-/* Scroll progress */
+/* ================= REACTIVE BACKGROUND ================= */
+#bg-reactive{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(600px at 50% 50%, rgba(0,209,255,.08), transparent 60%);
+  pointer-events:none;
+  transition:background .15s linear;
+  z-index:0;
+}
+
+/* ================= SCROLL PROGRESS ================= */
 #scroll-progress{
   position:fixed;
   top:0;left:0;
@@ -51,18 +53,7 @@ body{
   z-index:3000;
 }
 
-/* Cursor glow */
-#cursor-glow{
-  position:fixed;
-  width:420px;height:420px;
-  background:radial-gradient(circle,rgba(0,209,255,.07),transparent 65%);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:0;
-}
-@media(max-width:768px){#cursor-glow{display:none}}
-
-/* Access gate */
+/* ================= ACCESS GATE ================= */
 #access-gate{
   position:fixed;
   inset:0;
@@ -91,19 +82,18 @@ body{
   font-size:1.4rem;
   letter-spacing:10px;
   text-align:center;
-  outline:none;
 }
 #pass-input.denied{border-color:var(--danger);color:var(--danger)}
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .shake{animation:shake .2s ease-in-out 2}
 
-/* Nav */
+/* ================= NAV ================= */
 nav{
   position:fixed;
   top:0;left:0;
   width:100%;
   height:72px;
-  padding:0 calc(6% + env(safe-area-inset-left));
+  padding:0 16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -116,46 +106,81 @@ nav{
 }
 nav.active{transform:none}
 
-.logo{font-family:Syncopate;letter-spacing:3px}
+.logo{
+  font-family:Syncopate;
+  letter-spacing:3px;
+}
 
 .nav-links{
   display:flex;
-  gap:28px;
+  gap:24px;
   font-family:Syncopate;
   font-size:.65rem;
   letter-spacing:3px;
 }
-.nav-links a{color:var(--muted)}
+.nav-links a{
+  color:var(--muted);
+  position:relative;
+}
 .nav-links a:hover{color:var(--primary)}
 
-.nav-right{display:flex;align-items:center;gap:14px}
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
 
+/* SOCIAL ICONS */
+.nav-social{
+  display:flex;
+  gap:8px;
+}
 .nav-social a{
-  width:32px;height:32px;
+  width:30px;height:30px;
   border-radius:8px;
   border:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--muted);
+  transition:.25s;
 }
-.nav-social a:hover{color:var(--primary);border-color:var(--primary)}
+.nav-social a:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+  transform:translateY(-2px);
+  box-shadow:0 0 12px rgba(0,209,255,.25);
+}
 
+/* LIVE */
 .live{
-  display:flex;align-items:center;gap:6px;
-  padding:4px 8px;border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 8px;
+  border-radius:999px;
   border:1px solid rgba(0,209,255,.25);
-  font-size:.55rem;color:var(--muted);
+  font-size:.55rem;
+  color:var(--muted);
+  white-space:nowrap;
 }
 .live.online{color:var(--primary)}
 .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 
-.hamburger{display:none;color:var(--primary)}
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  font-size:1.2rem;
+  color:var(--primary);
+  cursor:pointer;
+}
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:block}
 }
 
+/* MOBILE MENU */
 .mobile-menu{
   position:fixed;
   top:72px;left:0;
@@ -176,13 +201,14 @@ nav.active{transform:none}
 }
 .mobile-menu.show{display:flex}
 
-/* Fade animation */
+/* ================= SECTIONS ================= */
+section{position:relative;z-index:1}
+
+/* Fade animation (safe on mobile) */
 .fade{opacity:0;transition:opacity .6s ease}
 .fade.show{opacity:1}
 
-/* Sections */
-section{position:relative;z-index:1}
-
+/* HERO */
 #home{
   min-height:100svh;
   padding:140px 16px 80px;
@@ -202,7 +228,12 @@ section{position:relative;z-index:1}
   letter-spacing:4px;
   color:var(--muted);
 }
-.cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.cta{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 .btn{
   padding:14px 32px;
   font-family:Syncopate;
@@ -211,18 +242,38 @@ section{position:relative;z-index:1}
   border-radius:6px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
+  transition:.25s;
 }
 .btn.primary{background:var(--primary);color:#000}
-
-.hero-social{display:flex;justify-content:center;gap:18px}
-.hero-social a{
-  width:48px;height:48px;border-radius:14px;
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;
+.btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(0,209,255,.25);
 }
 
-/* Content */
+/* HERO SOCIAL */
+.hero-social{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+.hero-social a{
+  width:48px;height:48px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.3rem;
+  transition:.25s;
+}
+.hero-social a:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+  transform:translateY(-4px);
+  box-shadow:0 0 18px rgba(0,209,255,.35);
+}
+
+/* CONTENT */
 #content,#contact{padding:120px 16px 80px}
 .grid{
   display:grid;
@@ -236,6 +287,12 @@ section{position:relative;z-index:1}
   overflow:hidden;
   display:flex;
   flex-direction:column;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--primary);
+  box-shadow:0 20px 40px rgba(0,209,255,.15);
 }
 .thumb{
   aspect-ratio:16/9;
@@ -254,7 +311,7 @@ section{position:relative;z-index:1}
   font-size:.65rem;
 }
 
-/* Contact */
+/* CONTACT */
 .contact{
   max-width:420px;
   margin:0 auto;
@@ -273,7 +330,7 @@ section{position:relative;z-index:1}
   color:#fff;
 }
 
-/* Footer */
+/* FOOTER */
 footer{
   padding:36px 20px;
   text-align:center;
@@ -286,28 +343,34 @@ footer{
 
 <body oncontextmenu="return false">
 
+<div id="bg-reactive"></div>
 <div id="scroll-progress"></div>
-<div id="cursor-glow"></div>
 
+<!-- ACCESS GATE -->
 <div id="access-gate">
   <p>AUTHORIZED ACCESS ONLY</p>
   <input id="pass-input" maxlength="4" placeholder="••••">
 </div>
 
+<!-- NAV -->
 <nav id="nav">
   <div class="logo">DORP <span style="color:var(--primary)">PLAYS</span></div>
+
   <div class="nav-links">
     <a href="#home">HOME</a>
     <a href="#content">CONTENT</a>
     <a href="#contact">COLLAB</a>
   </div>
+
   <div class="nav-right">
     <div class="nav-social">
       <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
       <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
-    <div class="live" id="live-indicator"><div class="dot"></div><span id="live-text">NOT LIVE</span></div>
+    <div class="live" id="live-indicator">
+      <div class="dot"></div><span id="live-text">NOT LIVE</span>
+    </div>
     <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </div>
 </nav>
@@ -318,14 +381,17 @@ footer{
   <a href="#contact" onclick="closeMenu()">COLLAB</a>
 </div>
 
+<!-- HOME -->
 <section id="home" class="fade">
   <h1 class="hero-title">DORP <span style="color:var(--primary)">PLAYS</span></h1>
   <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
+
   <div class="cta">
     <a class="btn primary" href="#content">CONTENT</a>
     <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
   </div>
+
   <div class="hero-social">
     <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
     <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
@@ -333,27 +399,36 @@ footer{
   </div>
 </section>
 
+<!-- CONTENT -->
 <section id="content" class="fade">
-  <h2 style="text-align:center;font-family:Syncopate;margin-bottom:40px">FEATURED UPLOADS</h2>
+  <h2 style="text-align:center;font-family:Syncopate;margin-bottom:40px">
+    FEATURED UPLOADS
+  </h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="fade">
   <div class="contact">
-    <h2 style="text-align:center;font-family:Syncopate;margin-bottom:12px">COLLABORATIONS</h2>
+    <h2 style="text-align:center;font-family:Syncopate;margin-bottom:12px">
+      COLLABORATIONS
+    </h2>
     <form id="collabForm">
       <input name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
       <textarea name="message" rows="4" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
     </form>
-    <div id="form-status" style="display:none;color:var(--success);text-align:center;font-size:.7rem">MESSAGE RECEIVED</div>
+    <div id="form-status" style="display:none;color:var(--success);text-align:center;font-size:.7rem">
+      MESSAGE RECEIVED
+    </div>
   </div>
 </section>
 
-<footer>© 2026 DORP PLAYS</footer>
+<footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
+/* DOM */
 const passInput=document.getElementById("pass-input");
 const accessGate=document.getElementById("access-gate");
 const nav=document.getElementById("nav");
@@ -361,21 +436,29 @@ const mobileMenu=document.getElementById("mobileMenu");
 const liveIndicator=document.getElementById("live-indicator");
 const liveText=document.getElementById("live-text");
 const videoGrid=document.getElementById("videoGrid");
-const cursorGlow=document.getElementById("cursor-glow");
+const bg=document.getElementById("bg-reactive");
 
+/* Reactive background */
 window.addEventListener("mousemove",e=>{
-  if(cursorGlow){
-    cursorGlow.style.left=e.clientX+"px";
-    cursorGlow.style.top=e.clientY+"px";
-  }
+  bg.style.background=
+    `radial-gradient(600px at ${e.clientX}px ${e.clientY}px,
+     rgba(0,209,255,.08), transparent 60%)`;
+});
+window.addEventListener("touchmove",e=>{
+  const t=e.touches[0];
+  bg.style.background=
+    `radial-gradient(600px at ${t.clientX}px ${t.clientY}px,
+     rgba(0,209,255,.06), transparent 60%)`;
 });
 
+/* Scroll progress */
 window.addEventListener("scroll",()=>{
   const h=document.documentElement;
   document.getElementById("scroll-progress").style.width=
     (h.scrollTop/(h.scrollHeight-h.clientHeight))*100+"%";
 });
 
+/* PASSWORD */
 const PASS="1111";
 passInput.addEventListener("input",e=>{
   if(e.target.value.length===4){
@@ -395,9 +478,11 @@ passInput.addEventListener("input",e=>{
   }
 });
 
+/* MENU */
 function toggleMenu(){mobileMenu.classList.toggle("show")}
 function closeMenu(){mobileMenu.classList.remove("show")}
 
+/* INIT */
 async function init(){
   const api="https://api.rss2json.com/v1/api.json?rss_url="+
     encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=UCEmiGP-gPZ0WGAYlGfoXJZw");
@@ -421,6 +506,7 @@ async function init(){
   }).join("");
 }
 
+/* FORM */
 document.getElementById("collabForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const btn=e.target.querySelector("button");
