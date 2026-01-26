@@ -140,12 +140,26 @@
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
         .btn-watch { width: 100%; min-width: unset; padding: 12px; font-size: 0.7rem; margin-top: auto; }
 
-        /* --- PR & Collaborations (Glass) --- */
+        /* --- Collaborations (Glass) --- */
         .contact-box {
-            max-width: 600px; margin: 0 auto; 
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            padding: 50px; border-radius: 20px; border: 1px solid var(--glass-border);
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: var(--glass-bg); 
+            backdrop-filter: var(--glass-blur);
+            padding: 50px; 
+            border-radius: 20px; 
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Ensures content is centered */
         }
+        
+        .contact-box h2 {
+            width: 100%;
+            text-align: center; /* Fix for mobile centering */
+            margin-bottom: 30px;
+        }
+
         .contact-box input, .contact-box textarea {
             width:100%; padding:15px; background: rgba(0,0,0,0.4); 
             border:1px solid var(--glass-border); color:white; 
@@ -164,6 +178,9 @@
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
             .btn-main { width: 100%; max-width: 320px; }
             .professional-titles { font-size: 0.55rem; letter-spacing: 2px; }
+            
+            /* Mobile Heading Alignment Fix */
+            h2 { text-align: center !important; }
         }
     </style>
 </head>
@@ -212,14 +229,14 @@
     </section>
 
     <section id="uploads">
-        <h2 class="reveal" style="text-align: center; margin-bottom: 60px;">TOP <span>UPLOADS</span></h2>
+        <h2 class="reveal">TOP <span>UPLOADS</span></h2>
         <div id="videoGrid" class="video-grid reveal"></div>
     </section>
 
     <section id="contact">
         <div class="contact-box reveal">
-            <h2 style="text-align: center; margin-bottom: 30px;"> COLLABORATIONS </h2>
-            <form id="collabForm">
+            <h2>COLLABORATIONS</h2>
+            <form id="collabForm" style="width: 100%;">
                 <input type="text" name="user_name" placeholder="YOUR NAME" required>
                 <input type="email" name="user_email" placeholder="YOUR GMAIL" required>
                 <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required></textarea>
@@ -234,7 +251,6 @@
     </footer>
 
     <script>
-        // Security logic
         document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; }
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
@@ -249,7 +265,6 @@
             logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
         }
 
-        // Email logic
         document.getElementById('collabForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('sendBtn');
@@ -267,7 +282,6 @@
             } catch (err) { btn.innerText = "RETRY SIGNAL"; btn.disabled = false; }
         });
 
-        // Password logic
         document.getElementById('pass-input').addEventListener('input', (e) => {
             const input = e.target;
             if (input.value.length === 4) {
@@ -306,4 +320,3 @@
     </script>
 </body>
 </html>
-
