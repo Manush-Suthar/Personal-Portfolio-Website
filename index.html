@@ -34,36 +34,23 @@ a{
 
 body{
   font-family:Inter,system-ui;
-  background:radial-gradient(circle at top,#08182b 0%,var(--bg) 40%);
   color:#e6edf3;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(0,209,255,.08), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(0,209,255,.05), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(255,255,255,.03), transparent 60%),
+    var(--bg);
   overflow:hidden;
 }
 
-/* ===== CURSOR REACTIVE BACKGROUND ===== */
+/* ===== CURSOR GLOW (SOFTER) ===== */
 #cursor-glow{
   position:fixed;
-  top:0;
-  left:0;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(0,209,255,.18), transparent 60%);
+  width:520px;
+  height:520px;
+  background:radial-gradient(circle, rgba(0,209,255,.08), transparent 65%);
   pointer-events:none;
   transform:translate(-50%,-50%);
-  z-index:0;
-  transition:opacity .3s ease;
-}
-
-/* ===== SUBTLE GRID ===== */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(transparent 95%,rgba(0,209,255,.05) 96%),
-    linear-gradient(90deg,transparent 95%,rgba(0,209,255,.05) 96%);
-  background-size:60px 60px;
-  opacity:.15;
-  pointer-events:none;
   z-index:0;
 }
 
@@ -72,7 +59,7 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at center,rgba(0,209,255,.14),transparent 60%),
+    radial-gradient(circle at center,rgba(0,209,255,.12),transparent 60%),
     var(--bg);
   display:flex;
   flex-direction:column;
@@ -106,7 +93,7 @@ body::before{
 #gate input.denied{
   border-color:var(--danger);
   color:var(--danger);
-  box-shadow:0 0 25px var(--danger);
+  box-shadow:0 0 20px var(--danger);
 }
 
 @keyframes shake{
@@ -184,7 +171,7 @@ nav.active{transform:none}
 .live.online{
   color:var(--c);
   border-color:var(--c);
-  box-shadow:0 0 16px rgba(0,209,255,.5);
+  box-shadow:0 0 14px rgba(0,209,255,.4);
 }
 
 .dot{
@@ -201,7 +188,7 @@ nav.active{transform:none}
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:50px;
+  gap:44px;
   opacity:0;
   transform:translateY(40px);
   transition:1s var(--ease);
@@ -228,32 +215,6 @@ nav.active{transform:none}
   font-size:.85rem;
   letter-spacing:4px;
   color:var(--muted);
-}
-
-/* HERO SOCIALS */
-.hero-social{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-top:28px;
-}
-
-.hero-social a{
-  width:44px;
-  height:44px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--muted);
-  transition:.3s;
-}
-
-.hero-social a:hover{
-  color:var(--c);
-  border-color:var(--c);
-  transform:translateY(-4px);
 }
 
 /* CTA BUTTONS */
@@ -284,6 +245,33 @@ nav.active{transform:none}
 }
 
 .btn:hover{transform:translateY(-4px)}
+
+/* HERO SOCIALS (LARGER, BELOW CTA) */
+.hero-social{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  margin-top:10px;
+}
+
+.hero-social a{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  color:var(--muted);
+  transition:.3s;
+}
+
+.hero-social a:hover{
+  color:var(--c);
+  border-color:var(--c);
+  transform:translateY(-4px);
+}
 
 /* ================= VIDEOS ================= */
 .grid{
@@ -378,18 +366,18 @@ footer{
   <div>
     <h1 class="hero-title">DORP <span style="color:var(--c)">PLAYS</span></h1>
     <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
-
-    <div class="hero-social">
-      <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
-      <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
-    </div>
   </div>
 
   <div class="cta">
     <a class="btn primary" href="#content">CONTENT</a>
     <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
+  </div>
+
+  <div class="hero-social">
+    <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
   </div>
 </section>
 
