@@ -23,17 +23,13 @@
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
-
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   font-family:Inter,system-ui;
   background:var(--bg);
   color:var(--text);
   overflow:hidden;
-  -webkit-overflow-scrolling:touch;
 }
 
 /* ================= CURSOR GLOW (DESKTOP ONLY) ================= */
@@ -61,7 +57,7 @@ body{
   justify-content:center;
   align-items:center;
   z-index:10000;
-  transition:transform 1s cubic-bezier(.8,0,.2,1);
+  transition:transform .9s cubic-bezier(.8,0,.2,1);
 }
 #access-gate p{
   font-family:Syncopate;
@@ -215,46 +211,43 @@ nav.active{transform:none}
 /* ================= SECTIONS ================= */
 section,footer{position:relative;z-index:1}
 
-.panel{
+/* SIMPLE FADE (MOBILE SAFE) */
+.fade{
+  opacity:0;
+  transition:opacity .6s ease;
+}
+.fade.show{opacity:1}
+
+/* HERO */
+#home{
   min-height:100svh;
-  padding:120px 16px 60px;
+  padding:140px 16px 80px;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:36px;
-  opacity:0;
-  transform:translateY(20px);
-  transition:
-    opacity .6s ease-out,
-    transform .6s cubic-bezier(.22,.61,.36,1);
-  will-change:transform,opacity;
-}
-.panel.active{
-  opacity:1;
-  transform:none;
+  gap:32px;
 }
 @media(max-width:768px){
-  .panel{
-    min-height:auto;
-    padding:96px 16px 48px;
+  #home{
+    min-height:calc(100svh - 20px);
+    padding:120px 16px 80px;
   }
 }
 
-.center{text-align:center}
-
-/* HERO */
 .hero-title{
   font-family:Syncopate;
-  font-size:clamp(2.5rem,8vw,5rem);
+  font-size:clamp(2.6rem,9vw,5rem);
   letter-spacing:6px;
+  text-align:center;
 }
 .hero-sub{
   font-size:.8rem;
   letter-spacing:4px;
   color:var(--muted);
+  text-align:center;
 }
 
-/* CTA BUTTONS */
+/* CTA */
 .cta{
   display:flex;
   gap:16px;
@@ -302,7 +295,10 @@ section,footer{position:relative;z-index:1}
   transform:translateY(-4px);
 }
 
-/* ================= VIDEOS ================= */
+/* CONTENT */
+#content{
+  padding:120px 16px 80px;
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -315,17 +311,6 @@ section,footer{position:relative;z-index:1}
   overflow:hidden;
   display:flex;
   flex-direction:column;
-  opacity:0;
-  transform:translateY(20px);
-  transition:.5s cubic-bezier(.22,.61,.36,1);
-}
-.card.visible{
-  opacity:1;
-  transform:none;
-}
-.card:hover{
-  border-color:var(--primary);
-  transform:translateY(-8px);
 }
 .thumb{
   aspect-ratio:16/9;
@@ -341,7 +326,6 @@ section,footer{position:relative;z-index:1}
 .info h3{
   font-size:.85rem;
   margin-bottom:14px;
-  line-height:1.4;
 }
 .watch{
   margin-top:auto;
@@ -354,7 +338,10 @@ section,footer{position:relative;z-index:1}
   font-size:.65rem;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
+#contact{
+  padding:120px 16px 80px;
+}
 .contact{
   max-width:420px;
   margin:0 auto;
@@ -372,7 +359,6 @@ section,footer{position:relative;z-index:1}
   border:1px solid var(--border);
   border-radius:8px;
   color:#fff;
-  font-size:.85rem;
 }
 
 /* FOOTER */
@@ -382,14 +368,6 @@ footer{
   font-size:.6rem;
   letter-spacing:3px;
   color:var(--muted);
-}
-
-/* REDUCED MOTION */
-@media (prefers-reduced-motion: reduce){
-  *{
-    animation:none !important;
-    transition:none !important;
-  }
 }
 </style>
 </head>
@@ -434,7 +412,7 @@ footer{
 </div>
 
 <!-- HOME -->
-<section class="panel center" id="home">
+<section id="home" class="fade">
   <h1 class="hero-title">DORP <span style="color:var(--primary)">PLAYS</span></h1>
   <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
 
@@ -452,15 +430,19 @@ footer{
 </section>
 
 <!-- CONTENT -->
-<section class="panel" id="content">
-  <h2 class="center" style="font-family:Syncopate;letter-spacing:4px">FEATURED UPLOADS</h2>
+<section id="content" class="fade">
+  <h2 style="text-align:center;font-family:Syncopate;letter-spacing:4px;margin-bottom:40px">
+    FEATURED UPLOADS
+  </h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
 <!-- CONTACT -->
-<section class="panel" id="contact">
+<section id="contact" class="fade">
   <div class="contact">
-    <h2 class="center" style="font-family:Syncopate;margin-bottom:12px">COLLABORATIONS</h2>
+    <h2 style="text-align:center;font-family:Syncopate;margin-bottom:12px">
+      COLLABORATIONS
+    </h2>
     <form id="collabForm">
       <input name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
@@ -473,10 +455,10 @@ footer{
   </div>
 </section>
 
-<footer>&copy; 2026 DORP PLAYS</footer>
+<footer>&copy; 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
-/* ================= DOM REFERENCES ================= */
+/* DOM */
 const passInput = document.getElementById("pass-input");
 const accessGate = document.getElementById("access-gate");
 const nav = document.getElementById("nav");
@@ -486,113 +468,76 @@ const liveText = document.getElementById("live-text");
 const videoGrid = document.getElementById("videoGrid");
 const cursorGlow = document.getElementById("cursor-glow");
 
-/* ================= CURSOR ================= */
-window.addEventListener("mousemove", e=>{
+/* CURSOR */
+window.addEventListener("mousemove",e=>{
   if(cursorGlow){
-    cursorGlow.style.left = e.clientX + "px";
-    cursorGlow.style.top = e.clientY + "px";
+    cursorGlow.style.left=e.clientX+"px";
+    cursorGlow.style.top=e.clientY+"px";
   }
 });
 
-/* ================= PASSWORD ================= */
-const PASS = "1111";
-
-passInput.addEventListener("input", e=>{
-  if(e.target.value.length === 4){
-    if(e.target.value === PASS){
-      accessGate.style.transform = "translateY(-100%)";
-      document.body.style.overflow = "auto";
+/* PASSWORD */
+const PASS="1111";
+passInput.addEventListener("input",e=>{
+  if(e.target.value.length===4){
+    if(e.target.value===PASS){
+      accessGate.style.transform="translateY(-100%)";
+      document.body.style.overflow="auto";
       nav.classList.add("active");
+      document.querySelectorAll(".fade").forEach(el=>el.classList.add("show"));
       init();
     }else{
       passInput.classList.add("denied","shake");
       setTimeout(()=>{
-        passInput.value = "";
+        passInput.value="";
         passInput.classList.remove("denied","shake");
       },600);
     }
   }
 });
 
-/* ================= MENU ================= */
-function toggleMenu(){
-  mobileMenu.classList.toggle("show");
-}
-function closeMenu(){
-  mobileMenu.classList.remove("show");
-}
+/* MENU */
+function toggleMenu(){mobileMenu.classList.toggle("show")}
+function closeMenu(){mobileMenu.classList.remove("show")}
 
-/* ================= SCROLL REVEAL + NAV ================= */
-const panels = document.querySelectorAll(".panel");
-const navLinks = document.querySelectorAll(".nav-links a");
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
-
-      navLinks.forEach(link=>{
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href") === "#" + entry.target.id
-        );
-      });
-
-      if(entry.target.id === "content"){
-        document.querySelectorAll(".card").forEach((c,i)=>{
-          setTimeout(()=>c.classList.add("visible"), i * 80);
-        });
-      }
-    }
-  });
-},{threshold:0.25});
-
-panels.forEach(p=>observer.observe(p));
-
-/* ================= INIT ================= */
+/* INIT */
 async function init(){
-  const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
-  const api = "https://api.rss2json.com/v1/api.json?rss_url=" +
-    encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId);
+  const api="https://api.rss2json.com/v1/api.json?rss_url="+
+    encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=UCEmiGP-gPZ0WGAYlGfoXJZw");
 
-  try{
-    const res = await fetch(api);
-    const data = await res.json();
+  const data=await (await fetch(api)).json();
 
-    if(data.items[0].link.includes("/live")){
-      liveIndicator.classList.add("online");
-      liveText.innerText = "LIVE NOW";
-    }
-
-    videoGrid.innerHTML = data.items.slice(0,12).map(v=>{
-      const id = v.guid.split(":")[2];
-      return `
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
-          <div class="info">
-            <h3>${v.title}</h3>
-            <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
-          </div>
-        </div>`;
-    }).join("");
-  }catch(err){
-    console.error(err);
+  if(data.items[0].link.includes("/live")){
+    liveIndicator.classList.add("online");
+    liveText.innerText="LIVE NOW";
   }
+
+  videoGrid.innerHTML=data.items.slice(0,12).map(v=>{
+    const id=v.guid.split(":")[2];
+    return `
+      <div class="card">
+        <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
+        <div class="info">
+          <h3>${v.title}</h3>
+          <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
+        </div>
+      </div>`;
+  }).join("");
 }
 
-/* ================= FORM ================= */
-document.getElementById("collabForm").addEventListener("submit", async e=>{
+/* FORM */
+document.getElementById("collabForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  const btn = e.target.querySelector("button");
-  const status = document.getElementById("form-status");
+  const btn=e.target.querySelector("button");
+  const status=document.getElementById("form-status");
 
-  btn.innerText = "TRANSMITTING...";
-  btn.disabled = true;
+  btn.innerText="TRANSMITTING...";
+  btn.disabled=true;
 
   try{
-    const res = await fetch("/api/send-email",{
+    const res=await fetch("/api/send-email",{
       method:"POST",
-      headers:{ "Content-Type":"application/json" },
+      headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
         user_name:e.target.user_name.value,
         user_email:e.target.user_email.value,
@@ -601,18 +546,18 @@ document.getElementById("collabForm").addEventListener("submit", async e=>{
     });
     if(!res.ok) throw new Error();
 
-    btn.innerText = "SENT";
-    status.style.display = "block";
+    btn.innerText="SENT";
+    status.style.display="block";
     e.target.reset();
 
     setTimeout(()=>{
-      btn.innerText = "SEND PROPOSAL";
-      btn.disabled = false;
-      status.style.display = "none";
+      btn.innerText="SEND PROPOSAL";
+      btn.disabled=false;
+      status.style.display="none";
     },5000);
   }catch{
-    btn.innerText = "RETRY SIGNAL";
-    btn.disabled = false;
+    btn.innerText="RETRY SIGNAL";
+    btn.disabled=false;
   }
 });
 </script>
