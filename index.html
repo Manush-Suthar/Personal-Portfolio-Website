@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DORP PLAYS — Restricted Creator Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DORP PLAYS — Creator Hub</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
@@ -26,20 +26,58 @@ a{text-decoration:none;color:inherit}
 body{
   font-family:Inter,system-ui;
   color:#e6edf3;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(0,209,255,.06), transparent 45%),
-    radial-gradient(circle at 80% 30%, rgba(0,209,255,.04), transparent 50%),
-    radial-gradient(circle at 50% 90%, rgba(255,255,255,.025), transparent 60%),
-    var(--bg);
+  background:var(--bg);
   overflow:hidden;
 }
 
-/* CURSOR GLOW (desktop only feel) */
+/* ================= ANIMATED BACKGROUND WALL ================= */
+.bg-wall{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.bg-track{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:1200px;
+  transform:translateX(-50%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  animation:bgScroll 70s linear infinite;
+}
+.bg-track img{
+  width:100%;
+  border-radius:18px;
+  filter:brightness(.35) blur(2px);
+}
+.bg-wall::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(5,7,10,.95),
+    rgba(5,7,10,.85),
+    rgba(5,7,10,.95)
+  );
+}
+@keyframes bgScroll{
+  from{transform:translate(-50%,0)}
+  to{transform:translate(-50%,-50%)}
+}
+@media(max-width:768px){
+  .bg-wall{display:none}
+}
+
+/* ================= CURSOR GLOW (DESKTOP) ================= */
 #cursor-glow{
   position:fixed;
-  width:520px;
-  height:520px;
-  background:radial-gradient(circle, rgba(0,209,255,.06), transparent 65%);
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(0,209,255,.06),transparent 65%);
   pointer-events:none;
   transform:translate(-50%,-50%);
   z-index:0;
@@ -48,7 +86,7 @@ body{
   #cursor-glow{display:none}
 }
 
-/* ACCESS GATE */
+/* ================= ACCESS GATE ================= */
 #gate{
   position:fixed;
   inset:0;
@@ -86,7 +124,7 @@ body{
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .shake{animation:shake .2s ease-in-out 2}
 
-/* NAV */
+/* ================= NAV ================= */
 nav{
   position:fixed;
   top:0;left:0;
@@ -105,12 +143,8 @@ nav{
 }
 nav.active{transform:none}
 
-.logo{
-  font-family:Syncopate;
-  letter-spacing:3px;
-}
+.logo{font-family:Syncopate;letter-spacing:3px}
 
-/* DESKTOP NAV */
 .nav-links{
   display:flex;
   gap:28px;
@@ -121,12 +155,47 @@ nav.active{transform:none}
 }
 .nav-links a:hover{color:var(--c)}
 
-/* MOBILE HAMBURGER */
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.nav-social{
+  display:flex;
+  gap:12px;
+}
+.nav-social a{
+  width:32px;height:32px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+}
+
+.live{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid rgba(0,209,255,.25);
+  font-size:.55rem;
+  color:var(--muted);
+}
+.live.online{color:var(--c)}
+.dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:currentColor;
+}
+
 .hamburger{
   display:none;
   font-size:1.3rem;
   color:var(--c);
-  cursor:pointer;
 }
 @media(max-width:768px){
   .nav-links{display:none}
@@ -136,8 +205,7 @@ nav.active{transform:none}
 /* MOBILE MENU */
 .mobile-menu{
   position:fixed;
-  top:72px;
-  left:0;
+  top:72px;left:0;
   width:100%;
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -152,56 +220,12 @@ nav.active{transform:none}
   font-family:Syncopate;
   font-size:.75rem;
   letter-spacing:3px;
-  border-bottom:1px solid rgba(255,255,255,.05);
 }
 .mobile-menu.show{display:flex}
 
-/* SOCIAL + LIVE */
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.nav-social{
-  display:flex;
-  gap:12px;
-}
-.nav-social a{
-  width:32px;height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  border:1px solid var(--border);
-  color:var(--muted);
-}
+/* ================= SECTIONS ================= */
+section,footer{position:relative;z-index:1}
 
-/* LIVE INDICATOR */
-.live{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,209,255,.25);
-  font-size:.6rem;
-  letter-spacing:1px;
-  color:var(--muted);
-}
-.live.online{color:var(--c)}
-.dot{
-  width:5px;height:5px;
-  border-radius:50%;
-  background:currentColor;
-}
-@media(max-width:768px){
-  .live{
-    padding:4px 8px;
-    font-size:.55rem;
-  }
-}
-
-/* SECTIONS */
 .panel{
   min-height:100vh;
   padding:120px 16px;
@@ -212,8 +236,6 @@ nav.active{transform:none}
   opacity:0;
   transform:translateY(30px);
   transition:.8s var(--ease);
-  position:relative;
-  z-index:1;
 }
 .panel.active{opacity:1;transform:none}
 .center{text-align:center}
@@ -225,19 +247,13 @@ nav.active{transform:none}
   letter-spacing:6px;
 }
 .hero-sub{
-  margin-top:16px;
   font-size:.8rem;
   letter-spacing:4px;
   color:var(--muted);
 }
 
 /* CTA */
-.cta{
-  display:flex;
-  gap:16px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
+.cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .btn{
   padding:14px 32px;
   font-family:Syncopate;
@@ -246,7 +262,6 @@ nav.active{transform:none}
   border-radius:6px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
-  color:#fff;
 }
 .btn.primary{
   background:var(--c);
@@ -268,7 +283,6 @@ nav.active{transform:none}
   align-items:center;
   justify-content:center;
   font-size:1.3rem;
-  color:var(--muted);
 }
 
 /* VIDEOS */
@@ -288,14 +302,8 @@ nav.active{transform:none}
   background-size:cover;
   background-position:center;
 }
-.info{
-  padding:20px;
-}
-.info h3{
-  font-size:.85rem;
-  line-height:1.4;
-  margin-bottom:14px;
-}
+.info{padding:20px}
+.info h3{font-size:.85rem;margin-bottom:12px}
 .watch{
   display:block;
   text-align:center;
@@ -310,7 +318,6 @@ nav.active{transform:none}
 
 /* CONTACT */
 .contact{
-  max-width:100%;
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:20px;
@@ -341,12 +348,13 @@ footer{
 
 <body oncontextmenu="return false">
 
+<div class="bg-wall"><div class="bg-track"></div></div>
 <div id="cursor-glow"></div>
 
 <!-- ACCESS -->
 <div id="gate">
   <p>AUTHORIZED ACCESS ONLY</p>
-  <input type="password" id="pass" maxlength="4" placeholder="••••" autofocus>
+  <input type="password" id="pass" maxlength="4" placeholder="••••">
 </div>
 
 <!-- NAV -->
@@ -365,9 +373,7 @@ footer{
       <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
       <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
-    <div class="live" id="live">
-      <div class="dot"></div><span id="liveText">NOT LIVE</span>
-    </div>
+    <div class="live" id="live"><div class="dot"></div><span id="liveText">NOT LIVE</span></div>
     <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </div>
 </nav>
@@ -405,9 +411,9 @@ footer{
 <!-- CONTACT -->
 <section class="panel" id="contact">
   <div class="contact">
-    <h2 class="center" style="font-family:Syncopate;margin-bottom:24px">COLLABORATIONS</h2>
+    <h2 class="center" style="font-family:Syncopate;margin-bottom:20px">COLLABORATIONS</h2>
     <form id="collabForm">
-      <input type="text" name="user_name" placeholder="YOUR NAME" required>
+      <input name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
       <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
@@ -421,7 +427,7 @@ footer{
 <footer>© 2026 DORP PLAYS · CONTROLLED ACCESS</footer>
 
 <script>
-/* CURSOR GLOW */
+/* CURSOR */
 const glow=document.getElementById("cursor-glow");
 window.addEventListener("mousemove",e=>{
   glow.style.left=e.clientX+"px";
@@ -465,7 +471,7 @@ function reveal(){
 }
 window.addEventListener("scroll",reveal);
 
-/* YOUTUBE + LIVE */
+/* INIT YOUTUBE + BG WALL */
 async function init(){
   reveal();
   const channelId="UCEmiGP-gPZ0WGAYlGfoXJZw";
@@ -475,11 +481,13 @@ async function init(){
   const res=await fetch(api);
   const data=await res.json();
 
+  /* LIVE */
   if(data.items[0].link.includes("/live")){
     document.getElementById("live").classList.add("online");
     document.getElementById("liveText").innerText="LIVE NOW";
   }
 
+  /* VIDEOS */
   document.getElementById("videoGrid").innerHTML=data.items.slice(0,12).map(v=>{
     const id=v.guid.split(":")[2];
     return `
@@ -491,6 +499,13 @@ async function init(){
         </div>
       </div>`;
   }).join("");
+
+  /* BACKGROUND WALL */
+  const bg=document.querySelector(".bg-track");
+  bg.innerHTML=data.items.slice(0,6).map(v=>{
+    const id=v.guid.split(":")[2];
+    return `<img src="https://img.youtube.com/vi/${id}/maxresdefault.jpg">`;
+  }).join("") + bg.innerHTML;
 }
 
 /* FORM */
