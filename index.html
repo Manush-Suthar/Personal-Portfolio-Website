@@ -20,16 +20,40 @@
   --ease:cubic-bezier(.4,0,.2,1);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
 body{
   font-family:Inter,system-ui;
   background:radial-gradient(circle at top,#08182b 0%,var(--bg) 40%);
   color:#e6edf3;
   overflow:hidden;
 }
-::selection{background:var(--c);color:#000}
 
-/* ===== SUBTLE BACKGROUND GRID ===== */
+/* ===== CURSOR REACTIVE BACKGROUND ===== */
+#cursor-glow{
+  position:fixed;
+  top:0;
+  left:0;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(0,209,255,.18), transparent 60%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:0;
+  transition:opacity .3s ease;
+}
+
+/* ===== SUBTLE GRID ===== */
 body::before{
   content:"";
   position:fixed;
@@ -40,11 +64,7 @@ body::before{
   background-size:60px 60px;
   opacity:.15;
   pointer-events:none;
-  animation:gridMove 40s linear infinite;
-}
-@keyframes gridMove{
-  from{background-position:0 0}
-  to{background-position:60px 60px}
+  z-index:0;
 }
 
 /* ================= ACCESS GATE ================= */
@@ -82,12 +102,13 @@ body::before{
   text-align:center;
   outline:none;
 }
-#gate input:focus{box-shadow:0 0 35px rgba(0,209,255,.35)}
+
 #gate input.denied{
   border-color:var(--danger);
   color:var(--danger);
   box-shadow:0 0 25px var(--danger);
 }
+
 @keyframes shake{
   25%{transform:translateX(-8px)}
   75%{transform:translateX(8px)}
@@ -97,7 +118,8 @@ body::before{
 /* ================= NAV ================= */
 nav{
   position:fixed;
-  top:0;left:0;
+  top:0;
+  left:0;
   width:100%;
   height:80px;
   padding:0 6%;
@@ -111,11 +133,11 @@ nav{
   transform:translateY(-100%);
   transition:.8s var(--ease);
 }
+
 nav.active{transform:none}
 
 .logo{
   font-family:Syncopate;
-  font-size:.9rem;
   letter-spacing:3px;
   cursor:pointer;
 }
@@ -126,29 +148,29 @@ nav.active{transform:none}
   gap:20px;
 }
 
-/* SOCIAL ICONS */
 .nav-social{
   display:flex;
   gap:14px;
 }
+
 .nav-social a{
-  width:36px;height:36px;
+  width:36px;
+  height:36px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:8px;
   border:1px solid var(--border);
   color:var(--muted);
-  font-size:1rem;
   transition:.3s;
 }
+
 .nav-social a:hover{
   color:var(--c);
   border-color:var(--c);
   transform:translateY(-3px);
 }
 
-/* LIVE */
 .live{
   display:flex;
   align-items:center;
@@ -158,14 +180,18 @@ nav.active{transform:none}
   border:1px solid var(--border);
   font-size:.7rem;
 }
-.live .dot{
-  width:10px;height:10px;border-radius:50%;
-  background:currentColor;
-}
+
 .live.online{
   color:var(--c);
   border-color:var(--c);
   box-shadow:0 0 16px rgba(0,209,255,.5);
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:currentColor;
 }
 
 /* ================= SECTIONS ================= */
@@ -175,12 +201,19 @@ nav.active{transform:none}
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:60px;
+  gap:50px;
   opacity:0;
   transform:translateY(40px);
   transition:1s var(--ease);
+  position:relative;
+  z-index:1;
 }
-.panel.active{opacity:1;transform:none}
+
+.panel.active{
+  opacity:1;
+  transform:none;
+}
+
 .center{text-align:center}
 
 /* ================= HERO ================= */
@@ -189,22 +222,53 @@ nav.active{transform:none}
   font-size:clamp(3rem,8vw,6rem);
   letter-spacing:6px;
 }
+
 .hero-sub{
   margin-top:18px;
   font-size:.85rem;
   letter-spacing:4px;
   color:var(--muted);
 }
+
+/* HERO SOCIALS */
+.hero-social{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:28px;
+}
+
+.hero-social a{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  transition:.3s;
+}
+
+.hero-social a:hover{
+  color:var(--c);
+  border-color:var(--c);
+  transform:translateY(-4px);
+}
+
+/* CTA BUTTONS */
 .cta{
   display:flex;
   gap:20px;
   justify-content:center;
   flex-wrap:wrap;
 }
+
 .btn{
-  padding:16px 38px;
-  font-size:.75rem;
-  letter-spacing:2px;
+  padding:16px 40px;
+  font-family:Syncopate;
+  font-size:.7rem;
+  letter-spacing:3px;
   border-radius:6px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
@@ -212,12 +276,13 @@ nav.active{transform:none}
   cursor:pointer;
   transition:.3s;
 }
+
 .btn.primary{
   background:var(--c);
   color:#000;
   border-color:var(--c);
-  font-weight:700;
 }
+
 .btn:hover{transform:translateY(-4px)}
 
 /* ================= VIDEOS ================= */
@@ -226,6 +291,7 @@ nav.active{transform:none}
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:32px;
 }
+
 .card{
   background:var(--glass);
   border:1px solid var(--border);
@@ -233,15 +299,18 @@ nav.active{transform:none}
   overflow:hidden;
   transition:.4s;
 }
+
 .card:hover{
   transform:translateY(-10px);
   border-color:var(--c);
 }
+
 .thumb{
   aspect-ratio:16/9;
   background-size:cover;
   background-position:center;
 }
+
 .info{padding:26px}
 .info h3{font-size:.9rem;line-height:1.5}
 
@@ -254,6 +323,7 @@ nav.active{transform:none}
   border-radius:20px;
   padding:50px;
 }
+
 .contact input,
 .contact textarea{
   width:100%;
@@ -279,6 +349,8 @@ footer{
 </head>
 
 <body oncontextmenu="return false">
+
+<div id="cursor-glow"></div>
 
 <!-- ACCESS -->
 <div id="gate">
@@ -306,9 +378,16 @@ footer{
   <div>
     <h1 class="hero-title">DORP <span style="color:var(--c)">PLAYS</span></h1>
     <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
+
+    <div class="hero-social">
+      <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    </div>
   </div>
+
   <div class="cta">
-    <a class="btn primary" href="#content">VIEW CONTENT</a>
+    <a class="btn primary" href="#content">CONTENT</a>
     <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
   </div>
@@ -339,6 +418,13 @@ footer{
 <footer>© 2026 DORP PLAYS · CONTROLLED ACCESS</footer>
 
 <script>
+/* CURSOR GLOW */
+const glow=document.getElementById("cursor-glow");
+window.addEventListener("mousemove",e=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
+});
+
 /* PASSWORD */
 const PASS="1111";
 const gate=document.getElementById("gate");
@@ -358,7 +444,7 @@ document.getElementById("pass").addEventListener("input",e=>{
   }
 });
 
-/* SCROLL REVEAL */
+/* REVEAL */
 function reveal(){
   document.querySelectorAll(".panel").forEach(p=>{
     if(p.getBoundingClientRect().top < window.innerHeight - 120){
@@ -393,7 +479,7 @@ async function init(){
   }).join("");
 }
 
-/* FORM (UI only) */
+/* FORM */
 document.getElementById("collabForm").addEventListener("submit",e=>{
   e.preventDefault();
   document.getElementById("formStatus").style.display="block";
