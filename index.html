@@ -25,6 +25,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
         h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+        span { color: var(--primary); }
 
         /* --- Access Gate --- */
         #access-gate {
@@ -53,7 +54,6 @@
             padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border); z-index: 1000;
         }
-        .nav-right-container { display: flex; align-items: center; gap: 15px; }
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.8rem; font-weight: 700; transition: var(--transition); }
         .nav-links a:hover { color: var(--primary); }
@@ -76,15 +76,16 @@
         }
         .hero-log-wrapper { height: 24px; width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
         #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; width: 100%; }
-        .hero-btns { display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; width: 100%; max-width: 800px; margin-bottom: 40px; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; }
+        .hero-btns { display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; margin-bottom: 40px; }
 
-        /* --- Social Row Below Buttons --- */
-        .social-row { display: flex; gap: 20px; justify-content: center; align-items: center; margin-top: 10px; }
+        /* --- Social Row (No Underlines) --- */
+        .social-row { display: flex; gap: 20px; justify-content: center; align-items: center; }
         .social-link {
             color: var(--text-gray); font-size: 1.5rem; transition: var(--transition);
             width: 50px; height: 50px; border: 1px solid var(--glass-border);
             display: flex; align-items: center; justify-content: center; border-radius: 4px;
+            text-decoration: none; /* REMOVES UNDERLINE */
         }
         .social-link:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); background: rgba(0, 209, 255, 0.05); }
 
@@ -117,7 +118,6 @@
             .hamburger { display: block; }
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
             .btn-main { width: 100%; max-width: 320px; min-width: unset; }
-            .video-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -129,8 +129,8 @@
     </div>
 
     <nav>
-        <div class="logo" onclick="window.scrollTo(0,0)">DORP <span>PLAYS</span></div>
-        <div class="nav-right-container">
+        <div class="logo" onclick="window.scrollTo(0,0)" style="cursor:pointer;">DORP <span>PLAYS</span></div>
+        <div style="display: flex; align-items: center; gap: 15px;">
             <ul class="nav-links" id="navMenu">
                 <li><a href="#home" onclick="closeMenu()">HOME</a></li>
                 <li><a href="#uploads" onclick="closeMenu()">VIDEOS</a></li>
@@ -156,8 +156,9 @@
             </div>
 
             <div class="social-row">
-                <a href="https://www.instagram.com/dorpplays/" target="blank" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://discord.com/invite/dnNk62uebn" target="blank" class="social-link"><i class="fab fa-discord"></i></a>
+                <a href="https://www.instagram.com/dorpplays/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://discord.com/invite/dnNk62uebn" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+                <a href="https://x.com/manush_787" target="_blank" class="social-link"><i class="fab fa-x-twitter"></i></a>
             </div>
         </div>
     </section>
@@ -180,16 +181,8 @@
         </div>
     </section>
 
-    <footer>
-        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // SECURE ACCESS GRANTED</p>
-    </footer>
-
     <script>
-        // Security logic
-        document.onkeydown = function(e) {
-            if(event.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false;
-        }
-
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; }
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
 
@@ -211,11 +204,10 @@
             typeLog(logs[logIdx]);
         }
 
-        // Email Form Logic
+        // Email logic
         document.getElementById('collabForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('sendBtn');
-            const status = document.getElementById('form-status');
             btn.innerText = "TRANSMITTING...";
             btn.disabled = true;
 
@@ -232,17 +224,14 @@
 
                 if (response.ok) {
                     btn.innerText = "SENT";
-                    status.style.display = "block";
+                    document.getElementById('form-status').style.display = "block";
                     this.reset();
-                    setTimeout(() => { btn.innerText = "SEND PROPOSAL"; btn.disabled = false; status.style.display = "none"; }, 5000);
-                } else { throw new Error('Failed'); }
-            } catch (err) {
-                btn.innerText = "RETRY SIGNAL";
-                btn.disabled = false;
-            }
+                    setTimeout(() => { btn.innerText = "SEND PROPOSAL"; btn.disabled = false; document.getElementById('form-status').style.display = "none"; }, 5000);
+                } else { throw new Error(); }
+            } catch (err) { btn.innerText = "RETRY SIGNAL"; btn.disabled = false; }
         });
 
-        // Password Gate + Error Effect
+        // Password logic
         document.getElementById('pass-input').addEventListener('input', (e) => {
             const input = e.target;
             if (input.value.length === 4) {
@@ -294,4 +283,3 @@
     </script>
 </body>
 </html>
-
