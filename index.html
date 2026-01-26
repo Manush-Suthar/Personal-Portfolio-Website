@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -23,6 +23,7 @@
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
+
 body{
   font-family:Inter,system-ui;
   background:var(--bg);
@@ -278,7 +279,7 @@ section,footer{position:relative;z-index:1}
   color:var(--muted);
 }
 
-/* CTA BUTTONS */
+/* CTA */
 .cta{
   display:flex;
   gap:16px;
@@ -327,7 +328,7 @@ section,footer{position:relative;z-index:1}
   transform:translateY(-4px);
 }
 
-/* VIDEOS */
+/* ================= VIDEOS (FIXED ALIGNMENT) ================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -339,6 +340,8 @@ section,footer{position:relative;z-index:1}
   border-radius:16px;
   overflow:hidden;
   transition:.35s;
+  display:flex;
+  flex-direction:column;
 }
 .card:hover{
   transform:translateY(-10px);
@@ -351,12 +354,17 @@ section,footer{position:relative;z-index:1}
 }
 .info{
   padding:20px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
 }
 .info h3{
   font-size:.85rem;
-  margin-bottom:12px;
+  margin-bottom:14px;
+  line-height:1.4;
 }
 .watch{
+  margin-top:auto;
   display:block;
   text-align:center;
   padding:12px;
@@ -483,7 +491,7 @@ footer{
   </div>
 </section>
 
-<footer>&copy; 2026 DORP PLAYS</footer>
+<footer>&copy; 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
 /* CURSOR */
@@ -520,7 +528,7 @@ function closeMenu(){
   document.getElementById("mobileMenu").classList.remove("show");
 }
 
-/* SCROLL REVEAL (GOOD ONE) */
+/* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
