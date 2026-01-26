@@ -23,68 +23,20 @@
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
+
 body{
   font-family:Inter,system-ui;
   background:var(--bg);
   color:var(--text);
   overflow:hidden;
+  -webkit-overflow-scrolling:touch;
 }
-
-/* ================= BACKGROUND WALL ================= */
-.bg-wall{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-.bg-track{
-  position:absolute;
-  left:50%;
-  width:1200px;
-  transform:translateX(-50%);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  animation:bgScroll 70s linear infinite;
-}
-.bg-track img{
-  width:100%;
-  border-radius:18px;
-  filter:brightness(.35) blur(2px);
-}
-.bg-wall::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(5,7,10,.96),
-    rgba(5,7,10,.85),
-    rgba(5,7,10,.96)
-  );
-}
-@keyframes bgScroll{
-  from{transform:translate(-50%,0)}
-  to{transform:translate(-50%,-50%)}
-}
-@media(max-width:768px){.bg-wall{display:none}}
-
-/* ================= CURSOR GLOW ================= */
-#cursor-glow{
-  position:fixed;
-  width:480px;height:480px;
-  background:radial-gradient(circle,rgba(0,209,255,.06),transparent 65%);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:0;
-}
-@media(max-width:768px){#cursor-glow{display:none}}
 
 /* ================= ACCESS GATE ================= */
 #access-gate{
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at center,rgba(0,209,255,.12),transparent 60%),var(--bg);
+  background:radial-gradient(circle,rgba(0,209,255,.12),transparent 60%),var(--bg);
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -129,7 +81,7 @@ nav{
   border-bottom:1px solid var(--border);
   z-index:1000;
   transform:translateY(-100%);
-  transition:.7s ease;
+  transition:.6s ease;
 }
 nav.active{transform:none}
 
@@ -142,21 +94,9 @@ nav.active{transform:none}
   font-size:.65rem;
   letter-spacing:3px;
 }
-.nav-links a{
-  color:var(--muted);
-  position:relative;
-}
+.nav-links a{color:var(--muted)}
 .nav-links a.active,
 .nav-links a:hover{color:var(--primary)}
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:-6px;
-  height:2px;width:0;
-  background:var(--primary);
-  transition:.3s;
-}
-.nav-links a.active::after{width:100%}
 
 .nav-right{display:flex;align-items:center;gap:14px}
 
@@ -172,12 +112,6 @@ nav.active{transform:none}
   align-items:center;
   justify-content:center;
   color:var(--muted);
-  transition:.25s;
-}
-.nav-social a:hover{
-  color:var(--primary);
-  border-color:var(--primary);
-  transform:translateY(-3px);
 }
 
 /* LIVE */
@@ -226,31 +160,37 @@ nav.active{transform:none}
 section,footer{position:relative;z-index:1}
 
 .panel{
-  min-height:100vh;
-  padding:120px 16px;
+  min-height:100svh;
+  padding:110px 16px 60px;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:40px;
+  gap:32px;
   opacity:0;
   transform:translateY(20px);
-  transition:
-    opacity .6s ease-out,
-    transform .6s cubic-bezier(.22,.61,.36,1);
+  transition:.6s cubic-bezier(.22,.61,.36,1);
 }
 .panel.active{opacity:1;transform:none}
-.center{text-align:center}
+
+@media(max-width:768px){
+  .panel{
+    padding:90px 16px 40px;
+    min-height:auto;
+  }
+}
 
 /* HERO */
 .hero-title{
   font-family:Syncopate;
-  font-size:clamp(2.5rem,8vw,5rem);
+  font-size:clamp(2.2rem,8vw,4.5rem);
   letter-spacing:6px;
+  text-align:center;
 }
 .hero-sub{
   font-size:.8rem;
   letter-spacing:4px;
   color:var(--muted);
+  text-align:center;
 }
 
 /* CTA */
@@ -268,45 +208,17 @@ section,footer{position:relative;z-index:1}
   border-radius:6px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
-  transition:.25s;
 }
 .btn.primary{
   background:var(--primary);
   color:#000;
-  border-color:var(--primary);
-}
-.btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 30px rgba(0,209,255,.15);
 }
 
-/* HERO SOCIAL */
-.hero-social{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-}
-.hero-social a{
-  width:48px;height:48px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.3rem;
-  transition:.25s;
-}
-.hero-social a:hover{
-  color:var(--primary);
-  border-color:var(--primary);
-  transform:translateY(-4px);
-}
-
-/* ================= VIDEOS ================= */
+/* VIDEOS */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:28px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
 }
 .card{
   background:var(--glass);
@@ -315,61 +227,38 @@ section,footer{position:relative;z-index:1}
   overflow:hidden;
   display:flex;
   flex-direction:column;
-  opacity:0;
-  transform:translateY(20px);
-  transition:.5s cubic-bezier(.22,.61,.36,1);
 }
-.card.visible{opacity:1;transform:none}
-.card:hover{border-color:var(--primary)}
-
 .thumb{
   aspect-ratio:16/9;
   background-size:cover;
   background-position:center;
-  position:relative;
 }
-.preview{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
-@media(min-width:769px){
-  .card:hover .preview{opacity:1}
-}
-
+.preview{display:none}
 .info{
-  padding:20px;
+  padding:18px;
   display:flex;
   flex-direction:column;
   flex:1;
 }
-.info h3{
-  font-size:.85rem;
-  margin-bottom:14px;
-  line-height:1.4;
-}
 .watch{
   margin-top:auto;
   padding:12px;
-  text-align:center;
-  font-family:Syncopate;
-  font-size:.65rem;
-  letter-spacing:2px;
-  border-radius:6px;
   background:var(--primary);
   color:#000;
+  text-align:center;
+  border-radius:6px;
+  font-family:Syncopate;
+  font-size:.65rem;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 .contact{
-  max-width:460px;
+  max-width:420px;
   margin:0 auto;
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:16px;
-  padding:26px 22px;
+  padding:22px;
 }
 .contact input,
 .contact textarea{
@@ -380,16 +269,13 @@ section,footer{position:relative;z-index:1}
   border:1px solid var(--border);
   border-radius:8px;
   color:#fff;
-  font-size:.85rem;
 }
 
 /* FOOTER */
 footer{
-  padding:40px 20px;
+  padding:36px 20px;
   text-align:center;
-  border-top:1px solid var(--border);
   font-size:.6rem;
-  letter-spacing:3px;
   color:var(--muted);
 }
 </style>
@@ -397,25 +283,19 @@ footer{
 
 <body oncontextmenu="return false">
 
-<div class="bg-wall"><div class="bg-track"></div></div>
-<div id="cursor-glow"></div>
-
 <!-- ACCESS GATE -->
 <div id="access-gate">
   <p>AUTHORIZED ACCESS ONLY</p>
   <input id="pass-input" maxlength="4" placeholder="••••" autofocus>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="logo">DORP <span style="color:var(--primary)">PLAYS</span></div>
-
   <div class="nav-links">
     <a href="#home">HOME</a>
     <a href="#content">CONTENT</a>
     <a href="#contact">COLLAB</a>
   </div>
-
   <div class="nav-right">
     <div class="nav-social">
       <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -435,50 +315,40 @@ footer{
   <a href="#contact" onclick="closeMenu()">COLLAB</a>
 </div>
 
-<!-- HOME -->
-<section class="panel center" id="home">
+<section class="panel" id="home">
   <h1 class="hero-title">DORP <span style="color:var(--primary)">PLAYS</span></h1>
   <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
-
   <div class="cta">
     <a class="btn primary" href="#content">CONTENT</a>
     <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
   </div>
-
-  <div class="hero-social">
-    <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
-    <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
-  </div>
 </section>
 
-<!-- CONTENT -->
 <section class="panel" id="content">
-  <h2 class="center" style="font-family:Syncopate;letter-spacing:4px">FEATURED UPLOADS</h2>
+  <h2 style="text-align:center;font-family:Syncopate">FEATURED UPLOADS</h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
-<!-- CONTACT -->
 <section class="panel" id="contact">
   <div class="contact">
-    <h2 class="center" style="font-family:Syncopate;margin-bottom:16px">COLLABORATIONS</h2>
+    <h2 style="text-align:center;font-family:Syncopate;margin-bottom:12px">COLLABORATIONS</h2>
     <form id="collabForm">
       <input name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
       <textarea name="message" rows="4" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
     </form>
-    <div id="form-status" style="display:none;margin-top:14px;color:var(--success);text-align:center;font-size:.7rem">
+    <div id="form-status" style="display:none;color:var(--success);text-align:center;font-size:.7rem">
       MESSAGE RECEIVED
     </div>
   </div>
 </section>
 
-<footer>&copy; 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
+<footer>© 2026 DORP PLAYS</footer>
 
 <script>
-/* PASSWORD GATE */
+/* PASSWORD FIX */
 const PASS="1111";
 const gate=document.getElementById("access-gate");
 const nav=document.getElementById("nav");
@@ -501,68 +371,37 @@ document.getElementById("pass-input").addEventListener("input",e=>{
 function toggleMenu(){mobileMenu.classList.toggle("show")}
 function closeMenu(){mobileMenu.classList.remove("show")}
 
-/* SCROLL REVEAL + ACTIVE NAV */
-const panels=document.querySelectorAll(".panel");
-const navLinks=document.querySelectorAll(".nav-links a");
-
+/* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
-
-      navLinks.forEach(link=>{
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href")==="#"+entry.target.id
-        );
-      });
-
-      if(entry.target.id==="content"){
-        document.querySelectorAll(".card").forEach((c,i)=>{
-          setTimeout(()=>c.classList.add("visible"),i*80);
-        });
-      }
-    }
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("active");
   });
-},{threshold:0.25});
+},{threshold:.15});
 
-panels.forEach(p=>observer.observe(p));
+document.querySelectorAll(".panel").forEach(p=>observer.observe(p));
 
 /* INIT */
 async function init(){
-  const channelId="UCEmiGP-gPZ0WGAYlGfoXJZw";
-  const api=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
-    "https://www.youtube.com/feeds/videos.xml?channel_id="+channelId
-  )}`;
-  const res=await fetch(api);
-  const data=await res.json();
+  const api="https://api.rss2json.com/v1/api.json?rss_url="+
+    encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=UCEmiGP-gPZ0WGAYlGfoXJZw");
+  const data=await (await fetch(api)).json();
 
   if(data.items[0].link.includes("/live")){
-    document.getElementById("live-indicator").classList.add("online");
-    document.getElementById("live-text").innerText="LIVE NOW";
+    liveIndicator.classList.add("online");
+    liveText.innerText="LIVE NOW";
   }
 
-  videoGrid.innerHTML=data.items.slice(0,12).map(v=>{
+  videoGrid.innerHTML=data.items.slice(0,9).map(v=>{
     const id=v.guid.split(":")[2];
     return `
       <div class="card">
-        <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')">
-          <iframe class="preview"
-            src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0"
-            allow="autoplay"></iframe>
-        </div>
+        <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
         <div class="info">
           <h3>${v.title}</h3>
           <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
         </div>
       </div>`;
   }).join("");
-
-  const bg=document.querySelector(".bg-track");
-  bg.innerHTML=data.items.slice(0,6).map(v=>{
-    const id=v.guid.split(":")[2];
-    return `<img src="https://img.youtube.com/vi/${id}/maxresdefault.jpg">`;
-  }).join("") + bg.innerHTML;
 }
 
 /* FORM */
@@ -604,4 +443,3 @@ document.getElementById("collabForm").addEventListener("submit",async e=>{
 
 </body>
 </html>
-
