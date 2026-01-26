@@ -16,25 +16,23 @@
   --border: rgba(0, 209, 255, 0.2);
   --text: #e6edf3;
   --muted: #8b949e;
-  --success: #00ff88;
-  --danger: #ff4d4d;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET - FIXED: Removed cursor:none to keep cursor visible */
+/* RESET & CURSOR FIX */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= CUSTOM CURSOR GLOW ================= */
+/* ================= SUBTLE CURSOR GLOW ================= */
 #cursor-glow {
-  position: fixed; width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(0, 209, 255, 0.08) 0%, transparent 70%);
+  position: fixed; width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.07) 0%, transparent 70%);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%);
 }
 
-/* ================= BACKGROUND WALL ================= */
+/* ================= DEEP DIMMED BG WALL (0.05) ================= */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
@@ -45,15 +43,15 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* ================= NAVIGATION ================= */
+/* ================= NAVIGATION (LIVE RESTORED) ================= */
 nav {
   position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
   padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
   z-index: 2000; transform: translateY(-100%); transition: var(--transition);
 }
 nav.active { transform: translateY(0); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
 
-/* LIVE INDICATOR */
 .live-badge {
   display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 900;
   border: 1px solid var(--border); padding: 8px 20px; border-radius: 30px; background: rgba(0,0,0,0.5);
@@ -61,14 +59,14 @@ nav.active { transform: translateY(0); }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
-/* ================= SECTIONS ================= */
+/* ================= CENTERED HERO ================= */
 section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 #home { height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; }
 .hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
 .hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 15px; line-height: 1.1; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
-/* BUTTONS */
+/* MAJOR BUTTONS */
 .hero-btns { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; margin-bottom: 45px; }
 .btn-main {
   min-width: 250px; padding: 20px 45px; background: transparent; border: 1px solid var(--primary);
@@ -78,27 +76,32 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
 .btn-main:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* SOCIAL HUB ANIMATION */
+/* SOCIAL ANIMATION */
 .social-hub { display: flex; gap: 30px; margin-top: 20px; justify-content: center; }
 .social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 10px var(--primary)); }
 
-/* ================= GFX GRID (16:9 EDGE TO EDGE) ================= */
-.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 60px; }
+/* ================= GFX GRID (PERFECT 16:9 NO CROP) ================= */
+.gfx-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+    gap: 30px; 
+    margin-top: 60px; 
+}
 .gfx-item { 
     width: 100%;
     aspect-ratio: 16/9; 
     border: 1px solid var(--border); 
     border-radius: 8px; 
-    background-size: cover; 
+    background-size: cover; /* Ensures edge-to-edge fill */
     background-position: center; 
     background-repeat: no-repeat;
     transition: var(--transition);
-    overflow: hidden;
+    image-rendering: -webkit-optimize-contrast; /* Sharper Render */
 }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
 
-/* ================= UPLOADS ================= */
+/* ================= VIDEO GRID ================= */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; }
 .card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
 .info { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -108,12 +111,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
 
-@media(max-width: 768px) { 
-    section { padding: 120px 20px; } 
-    .hero-btns { flex-direction: column; } 
-    .btn-main { width: 100%; } 
-    .gfx-grid { grid-template-columns: 1fr; }
-}
+@media(max-width: 768px) { section { padding: 120px 20px; } .hero-btns { flex-direction: column; } .btn-main { width: 100%; } .gfx-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -122,7 +120,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">AUTHENTICATION REQUIRED</p>
+  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
@@ -186,7 +184,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 <footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
-/* Cursor logic with visibility restored */
+/* Subtle Cursor Glow */
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
@@ -233,7 +231,7 @@ async function initMedia() {
 
     document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
-      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 15px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3 style="font-size: 0.85rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; color: var(--text);">${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 15px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
     }).join("");
   } catch(e) {}
 }
