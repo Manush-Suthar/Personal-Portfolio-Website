@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DORP PLAYS | SECURE TERMINAL</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -15,14 +15,16 @@
             --bg-card: #0d1117; 
             --text-light: #e6edf3;
             --text-gray: #8b949e;
+            --success: #00ff88;
             --danger: #ff4d4d;
+            --glass: rgba(13, 17, 23, 0.95);
             --glass-border: rgba(0, 209, 255, 0.2);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
-        h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+        h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; text-decoration: none; }
         span { color: var(--primary); }
 
         /* --- Access Gate --- */
@@ -49,7 +51,7 @@
         nav {
             position: fixed; top: 0; width: 100%; height: 80px;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px);
+            padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border); z-index: 1000;
         }
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
@@ -57,6 +59,14 @@
         .nav-links a:hover { color: var(--primary); }
         .hamburger { display: none; cursor: pointer; font-size: 1.4rem; color: var(--primary); }
         
+        .live-badge {
+            display: flex; align-items: center; gap: 8px; font-size: 0.6rem;
+            font-weight: 900; color: var(--text-gray); border: 1px solid var(--glass-border);
+            padding: 5px 12px; border-radius: 20px;
+        }
+        .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+
         /* --- Hero Section --- */
         #home {
             height: 100vh; width: 100%; display: flex; flex-direction: column;
@@ -64,11 +74,12 @@
             background: radial-gradient(circle at center, #0a192f 0%, #05070a 100%);
             padding: 0 20px;
         }
-        #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; margin-bottom: 20px; }
+        .hero-log-wrapper { height: 24px; margin-bottom: 20px; }
+        #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
         .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; }
         .hero-btns { display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; margin-bottom: 40px; }
 
-        /* --- Social Hub --- */
+        /* --- Social Row --- */
         .social-row { display: flex; gap: 20px; justify-content: center; align-items: center; }
         .social-link {
             color: var(--text-gray); font-size: 1.5rem; transition: var(--transition);
@@ -78,24 +89,24 @@
         }
         .social-link:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); background: rgba(0, 209, 255, 0.05); }
 
-        /* --- Video Section & Button Alignment --- */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        /* --- UI Elements --- */
+        section { padding: 100px 8%; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* --- Video Alignment Fix --- */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
         .video-card { 
             background: var(--bg-card); border-radius: 4px; border: 1px solid var(--glass-border); 
             overflow: hidden; transition: var(--transition);
-            display: flex; flex-direction: column; /* Allows vertical alignment */
-            height: 100%;
+            display: flex; flex-direction: column; height: 100%;
         }
         .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
-        
         .video-info { 
-            padding: 25px; 
-            flex-grow: 1; /* Takes up remaining space */
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; /* Pushes button to the bottom */
+            padding: 25px; flex-grow: 1; 
+            display: flex; flex-direction: column; justify-content: space-between; 
         }
-        .video-info h3 { font-size: 0.85rem; margin-bottom: 20px; line-height: 1.4; color: var(--text-light); }
+        .video-info h3 { font-size: 0.8rem; margin-bottom: 25px; line-height: 1.5; color: var(--text-light); }
 
         .btn-main { 
             padding: 18px 40px; background: var(--primary); color: var(--bg-dark); 
@@ -128,50 +139,102 @@
 
     <nav>
         <div class="logo" onclick="window.scrollTo(0,0)" style="cursor:pointer;">DORP <span>PLAYS</span></div>
-        <ul class="nav-links" id="navMenu">
-            <li><a href="#home" onclick="closeMenu()">HOME</a></li>
-            <li><a href="#uploads" onclick="closeMenu()">VIDEOS</a></li>
-            <li><a href="#contact" onclick="closeMenu()">CONTACT</a></li>
-        </ul>
-        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <ul class="nav-links" id="navMenu">
+                <li><a href="#home" onclick="closeMenu()">HOME</a></li>
+                <li><a href="#uploads" onclick="closeMenu()">VIDEOS</a></li>
+                <li><a href="#contact" onclick="closeMenu()">CONTACT</a></li>
+            </ul>
+            <div id="live-indicator" class="live-badge">
+                <div class="dot"></div> <span id="status-text">NOT LIVE</span>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
     </nav>
 
     <section id="home">
-        <div class="hero-content">
-            <p id="changing-log"></p>
+        <div class="hero-content reveal">
+            <div class="hero-log-wrapper">
+                <p id="changing-log"></p>
+            </div>
             <h1>DORP <span>PLAYS</span></h1>
-            
             <div class="hero-btns">
                 <a href="#uploads" class="btn-main">SHOW CONTENT</a>
                 <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main btn-outline">SUBSCRIBE</a>
             </div>
-
             <div class="social-row">
-                <a href="https://www.instagram.com/dorpplays/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://discord.com/invite/dnNk62uebn" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+                <a href="https://www.instagram.com/dorpplays/" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://discord.com/invite/dnNk62uebn" target="_blank" class="social-link"><i class="fa-brands fa-discord"></i></a>
                 <a href="https://x.com/manush_787" target="_blank" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
         </div>
     </section>
 
     <section id="uploads">
-        <h2 style="text-align: center; margin-bottom: 60px;">CENTRAL <span>LOGS</span></h2>
-        <div id="videoGrid" class="video-grid"></div>
+        <h2 class="reveal" style="text-align: center; margin-bottom: 60px;">CENTRAL <span>LOGS</span></h2>
+        <div id="videoGrid" class="video-grid reveal"></div>
     </section>
 
     <section id="contact">
-        </section>
+        <div class="contact-box reveal" style="max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 40px; border: 1px solid var(--glass-border);">
+            <h2 style="text-align: center; margin-bottom: 30px;">PR & COLLABORATIONS</h2>
+            <form id="collabForm">
+                <input type="text" name="user_name" placeholder="YOUR NAME" required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';">
+                <input type="email" name="user_email" placeholder="YOUR GMAIL" required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';">
+                <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';"></textarea>
+                <button type="submit" class="btn-main" id="sendBtn" style="width:100%; min-width: unset;">SEND PROPOSAL</button>
+            </form>
+            <div id="form-status" style="display:none; text-align:center; color:var(--success); margin-top:20px; font-family:'Syncopate'; font-size:0.7rem;">ENCRYPTION COMPLETE. SIGNAL RECEIVED.</div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // SECURE ACCESS GRANTED</p>
+    </footer>
 
     <script>
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; }
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
+
+        const logs = ["ESTABLISHING SECURE CONNECTION...", "ENJOYING CLASSIFIED CONTENT?...", "DECRYPTING ARCHIVED GAMEPLAY...", "OPTIMIZING DATA STREAMS..."];
+        let logIdx = 0;
+        const logEl = document.getElementById('changing-log');
+
+        async function typeLog(text) {
+            for (let i = 0; i <= text.length; i++) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 60)); }
+            await new Promise(r => setTimeout(r, 2000));
+            for (let i = text.length; i >= 0; i--) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 30)); }
+            logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
+        }
+
+        document.getElementById('collabForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('sendBtn');
+            btn.innerText = "TRANSMITTING...";
+            btn.disabled = true;
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_name: this.user_name.value, user_email: this.user_email.value, message: this.message.value })
+                });
+                if (response.ok) {
+                    btn.innerText = "SENT";
+                    document.getElementById('form-status').style.display = "block";
+                    this.reset();
+                    setTimeout(() => { btn.innerText = "SEND PROPOSAL"; btn.disabled = false; document.getElementById('form-status').style.display = "none"; }, 5000);
+                } else { throw new Error(); }
+            } catch (err) { btn.innerText = "RETRY SIGNAL"; btn.disabled = false; }
+        });
 
         document.getElementById('pass-input').addEventListener('input', (e) => {
             const input = e.target;
             if (input.value.length === 4) {
                 if (input.value === '1111') {
                     document.getElementById('access-gate').style.transform = 'translateY(-100%)';
-                    initYT();
+                    document.body.style.overflow = 'auto'; window.scrollTo(0, 0);
+                    typeLog(logs[0]); initYT();
                 } else {
                     input.classList.add('denied', 'shake');
                     setTimeout(() => { input.classList.remove('denied', 'shake'); input.value = ''; }, 600);
@@ -185,19 +248,21 @@
             try {
                 const res = await fetch(api);
                 const data = await res.json();
+                const isRealLive = data.items[0].link.includes('/live');
+                if(isRealLive) { document.getElementById('live-indicator').classList.add('online'); document.getElementById('status-text').innerText = 'LIVE NOW'; }
                 document.getElementById('videoGrid').innerHTML = data.items.map(v => {
                     const vId = v.guid.split(':')[2];
-                    return `
-                        <div class="video-card">
-                            <div class="video-thumb" style="background-image: url('https://img.youtube.com/vi/${vId}/maxresdefault.jpg')"></div>
-                            <div class="video-info">
-                                <h3>${v.title}</h3>
-                                <a href="${v.link}" target="_blank" class="btn-main btn-watch">WATCH NOW</a>
-                            </div>
-                        </div>`;
+                    return `<div class="video-card">
+                        <div class="video-thumb" style="background-image: url('https://img.youtube.com/vi/${vId}/maxresdefault.jpg')"></div>
+                        <div class="video-info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main btn-watch">WATCH NOW</a></div>
+                    </div>`;
                 }).join('');
+                reveal();
             } catch (err) { console.error(err); }
         }
+
+        function reveal() { document.querySelectorAll(".reveal").forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add("active"); }); }
+        window.addEventListener("scroll", reveal);
     </script>
 </body>
 </html>
