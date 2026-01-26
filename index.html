@@ -6,7 +6,7 @@
 <title>DORP | Gamer · Designer · Creator</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -16,15 +16,17 @@
   --border: rgba(0, 209, 255, 0.2);
   --text: #e6edf3;
   --muted: #8b949e;
+  --success: #00ff88;
+  --danger: #ff4d4d;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET */
+/* RESET & CURSOR */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= CURSOR GLOW ================= */
+/* ================= CUSTOM CURSOR GLOW ================= */
 #cursor-glow {
   position: fixed; width: 450px; height: 450px;
   background: radial-gradient(circle, rgba(0, 209, 255, 0.07) 0%, transparent 70%);
@@ -50,36 +52,20 @@ nav {
   z-index: 2000; transform: translateY(-100%); transition: var(--transition);
 }
 nav.active { transform: translateY(0); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
 
 .live-badge {
   display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 900;
-  border: 1px solid var(--border); padding: 8px 20px; border-radius: 30px;
+  border: 1px solid var(--border); padding: 8px 20px; border-radius: 30px; background: rgba(0,0,0,0.5);
 }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
-/* ================= TERMINAL (FEATURE A) ================= */
-.terminal-window {
-  width: 100%; max-width: 450px; background: rgba(0,0,0,0.8); border: 1px solid var(--border);
-  border-radius: 4px; padding: 12px; margin-bottom: 30px; text-align: left;
-  font-family: 'Fira Code', monospace; font-size: 0.65rem; color: var(--primary);
-}
-.terminal-header { display: flex; gap: 5px; margin-bottom: 10px; opacity: 0.4; }
-.t-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
-#terminal-content { height: 70px; display: flex; flex-direction: column-reverse; overflow: hidden; }
-.log-entry { margin-bottom: 4px; }
-.glitch-text { animation: glitch 0.2s linear; }
-@keyframes glitch { 
-  0% { opacity: 0; transform: skewX(10deg); }
-  50% { opacity: 1; transform: skewX(-10deg); }
-  100% { transform: skewX(0); }
-}
-
-/* ================= HERO ================= */
+/* ================= CENTERED HERO ================= */
 section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 #home { height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; }
 .hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
-.hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 15px; line-height: 1.1; }
+.hero-content h1 { font-size: clamp(3.2rem, 10vw, 6.5rem); margin-bottom: 15px; line-height: 1.1; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
 /* BUTTONS */
@@ -92,18 +78,23 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
 .btn-main:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* ================= GFX SECTION (IMAGE FIXED) ================= */
-.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-top: 60px; }
-.gfx-item { 
-    aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; 
-    background-size: cover; background-position: center; background-repeat: no-repeat;
-    transition: var(--transition);
-}
-.gfx-item:hover { border-color: var(--primary); transform: scale(1.03); }
+/* SOCIAL HUB */
+.social-hub { display: flex; gap: 30px; margin-top: 20px; justify-content: center; }
+.social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; }
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 10px var(--primary)); }
 
-/* ================= VIDEO GRID (SIZE RESTORED) ================= */
+/* ================= GFX GRID (16:9 EDGE TO EDGE) ================= */
+.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 60px; }
+.gfx-item { 
+    width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    transition: var(--transition); image-rendering: -webkit-optimize-contrast;
+}
+.gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
+
+/* ================= VIDEO GRID (RSS) ================= */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; }
-.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
 .info { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
 .info h3 { font-size: 0.9rem; margin-bottom: 30px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
@@ -120,7 +111,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">AUTHENTICATION REQUIRED</p>
+  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
@@ -135,10 +126,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 
 <section id="home">
   <div class="hero-content">
-    <div class="terminal-window">
-      <div class="terminal-header"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
-      <div id="terminal-content"></div>
-    </div>
+    <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.65rem; height:20px; letter-spacing:4px;"></p>
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
     <div class="hero-btns">
@@ -147,10 +135,10 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
        <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
-    <div style="display:flex; gap:30px; margin-top:20px;">
-        <a href="https://www.instagram.com/dorpplays/" target="_blank" style="color:white; font-size:2rem;"><i class="fab fa-instagram"></i></a>
-        <a href="https://discord.com/invite/dnNk62uebn" target="_blank" style="color:white; font-size:2rem;"><i class="fab fa-discord"></i></a>
-        <a href="https://x.com/manush_787" target="_blank" style="color:white; font-size:2rem;"><i class="fab fa-x-twitter"></i></a>
+    <div class="social-hub">
+        <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
   </div>
 </section>
@@ -169,8 +157,8 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
     <div class="gfx-item" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
     <div class="gfx-item" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
-  <div style="display:flex; justify-content:center; margin-top:50px;">
-    <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="border-color:#FF00E5; color:#FF00E5;">FOLLOW GFX ART</a>
+  <div style="display:flex; justify-content:center; margin-top:60px;">
+    <a href="#contact" class="btn-main" style="min-width:300px;">GET YOURS HERE</a>
   </div>
 </section>
 
@@ -178,43 +166,47 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
   <div style="max-width:550px; margin:0 auto; background:var(--glass); padding:60px; border-radius:12px; border:1px solid var(--border);">
     <h2 style="text-align:center; margin-bottom:40px;">COLLABORATIONS</h2>
     <form id="collabForm">
-      <input type="text" placeholder="NAME" required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;">
-      <input type="email" placeholder="EMAIL" required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;">
-      <textarea rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;"></textarea>
-      <button class="btn-main major" style="width:100%">SEND SIGNAL</button>
+      <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;">
+      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;">
+      <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;"></textarea>
+      <button type="submit" class="btn-main major" style="width:100%">SEND SIGNAL</button>
     </form>
+    <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:30px; font-weight:800; font-size:0.75rem;">MESSAGE RECEIVED.</div>
   </div>
 </section>
 
 <footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
+/* Cursor Logic */
 const cursor = document.getElementById('cursor-glow');
-document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
 
-/* FEATURE A: GLITCH LOGS */
-const logMsg = ["> SYNCING GFX...", "> BROADCAST: STANDBY", "> UPLOAD SUCCESS", "> SYSTEM_v2.0 ONLINE", "> ENCRYPTION: ACTIVE"];
-function addLog() {
-  const terminal = document.getElementById('terminal-content');
-  const div = document.createElement('div');
-  div.className = 'log-entry glitch-text';
-  div.innerText = logMsg[Math.floor(Math.random() * logMsg.length)];
-  terminal.prepend(div);
-  if(terminal.children.length > 5) terminal.lastChild.remove();
+const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ASSET LOGS...", "OPTIMIZING FEED..."];
+let logIdx = 0; const logEl = document.getElementById('changing-log');
+async function typeLog(text) {
+  for (let i = 0; i <= text.length; i++) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 60)); }
+  await new Promise(r => setTimeout(r, 2000));
+  for (let i = text.length; i >= 0; i--) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 30)); }
+  logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
 }
-setInterval(addLog, 3000);
 
 document.getElementById('pass-input').addEventListener('input', e => {
   if(e.target.value === "1111") {
     document.getElementById('access-gate').style.transform = 'translateY(-100%)';
     document.body.style.overflowY = 'auto';
     document.getElementById('nav').classList.add('active');
+    typeLog(logs[0]);
     initMedia();
   }
 });
 
 async function initMedia() {
-  const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=UCEmiGP-gPZ0WGAYlGfoXJZw')}`;
+  const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
+  const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id='+channelId)}`;
   try {
     const res = await fetch(api);
     const data = await res.json();
@@ -225,10 +217,12 @@ async function initMedia() {
         col.innerHTML = columnData.map(v => `<div class="bg-thumb" style="background-image:url('https://img.youtube.com/vi/${v.guid.split(":")[2]}/mqdefault.jpg')"></div>`).join('') + col.innerHTML;
         bgWall.appendChild(col);
     }
+    
     if(data.items[0].link.includes("/live")) {
       document.getElementById('live-indicator').classList.add('online');
       document.getElementById('status-text').innerText = "LIVE NOW";
     }
+
     document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
       return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 15px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
