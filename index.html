@@ -6,16 +6,18 @@
 <title>DORP | Gamer · Designer · Creator</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --primary: #00D1FF;
   --bg: #05070a;
-  --glass: rgba(13, 17, 23, 0.85);
+  --glass: rgba(13, 17, 23, 0.88);
   --border: rgba(0, 209, 255, 0.2);
   --text: #e6edf3;
   --muted: #8b949e;
+  --success: #00ff88;
+  --danger: #ff4d4d;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -23,18 +25,23 @@
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= CINEMATIC BACKGROUND WALL ================= */
+/* ================= FULL COLOR CINEMATIC BG WALL ================= */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
-  opacity: 0.1; filter: grayscale(1) blur(2px); pointer-events: none;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
+  opacity: 0.18; /* Higher visibility for color */
+  pointer-events: none;
 }
-.bg-column { display: flex; flex-direction: column; gap: 10px; animation: scrollDown 60s linear infinite; }
-.bg-column:nth-child(even) { animation-direction: reverse; }
+.bg-column { display: flex; flex-direction: column; gap: 15px; animation: scrollDown 80s linear infinite; }
+.bg-column:nth-child(even) { animation-direction: reverse; animation-duration: 100s; }
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-.bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); }
+.bg-thumb { 
+    width: 100%; aspect-ratio: 16/9; background-size: cover; 
+    border: 1px solid var(--border); border-radius: 4px;
+    filter: saturate(1.2) brightness(0.8); /* Enhances color while staying in background */
+}
 
-/* ================= ACCESS GATE ================= */
+/* ================= ACCESS GATE (STYLE 1) ================= */
 #access-gate {
   position: fixed; inset: 0; background: var(--bg); z-index: 10000;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -44,12 +51,15 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
   width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary);
   color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px;
 }
+#pass-input.denied { border-color: var(--danger) !important; color: var(--danger); box-shadow: 0 0 20px var(--danger); }
+@keyframes shake { 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+.shake { animation: shake 0.2s ease-in-out 0s 2; }
 
-/* ================= NAVIGATION ================= */
+/* ================= NAVIGATION (STYLE 1) ================= */
 nav {
   position: fixed; top: 0; width: 100%; height: 80px;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px);
+  padding: 0 5%; background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--border); z-index: 2000;
   transform: translateY(-100%); transition: var(--transition);
 }
@@ -59,7 +69,14 @@ nav.active { transform: translateY(0); }
 .social-icons a { color: var(--muted); font-size: 1.2rem; transition: var(--transition); }
 .social-icons a:hover { color: var(--primary); transform: translateY(-3px); }
 
-/* ================= CONTENT SECTIONS ================= */
+.live-badge {
+  display: flex; align-items: center; gap: 10px; font-size: 0.7rem; font-weight: 900;
+  border: 1px solid var(--border); padding: 8px 16px; border-radius: 30px; background: rgba(0,0,0,0.4);
+}
+.live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+.dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+
+/* ================= CONTENT ================= */
 section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-index: 10; }
 .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; }
 #changing-log { color: var(--primary); font-family: 'Syncopate'; font-size: 0.65rem; letter-spacing: 4px; height: 20px; }
@@ -71,25 +88,31 @@ section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-inde
 }
 .card:hover { border-color: var(--primary); transform: translateY(-10px); }
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+.info h3 { font-size: 0.85rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.4; color: var(--text); }
 .btn-main {
-  width: 100%; padding: 15px; background: var(--primary); color: #000;
-  font-weight: 800; border: none; cursor: pointer; text-align: center; text-decoration: none;
+  width: 100%; padding: 16px; background: var(--primary); color: #000;
+  font-weight: 800; border: none; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;
 }
 
-/* ================= GFX GALLERY (BLUE THEME) ================= */
+/* ================= GFX GALLERY ================= */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 50px; }
 .gfx-item {
   aspect-ratio: 1/1; border-radius: 4px; border: 1px solid var(--border);
   overflow: hidden; background-size: cover; background-position: center;
-  transition: var(--transition); cursor: pointer; position: relative;
+  transition: var(--transition); cursor: pointer;
 }
-.gfx-item:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 209, 255, 0.2); }
+.gfx-item:hover { border-color: var(--primary); transform: scale(1.05); }
 
-@media(max-width: 768px) {
-  nav { height: 70px; }
-  .social-icons { display: none; }
-  .hero-content h1 { font-size: 3rem; }
+/* ================= CONTACT ================= */
+.contact-box {
+  max-width:550px; margin:0 auto; background:var(--glass); padding:40px; border-radius:4px; border:1px solid var(--border);
 }
+.contact-box input, .contact-box textarea {
+  width: 100%; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+  color: white; margin-bottom: 20px; outline: none; font-family: 'Inter';
+}
+
+@media(max-width: 768px) { nav { height: 70px; } .social-icons { display: none; } .hero-content h1 { font-size: 2.8rem; } #media-bg { grid-template-columns: repeat(3, 1fr); } }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -104,13 +127,14 @@ section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-inde
 <nav id="nav">
   <div class="logo" onclick="window.scrollTo(0,0)">DORP <span style="color:var(--primary)">PLAYS</span></div>
   <div class="nav-right">
+    <div id="live-indicator" class="live-badge">
+      <div class="dot"></div> <span id="status-text">NOT LIVE</span>
+    </div>
     <div class="social-icons">
       <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
       <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
-    <div style="width: 1px; height: 20px; background: var(--border);"></div>
-    <a href="#gfx" style="font-family:Syncopate; font-size:0.6rem; color:var(--primary); text-decoration:none;">GFX STUDIO</a>
   </div>
 </nav>
 
@@ -119,9 +143,9 @@ section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-inde
     <p id="changing-log"></p>
     <h1 style="font-size:clamp(3rem, 10vw, 6rem);">DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p style="letter-spacing:5px; color:var(--muted); font-family:Syncopate; font-size:0.7rem;">GAMER | STREAMER | DESIGNER</p>
-    <div style="display:flex; gap:20px; margin-top:30px; justify-content:center;">
-       <a href="#uploads" class="btn-main" style="width:auto; padding:15px 40px;">SHOW CONTENT</a>
-       <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main" style="width:auto; padding:15px 40px; background:transparent; border:1px solid var(--primary); color:var(--primary);">SUBSCRIBE</a>
+    <div style="display:flex; gap:20px; margin-top:30px; justify-content:center; flex-wrap:wrap;">
+       <a href="#uploads" class="btn-main" style="width:auto; padding:15px 45px;">TOP UPLOADS</a>
+       <a href="#gfx" class="btn-main" style="width:auto; padding:15px 45px; background:transparent; border:1px solid var(--primary); color:var(--primary);">GFX STUDIO</a>
     </div>
   </div>
 </section>
@@ -132,8 +156,7 @@ section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-inde
 </section>
 
 <section id="gfx">
-  <h2 style="text-align:center; margin-bottom:10px;">DORP <span style="color:var(--primary)">GFX</span></h2>
-  <p style="text-align:center; color:var(--muted); letter-spacing:3px; font-size:0.8rem;">UI · BRANDING · DESIGN</p>
+  <h2 style="text-align:center; margin-bottom:40px;">DORP <span style="color:var(--primary)">GFX</span></h2>
   <div class="gfx-grid">
     <div class="gfx-item" style="background-image: url('https://www.instagram.com/p/DEZ7EIFp4sN/media/?size=l');"></div>
     <div class="gfx-item" style="background-image: url('https://www.instagram.com/p/DEZ6s3fptkp/media/?size=l');"></div>
@@ -144,15 +167,19 @@ section { min-height: 100svh; padding: 120px 8% 80px; position: relative; z-inde
 </section>
 
 <section id="contact">
-  <div style="max-width:550px; margin:0 auto; background:var(--glass); padding:40px; border-radius:4px; border:1px solid var(--border);">
+  <div class="contact-box">
     <h2 style="text-align:center; margin-bottom:30px;">COLLABORATIONS</h2>
     <form id="collabForm">
-      <input type="text" placeholder="NAME" style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none;">
-      <textarea rows="5" placeholder="PROPOSAL..." style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none;"></textarea>
-      <button class="btn-main">SEND SIGNAL</button>
+      <input type="text" name="user_name" placeholder="NAME" required>
+      <input type="email" name="user_email" placeholder="EMAIL" required>
+      <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required></textarea>
+      <button type="submit" class="btn-main" id="sendBtn">SEND SIGNAL</button>
     </form>
+    <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:20px; font-size:0.75rem; font-weight:700;">ENCRYPTION COMPLETE. SIGNAL RECEIVED.</div>
   </div>
 </section>
+
+<footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
 const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ARCHIVED ASSETS...", "OPTIMIZING BLUEPRINT..."];
@@ -165,42 +192,71 @@ async function typeLog(text) {
 }
 
 document.getElementById('pass-input').addEventListener('input', (e) => {
-  if(e.target.value === "1111") {
-    document.getElementById('access-gate').style.transform = 'translateY(-100%)';
-    document.body.style.overflow = 'auto';
-    document.getElementById('nav').classList.add('active');
-    typeLog(logs[0]);
-    initMedia();
+  const input = e.target;
+  if(input.value.length === 4) {
+    if(input.value === "1111") {
+      document.getElementById('access-gate').style.transform = 'translateY(-100%)';
+      document.body.style.overflow = 'auto';
+      document.getElementById('nav').classList.add('active');
+      typeLog(logs[0]);
+      initMedia();
+    } else {
+      input.classList.add('denied', 'shake');
+      setTimeout(() => { input.value = ""; input.classList.remove('denied', 'shake'); }, 600);
+    }
   }
 });
 
 async function initMedia() {
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
   const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id='+channelId)}`;
-  
   try {
     const res = await fetch(api);
     const data = await res.json();
     
-    // Create Background Wall
+    if(data.items[0].link.includes("/live")) {
+      document.getElementById('live-indicator').classList.add('online');
+      document.getElementById('status-text').innerText = "LIVE NOW";
+    }
+
+    // Populate Cinematic Color Wall with Different Thumbs per column
     const bgWall = document.getElementById('media-bg');
     for(let i=0; i<5; i++) {
         const col = document.createElement('div');
         col.className = 'bg-column';
-        col.innerHTML = data.items.map(v => {
+        // Shuffle or Offset items to ensure each column starts differently
+        const columnData = [...data.items].sort(() => Math.random() - 0.5);
+        col.innerHTML = columnData.map(v => {
             const id = v.guid.split(":")[2];
             return `<div class="bg-thumb" style="background-image:url('https://img.youtube.com/vi/${id}/mqdefault.jpg')"></div>`;
         }).join('') + col.innerHTML;
         bgWall.appendChild(col);
     }
 
-    // Video Grid
-    document.getElementById('videoGrid').innerHTML = data.items.slice(0,10).map(v => {
+    document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
       return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main">WATCH NOW</a></div></div>`;
     }).join("");
   } catch(e) {}
 }
+
+document.getElementById("collabForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('sendBtn');
+  btn.innerText = "TRANSMITTING...";
+  try {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ user_name: e.target.user_name.value, user_email: e.target.user_email.value, message: e.target.message.value })
+    });
+    if(res.ok) {
+      btn.innerText = "SENT";
+      document.getElementById('form-status').style.display = "block";
+      e.target.reset();
+    }
+  } catch (err) { btn.innerText = "RETRY"; }
+});
 </script>
 </body>
 </html>
