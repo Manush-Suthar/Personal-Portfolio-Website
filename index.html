@@ -22,9 +22,18 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* --- Global Reset --- */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
-        h1, h2, h4, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; text-decoration: none; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; position: relative; }
+        
+        /* Glass Noise Texture Background */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.04;
+            pointer-events: none; z-index: 1;
+        }
+
+        h1, h2, h4, .logo, .btn-main, .professional-titles { font-family: 'Syncopate', sans-serif; text-transform: uppercase; text-decoration: none; }
         span { color: var(--primary); }
 
         /* --- Access Gate --- */
@@ -60,43 +69,56 @@
         .nav-links a:hover { color: var(--primary); }
         .hamburger { display: none; cursor: pointer; font-size: 1.4rem; color: var(--primary); }
         
+        /* Larger Live Indicator */
         .live-badge {
-            display: flex; align-items: center; gap: 10px; font-size: 0.75rem;
+            display: flex; align-items: center; gap: 12px; font-size: 0.75rem;
             font-weight: 900; color: var(--text-gray); border: 1px solid var(--glass-border);
-            padding: 8px 18px; border-radius: 20px; background: rgba(0,0,0,0.4);
+            padding: 10px 20px; border-radius: 30px; background: rgba(0,0,0,0.5);
         }
         .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
         .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
-        /* --- Hero Section --- */
+        /* --- Home Section --- */
         #home {
             height: 100vh; width: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
             background: radial-gradient(circle at center, #0a1c31 0%, #05070a 100%);
-            padding: 0 20px;
+            padding: 0 20px; position: relative; z-index: 2;
         }
         .hero-log-wrapper { height: 24px; margin-bottom: 15px; }
         #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 10px; line-height: 1; }
-        .professional-titles { font-family: 'Syncopate'; font-size: 0.7rem; letter-spacing: 4px; color: var(--text-gray); margin-bottom: 40px; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 15px; line-height: 1; width: 100%; }
+        
+        /* Centered Professional Titles */
+        .professional-titles {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: var(--text-gray);
+            margin-bottom: 45px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
 
         .hero-btns { display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; margin-bottom: 40px; }
 
-        /* --- Social Row --- */
+        /* --- Social Hub --- */
         .social-row { display: flex; gap: 20px; justify-content: center; align-items: center; }
         .social-link {
             color: var(--text-gray); font-size: 1.5rem; transition: var(--transition);
             width: 55px; height: 55px; border: 1px solid var(--glass-border);
-            display: flex; align-items: center; justify-content: center; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; border-radius: 10px;
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); text-decoration: none;
         }
         .social-link:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 209, 255, 0.2); }
 
         /* --- Content Sections --- */
-        section { padding: 100px 8%; }
+        section { padding: 100px 8%; position: relative; z-index: 2; }
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
+        /* Video Watch Now Alignment */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
         .video-card { 
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -104,20 +126,21 @@
             overflow: hidden; transition: var(--transition);
             display: flex; flex-direction: column; height: 100%;
         }
+        .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
         .video-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .video-info h3 { font-size: 0.8rem; margin-bottom: 25px; line-height: 1.5; color: var(--text-light); }
 
         .btn-main { 
             padding: 18px 40px; background: var(--primary); color: var(--bg-dark); 
             font-weight: 900; border: none; cursor: pointer; transition: 0.3s;
-            font-family: 'Syncopate'; letter-spacing: 1px; text-decoration: none;
+            letter-spacing: 1px; text-decoration: none;
             display: flex; align-items: center; justify-content: center;
             font-size: 0.75rem; min-width: 250px; border-radius: 4px;
         }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
         .btn-watch { width: 100%; min-width: unset; padding: 12px; font-size: 0.7rem; margin-top: auto; }
 
-        /* --- Glass Contact Box --- */
+        /* --- PR & Collaborations (Glass) --- */
         .contact-box {
             max-width: 600px; margin: 0 auto; 
             background: var(--glass-bg); backdrop-filter: var(--glass-blur);
@@ -129,7 +152,7 @@
             margin-bottom:20px; outline:none; font-family:'Inter'; border-radius: 8px;
         }
 
-        footer { border-top: 1px solid var(--glass-border); }
+        footer { border-top: 1px solid var(--glass-border); text-align: center; padding: 40px 0; }
 
         @media (max-width: 992px) {
             .nav-links {
@@ -140,6 +163,7 @@
             .hamburger { display: block; }
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
             .btn-main { width: 100%; max-width: 320px; }
+            .professional-titles { font-size: 0.55rem; letter-spacing: 2px; }
         }
     </style>
 </head>
@@ -169,11 +193,16 @@
         <div class="hero-content reveal">
             <div class="hero-log-wrapper"><p id="changing-log"></p></div>
             <h1>DORP <span>PLAYS</span></h1>
-            <div class="professional-titles">GAMER | STREAMER | CONTENT CREATOR</div>
+            
+            <div class="professional-titles">
+                GAMER | STREAMER | CONTENT CREATOR
+            </div>
+
             <div class="hero-btns">
                 <a href="#uploads" class="btn-main">SHOW CONTENT</a>
                 <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main btn-outline">SUBSCRIBE</a>
             </div>
+            
             <div class="social-row">
                 <a href="https://www.instagram.com/dorpplays/" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://discord.com/invite/dnNk62uebn" target="_blank" class="social-link"><i class="fa-brands fa-discord"></i></a>
@@ -201,10 +230,12 @@
     </section>
 
     <footer>
-        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // EXCLUSIVE ACCESS </p>
+        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4;">&copy; 2026 DORP PLAYS // EXCLUSIVE ACCESS GRANTED</p>
     </footer>
 
     <script>
+        // Security logic
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false; }
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
 
@@ -218,6 +249,7 @@
             logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
         }
 
+        // Email logic
         document.getElementById('collabForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('sendBtn');
@@ -235,6 +267,7 @@
             } catch (err) { btn.innerText = "RETRY SIGNAL"; btn.disabled = false; }
         });
 
+        // Password logic
         document.getElementById('pass-input').addEventListener('input', (e) => {
             const input = e.target;
             if (input.value.length === 4) {
