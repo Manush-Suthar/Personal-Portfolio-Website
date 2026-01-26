@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DORP PLAYS — Creator Hub</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --c:#00D1FF;
+  --primary:#00D1FF;
   --bg:#05070a;
-  --glass:rgba(13,17,23,.72);
+  --glass:rgba(13,17,23,.75);
   --border:rgba(0,209,255,.18);
+  --text:#e6edf3;
   --muted:#8b949e;
   --success:#00ff88;
   --danger:#ff4d4d;
-  --ease:cubic-bezier(.4,0,.2,1);
 }
 
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
-
 body{
   font-family:Inter,system-ui;
   background:var(--bg);
-  color:#e6edf3;
+  color:var(--text);
   overflow:hidden;
 }
 
@@ -75,7 +75,8 @@ body{
 /* ================= CURSOR GLOW ================= */
 #cursor-glow{
   position:fixed;
-  width:500px;height:500px;
+  width:480px;
+  height:480px;
   background:radial-gradient(circle,rgba(0,209,255,.06),transparent 65%);
   pointer-events:none;
   transform:translate(-50%,-50%);
@@ -86,7 +87,7 @@ body{
 }
 
 /* ================= ACCESS GATE ================= */
-#gate{
+#access-gate{
   position:fixed;
   inset:0;
   background:radial-gradient(circle at center,rgba(0,209,255,.12),transparent 60%),var(--bg);
@@ -97,29 +98,33 @@ body{
   z-index:10000;
   transition:transform 1s cubic-bezier(.8,0,.2,1);
 }
-#gate p{
+#access-gate p{
   font-family:Syncopate;
   font-size:.65rem;
   letter-spacing:4px;
-  margin-bottom:24px;
-  color:var(--c);
+  margin-bottom:20px;
+  color:var(--primary);
 }
-#gate input{
+#pass-input{
   width:260px;
   padding:18px;
   background:transparent;
   border:1px solid var(--border);
   border-radius:10px;
-  color:var(--c);
+  color:var(--primary);
   font-size:1.4rem;
   letter-spacing:10px;
   text-align:center;
+  outline:none;
 }
-#gate input.denied{
+#pass-input.denied{
   border-color:var(--danger);
   color:var(--danger);
 }
-@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes shake{
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
 .shake{animation:shake .2s ease-in-out 2}
 
 /* ================= NAV ================= */
@@ -137,11 +142,14 @@ nav{
   border-bottom:1px solid var(--border);
   z-index:1000;
   transform:translateY(-100%);
-  transition:.8s var(--ease);
+  transition:.7s ease;
 }
 nav.active{transform:none}
 
-.logo{font-family:Syncopate;letter-spacing:3px}
+.logo{
+  font-family:Syncopate;
+  letter-spacing:3px;
+}
 
 .nav-links{
   display:flex;
@@ -152,17 +160,17 @@ nav.active{transform:none}
   color:var(--muted);
 }
 .nav-links a{
-  transition:.3s;
+  transition:.25s;
 }
 .nav-links a:hover{
-  color:var(--c);
+  color:var(--primary);
   transform:translateY(-2px);
 }
 
 .nav-right{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
 }
 
 .nav-social{
@@ -177,15 +185,15 @@ nav.active{transform:none}
   align-items:center;
   justify-content:center;
   color:var(--muted);
-  transition:.3s;
+  transition:.25s;
 }
 .nav-social a:hover{
-  color:var(--c);
-  border-color:var(--c);
+  color:var(--primary);
+  border-color:var(--primary);
   transform:translateY(-3px);
 }
 
-/* LIVE */
+/* LIVE INDICATOR */
 .live{
   display:flex;
   align-items:center;
@@ -196,10 +204,20 @@ nav.active{transform:none}
   font-size:.55rem;
   color:var(--muted);
 }
-.live.online{color:var(--c)}
-.dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.live.online{color:var(--primary)}
+.dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:currentColor;
+}
 
-.hamburger{display:none;color:var(--c)}
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  font-size:1.2rem;
+  color:var(--primary);
+  cursor:pointer;
+}
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:block}
@@ -237,10 +255,15 @@ section,footer{position:relative;z-index:1}
   justify-content:center;
   gap:40px;
   opacity:0;
-  transform:translateY(40px);
-  transition:1s var(--ease);
+  transform:translateY(20px);
+  transition:
+    opacity .6s ease-out,
+    transform .6s cubic-bezier(.22,.61,.36,1);
 }
-.panel.active{opacity:1;transform:none}
+.panel.active{
+  opacity:1;
+  transform:none;
+}
 .center{text-align:center}
 
 /* HERO */
@@ -255,7 +278,7 @@ section,footer{position:relative;z-index:1}
   color:var(--muted);
 }
 
-/* CTA */
+/* CTA BUTTONS */
 .cta{
   display:flex;
   gap:16px;
@@ -270,12 +293,12 @@ section,footer{position:relative;z-index:1}
   border-radius:6px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
-  transition:.3s;
+  transition:.25s;
 }
 .btn.primary{
-  background:var(--c);
+  background:var(--primary);
   color:#000;
-  border-color:var(--c);
+  border-color:var(--primary);
 }
 .btn:hover{
   transform:translateY(-4px);
@@ -296,11 +319,11 @@ section,footer{position:relative;z-index:1}
   align-items:center;
   justify-content:center;
   font-size:1.3rem;
-  transition:.3s;
+  transition:.25s;
 }
 .hero-social a:hover{
-  color:var(--c);
-  border-color:var(--c);
+  color:var(--primary);
+  border-color:var(--primary);
   transform:translateY(-4px);
 }
 
@@ -315,32 +338,39 @@ section,footer{position:relative;z-index:1}
   border:1px solid var(--border);
   border-radius:16px;
   overflow:hidden;
-  transition:.4s;
+  transition:.35s;
 }
 .card:hover{
   transform:translateY(-10px);
-  border-color:var(--c);
+  border-color:var(--primary);
 }
 .thumb{
   aspect-ratio:16/9;
   background-size:cover;
+  background-position:center;
 }
-.info{padding:20px}
-.info h3{font-size:.85rem;margin-bottom:12px}
+.info{
+  padding:20px;
+}
+.info h3{
+  font-size:.85rem;
+  margin-bottom:12px;
+}
 .watch{
   display:block;
   text-align:center;
   padding:12px;
   font-family:Syncopate;
   font-size:.65rem;
+  letter-spacing:2px;
   border-radius:6px;
-  background:var(--c);
+  background:var(--primary);
   color:#000;
-  transition:.3s;
+  transition:.25s;
 }
 .watch:hover{filter:brightness(1.1)}
 
-/* ================= CONTACT (MINIMAL) ================= */
+/* CONTACT */
 .contact{
   max-width:460px;
   margin:0 auto;
@@ -373,20 +403,20 @@ footer{
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
 <div class="bg-wall"><div class="bg-track"></div></div>
 <div id="cursor-glow"></div>
 
-<!-- ACCESS -->
-<div id="gate">
+<!-- ACCESS GATE -->
+<div id="access-gate">
   <p>AUTHORIZED ACCESS ONLY</p>
-  <input id="pass" maxlength="4" placeholder="••••">
+  <input id="pass-input" maxlength="4" placeholder="••••" autofocus>
 </div>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo">DORP <span style="color:var(--c)">PLAYS</span></div>
+  <div class="logo">DORP <span style="color:var(--primary)">PLAYS</span></div>
 
   <div class="nav-links">
     <a href="#home">HOME</a>
@@ -396,11 +426,13 @@ footer{
 
   <div class="nav-right">
     <div class="nav-social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-discord"></i></a>
-      <a href="#"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
-    <div class="live" id="live"><div class="dot"></div><span id="liveText">NOT LIVE</span></div>
+    <div class="live" id="live-indicator">
+      <div class="dot"></div><span id="live-text">NOT LIVE</span>
+    </div>
     <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </div>
 </nav>
@@ -411,28 +443,31 @@ footer{
   <a href="#contact" onclick="closeMenu()">COLLAB</a>
 </div>
 
+<!-- HOME -->
 <section class="panel center" id="home">
-  <h1 class="hero-title">DORP <span style="color:var(--c)">PLAYS</span></h1>
+  <h1 class="hero-title">DORP <span style="color:var(--primary)">PLAYS</span></h1>
   <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
 
   <div class="cta">
     <a class="btn primary" href="#content">CONTENT</a>
-    <a class="btn" href="#">YOUTUBE</a>
+    <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
   </div>
 
   <div class="hero-social">
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-discord"></i></a>
-    <a href="#"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
   </div>
 </section>
 
+<!-- CONTENT -->
 <section class="panel" id="content">
   <h2 class="center" style="font-family:Syncopate;letter-spacing:4px">FEATURED UPLOADS</h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
+<!-- CONTACT -->
 <section class="panel" id="contact">
   <div class="contact">
     <h2 class="center" style="font-family:Syncopate;margin-bottom:16px">COLLABORATIONS</h2>
@@ -442,13 +477,13 @@ footer{
       <textarea name="message" rows="4" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
     </form>
-    <div id="formStatus" style="display:none;margin-top:14px;color:var(--success);text-align:center;font-size:.7rem">
+    <div id="form-status" style="display:none;margin-top:14px;color:var(--success);text-align:center;font-size:.7rem">
       MESSAGE RECEIVED
     </div>
   </div>
 </section>
 
-<footer>© 2026 DORP PLAYS</footer>
+<footer>&copy; 2026 DORP PLAYS</footer>
 
 <script>
 /* CURSOR */
@@ -460,9 +495,10 @@ window.addEventListener("mousemove",e=>{
 
 /* PASSWORD */
 const PASS="1111";
-const gate=document.getElementById("gate");
+const gate=document.getElementById("access-gate");
 const nav=document.getElementById("nav");
-document.getElementById("pass").addEventListener("input",e=>{
+
+document.getElementById("pass-input").addEventListener("input",e=>{
   if(e.target.value.length===4){
     if(e.target.value===PASS){
       gate.style.transform="translateY(-100%)";
@@ -471,28 +507,33 @@ document.getElementById("pass").addEventListener("input",e=>{
       init();
     }else{
       e.target.classList.add("denied","shake");
-      setTimeout(()=>{e.target.value=""},600);
+      setTimeout(()=>{e.target.value="";e.target.classList.remove("denied","shake")},600);
     }
   }
 });
 
 /* MOBILE MENU */
-function toggleMenu(){mobileMenu.classList.toggle("show")}
-function closeMenu(){mobileMenu.classList.remove("show")}
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+}
+function closeMenu(){
+  document.getElementById("mobileMenu").classList.remove("show");
+}
 
-/* SCROLL REVEAL */
-function reveal(){
-  document.querySelectorAll(".panel").forEach(p=>{
-    if(p.getBoundingClientRect().top < window.innerHeight - 120){
-      p.classList.add("active");
+/* SCROLL REVEAL (GOOD ONE) */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+      observer.unobserve(entry.target);
     }
   });
-}
-window.addEventListener("scroll",reveal);
+},{threshold:0.15,rootMargin:"0px 0px -80px 0px"});
 
-/* INIT CONTENT */
+document.querySelectorAll(".panel").forEach(p=>observer.observe(p));
+
+/* INIT */
 async function init(){
-  reveal();
   const channelId="UCEmiGP-gPZ0WGAYlGfoXJZw";
   const api=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
     "https://www.youtube.com/feeds/videos.xml?channel_id="+channelId
@@ -501,11 +542,11 @@ async function init(){
   const data=await res.json();
 
   if(data.items[0].link.includes("/live")){
-    live.classList.add("online");
-    liveText.innerText="LIVE NOW";
+    document.getElementById("live-indicator").classList.add("online");
+    document.getElementById("live-text").innerText="LIVE NOW";
   }
 
-  videoGrid.innerHTML=data.items.slice(0,12).map(v=>{
+  document.getElementById("videoGrid").innerHTML=data.items.slice(0,12).map(v=>{
     const id=v.guid.split(":")[2];
     return `
       <div class="card">
@@ -517,36 +558,42 @@ async function init(){
       </div>`;
   }).join("");
 
-  bgTrack.innerHTML=data.items.slice(0,6).map(v=>{
+  const bg=document.querySelector(".bg-track");
+  bg.innerHTML=data.items.slice(0,6).map(v=>{
     const id=v.guid.split(":")[2];
     return `<img src="https://img.youtube.com/vi/${id}/maxresdefault.jpg">`;
-  }).join("") + bgTrack.innerHTML;
+  }).join("") + bg.innerHTML;
 }
 
 /* FORM */
-collabForm.addEventListener("submit",async e=>{
+document.getElementById("collabForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  const btn=collabForm.querySelector("button");
+  const btn=e.target.querySelector("button");
+  const status=document.getElementById("form-status");
+
   btn.innerText="TRANSMITTING...";
   btn.disabled=true;
+
   try{
     const res=await fetch("/api/send-email",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        user_name:collabForm.user_name.value,
-        user_email:collabForm.user_email.value,
-        message:collabForm.message.value
+        user_name:e.target.user_name.value,
+        user_email:e.target.user_email.value,
+        message:e.target.message.value
       })
     });
     if(!res.ok) throw new Error();
+
     btn.innerText="SENT";
-    formStatus.style.display="block";
-    collabForm.reset();
+    status.style.display="block";
+    e.target.reset();
+
     setTimeout(()=>{
       btn.innerText="SEND PROPOSAL";
       btn.disabled=false;
-      formStatus.style.display="none";
+      status.style.display="none";
     },5000);
   }catch{
     btn.innerText="RETRY SIGNAL";
