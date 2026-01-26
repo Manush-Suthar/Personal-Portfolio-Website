@@ -21,16 +21,16 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= BACKGROUND WALL (DIMMED) ================= */
+/* ================= BACKGROUND WALL ================= */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
-  opacity: 0.06; 
-  pointer-events: none;
+  opacity: 0.06; pointer-events: none;
 }
 .bg-column { display: flex; flex-direction: column; gap: 15px; animation: scrollDown 90s linear infinite; }
 .bg-column:nth-child(even) { animation-direction: reverse; }
@@ -65,20 +65,13 @@ nav.active { transform: translateY(0); }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
-/* ================= CENTERED HERO ================= */
-#home { 
-    height: 100svh; width: 100%; display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 10;
-}
-.hero-content { 
-    text-align: center; width: 100%; max-width: 1000px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; 
-}
+/* ================= HERO ================= */
+#home { height: 100svh; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
+.hero-content { text-align: center; width: 100%; max-width: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 #changing-log { color: var(--primary); font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 4px; height: 15px; margin-bottom: 10px; }
 .hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 10px; line-height: 1.1; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
-/* BUTTONS */
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 45px; }
 .btn-main {
   min-width: 240px; padding: 18px 45px; background: transparent; border: 1px solid var(--primary);
@@ -88,14 +81,27 @@ nav.active { transform: translateY(0); }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.35); }
 .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* ================= GFX GRID ================= */
+/* ================= GFX GRID (16:9 RATIO) ================= */
 #gfx { padding: 120px 8% 80px; position: relative; z-index: 10; }
-.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 50px; }
+.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
 .gfx-item { 
-    aspect-ratio: 1/1; border: 1px solid var(--border); border-radius: 8px; 
-    background-size: cover; background-position: center; transition: 0.4s; cursor: pointer; 
+    aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; 
+    background-size: contain; background-repeat: no-repeat; background-position: center; 
+    background-color: rgba(0,0,0,0.3); transition: 0.4s; cursor: zoom-in;
+    image-rendering: -webkit-optimize-contrast; /* Sharper rendering */
 }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
+
+/* ================= LIGHTBOX ================= */
+#lightbox {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 5000;
+  display: none; align-items: center; justify-content: center; padding: 20px;
+  cursor: zoom-out; backdrop-filter: blur(10px);
+}
+#lightbox img {
+  max-width: 95%; max-height: 95%; object-fit: contain;
+  border: 1px solid var(--border); box-shadow: 0 0 50px rgba(0, 209, 255, 0.2);
+}
 
 /* ================= UPLOADS ================= */
 #uploads { padding: 120px 8% 80px; position: relative; z-index: 10; }
@@ -104,11 +110,7 @@ nav.active { transform: translateY(0); }
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .info h3 { font-size: 0.85rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
-@media(max-width: 768px) { 
-    .hero-btns { flex-direction: column; width: 100%; align-items: center; }
-    .btn-main { width: 100%; max-width: 340px; }
-    .hero-content h1 { font-size: 3.2rem; }
-}
+@media(max-width: 768px) { .hero-content h1 { font-size: 3.2rem; } .btn-main { width: 100%; max-width: 340px; } }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -116,7 +118,7 @@ nav.active { transform: translateY(0); }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p>DECRYPTING ACCESS PROTOCOL</p>
+  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
   <input type="password" id="pass-input" maxlength="4" placeholder="••••">
 </div>
 
@@ -132,14 +134,12 @@ nav.active { transform: translateY(0); }
     <p id="changing-log"></p>
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
-    
     <div class="hero-btns">
        <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main major">SUBSCRIBE</a>
        <a href="#uploads" class="btn-main">SHOW CONTENT</a>
        <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
-
     <div style="display:flex; gap:25px; margin-top:10px;">
         <a href="https://www.instagram.com/dorpplays/" target="_blank" style="color:white; font-size:1.6rem;"><i class="fab fa-instagram"></i></a>
         <a href="https://discord.com/invite/dnNk62uebn" target="_blank" style="color:white; font-size:1.6rem;"><i class="fab fa-discord"></i></a>
@@ -156,11 +156,11 @@ nav.active { transform: translateY(0); }
 <section id="gfx">
   <h2 style="text-align:center; margin-bottom:40px;">DORP <span style="color:var(--primary)">GFX</span></h2>
   <div class="gfx-grid">
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/fYPvbRcF/design1.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/p6ydqTVS/design2.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/23DZ4tb3/design3.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/d4gQMs7M/design4.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/B8cFxPz/design5.jpg');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/fYPvbRcF/design1.jpg');" onclick="openLightbox(this.style.backgroundImage)"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/p6ydqTVS/design2.jpg');" onclick="openLightbox(this.style.backgroundImage)"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/23DZ4tb3/design3.jpg');" onclick="openLightbox(this.style.backgroundImage)"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/d4gQMs7M/design4.jpg');" onclick="openLightbox(this.style.backgroundImage)"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/B8cFxPz/design5.jpg');" onclick="openLightbox(this.style.backgroundImage)"></div>
   </div>
 </section>
 
@@ -176,6 +176,10 @@ nav.active { transform: translateY(0); }
     <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:25px; font-weight:800; font-size:0.75rem;">ENCRYPTION COMPLETE. SIGNAL RECEIVED.</div>
   </div>
 </section>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Full Scale Design">
+</div>
 
 <footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
@@ -204,6 +208,18 @@ document.getElementById('pass-input').addEventListener('input', (e) => {
     }
   }
 });
+
+function openLightbox(bgImg) {
+  const url = bgImg.replace('url("', '').replace('")', '');
+  document.getElementById('lightbox-img').src = url;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
 
 async function initMedia() {
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
