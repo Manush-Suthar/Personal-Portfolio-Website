@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DORP | Gamer · Designer · Creator</title>
+<title>DORP | Gamer · Streamer · Creator</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -19,12 +19,12 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET & CURSOR FIX */
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= SUBTLE CURSOR GLOW ================= */
+/* ================= CURSOR GLOW ================= */
 #cursor-glow {
   position: fixed; width: 450px; height: 450px;
   background: radial-gradient(circle, rgba(0, 209, 255, 0.07) 0%, transparent 70%);
@@ -32,7 +32,7 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
   transform: translate(-50%, -50%);
 }
 
-/* ================= DEEP DIMMED BG WALL (0.05) ================= */
+/* ================= BACKGROUND WALL ================= */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
@@ -43,7 +43,7 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* ================= NAVIGATION (LIVE RESTORED) ================= */
+/* ================= NAVIGATION ================= */
 nav {
   position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
   padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
@@ -59,21 +59,36 @@ nav.active { transform: translateY(0); }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
 
-/* ================= CENTERED HERO ================= */
+/* ================= FEATURE A: LIVE LOG TERMINAL ================= */
+.terminal-window {
+  width: 100%; max-width: 500px; background: rgba(0,0,0,0.7); border: 1px solid var(--border);
+  border-radius: 6px; padding: 15px; margin-bottom: 30px; text-align: left;
+  font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--primary);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+}
+.terminal-header { display: flex; gap: 6px; margin-bottom: 10px; opacity: 0.5; }
+.t-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+#terminal-content { height: 80px; overflow: hidden; display: flex; flex-direction: column-reverse; }
+.log-entry { margin-bottom: 4px; opacity: 0; animation: fadeInLog 0.3s forwards; }
+@keyframes fadeInLog { to { opacity: 1; } }
+
+/* ================= HERO (CENTERED) ================= */
 section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 #home { height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; }
 .hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
 .hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 15px; line-height: 1.1; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
-/* MAJOR BUTTONS */
+/* BUTTONS & GFX FOLLOW BUTTON */
 .hero-btns { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; margin-bottom: 45px; }
 .btn-main {
   min-width: 250px; padding: 20px 45px; background: transparent; border: 1px solid var(--primary);
   color: var(--primary); font-weight: 800; cursor: pointer; transition: var(--transition);
-  text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
+  text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; position: relative; overflow: hidden;
 }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
+.btn-main.gfx-follow { border-color: #FF00E5; color: #FF00E5; } /* Pink accent for GFX */
+.btn-main.gfx-follow:hover { background: #FF00E5; color: #000; box-shadow: 0 0 30px rgba(255, 0, 229, 0.4); }
 .btn-main:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
 /* SOCIAL ANIMATION */
@@ -81,37 +96,20 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 .social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 10px var(--primary)); }
 
-/* ================= GFX GRID (PERFECT 16:9 NO CROP) ================= */
-.gfx-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
-    gap: 30px; 
-    margin-top: 60px; 
-}
+/* ================= GFX GRID ================= */
+.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 60px; }
 .gfx-item { 
-    width: 100%;
-    aspect-ratio: 16/9; 
-    border: 1px solid var(--border); 
-    border-radius: 8px; 
-    background-size: cover; /* Ensures edge-to-edge fill */
-    background-position: center; 
-    background-repeat: no-repeat;
-    transition: var(--transition);
-    image-rendering: -webkit-optimize-contrast; /* Sharper Render */
+    width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    transition: var(--transition); image-rendering: -webkit-optimize-contrast;
 }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
-
-/* ================= VIDEO GRID ================= */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; }
-.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
-.info { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
-.info h3 { font-size: 0.9rem; margin-bottom: 30px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
 /* ACCESS GATE */
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
 
-@media(max-width: 768px) { section { padding: 120px 20px; } .hero-btns { flex-direction: column; } .btn-main { width: 100%; } .gfx-grid { grid-template-columns: 1fr; } }
+@media(max-width: 768px) { section { padding: 120px 20px; } .hero-btns { flex-direction: column; } .btn-main { width: 100%; } }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -120,7 +118,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
+  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">AUTHENTICATION REQUIRED</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
@@ -135,15 +133,21 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 
 <section id="home">
   <div class="hero-content">
-    <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.65rem; height:20px; letter-spacing:4px;"></p>
+    <div class="terminal-window">
+      <div class="terminal-header"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+      <div id="terminal-content"></div>
+    </div>
+
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
+    
     <div class="hero-btns">
        <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main major">SUBSCRIBE</a>
+       <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main gfx-follow"><i class="fab fa-instagram" style="margin-right:10px;"></i> FOLLOW GFX</a>
        <a href="#uploads" class="btn-main">SHOW CONTENT</a>
-       <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
+    
     <div class="social-hub">
         <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
@@ -153,11 +157,11 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 </section>
 
 <section id="uploads">
-  <h2 style="text-align:center; margin-bottom:80px; letter-spacing:5px;">CENTRAL <span>LOGS</span></h2>
+  <h2 style="text-align:center; margin-bottom:80px; letter-spacing:5px;">TOP <span>UPLOADS</span></h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
-<section id="gfx">
+<section id="gfx" style="padding-top: 0;">
   <h2 style="text-align:center; margin-bottom:40px; letter-spacing:5px;">DORP <span style="color:var(--primary)">GFX</span></h2>
   <div class="gfx-grid">
     <div class="gfx-item" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
@@ -177,35 +181,45 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
       <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;"></textarea>
       <button type="submit" class="btn-main major" style="width:100%">SEND SIGNAL</button>
     </form>
-    <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:30px; font-weight:800; font-size:0.75rem;">MESSAGE RECEIVED.</div>
   </div>
 </section>
 
 <footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
-/* Subtle Cursor Glow */
+/* Cursor Logic */
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 });
 
-const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ASSET LOGS...", "OPTIMIZING FEED..."];
-let logIdx = 0; const logEl = document.getElementById('changing-log');
-async function typeLog(text) {
-  for (let i = 0; i <= text.length; i++) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 60)); }
-  await new Promise(r => setTimeout(r, 2000));
-  for (let i = text.length; i >= 0; i--) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 30)); }
-  logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
+/* FEATURE A: TERMINAL SYSTEM LOGS */
+const terminal = document.getElementById('terminal-content');
+const logMessages = [
+  "> INITIALIZING SYSTEM_v2.0...",
+  "> SYNCING GFX REPOSITORY...",
+  "> LOADING ASSETS: design_final_v1.psd",
+  "> UPLOAD SUCCESSFUL: 60FPS_RAW_01.mp4",
+  "> CONNECTION SECURE [128-bit SSL]",
+  "> BROADCAST STATUS: STANDBY",
+  "> FETCHING LATEST YT_FEED..."
+];
+function addLog() {
+  const msg = logMessages[Math.floor(Math.random() * logMessages.length)];
+  const div = document.createElement('div');
+  div.className = 'log-entry';
+  div.innerText = msg;
+  terminal.prepend(div);
+  if (terminal.children.length > 5) terminal.lastChild.remove();
 }
+setInterval(addLog, 3000);
 
 document.getElementById('pass-input').addEventListener('input', e => {
   if(e.target.value === "1111") {
     document.getElementById('access-gate').style.transform = 'translateY(-100%)';
     document.body.style.overflowY = 'auto';
     document.getElementById('nav').classList.add('active');
-    typeLog(logs[0]);
     initMedia();
   }
 });
@@ -238,5 +252,3 @@ async function initMedia() {
 </script>
 </body>
 </html>
-
-
