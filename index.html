@@ -16,15 +16,20 @@
   --border: rgba(0, 209, 255, 0.2);
   --text: #e6edf3;
   --muted: #8b949e;
-  --success: #00ff88;
-  --danger: #ff4d4d;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; cursor: none; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+
+/* ================= CUSTOM CURSOR GLOW ================= */
+#cursor-glow {
+  position: fixed; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.05) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
+}
 
 /* ================= BACKGROUND WALL ================= */
 #media-bg {
@@ -37,113 +42,96 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* ================= ACCESS GATE ================= */
-#access-gate {
-  position: fixed; inset: 0; background: var(--bg); z-index: 10000;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: transform 0.8s cubic-bezier(0.8,0,0.2,1);
-}
-#pass-input {
-  width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary);
-  color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px;
-}
-#pass-input.denied { border-color: var(--danger) !important; color: var(--danger); box-shadow: 0 0 25px var(--danger); }
-@keyframes shake { 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-.shake { animation: shake 0.2s ease-in-out 0s 2; }
-
-/* ================= NAV ================= */
+/* ================= NAVIGATION ================= */
 nav {
   position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
   padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
   z-index: 2000; transform: translateY(-100%); transition: var(--transition);
 }
 nav.active { transform: translateY(0); }
-.live-badge {
-  display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 900;
-  border: 1px solid var(--border); padding: 8px 20px; border-radius: 30px; background: rgba(0,0,0,0.5);
+
+/* ================= HERO & SPACING ================= */
+section { padding: 180px 8% 120px; position: relative; z-index: 10; }
+#home { height: 100svh; display: flex; align-items: center; justify-content: center; padding: 0; }
+.hero-content { text-align: center; width: 100%; max-width: 1000px; }
+.hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 15px; }
+
+/* ================= SOCIAL HUB ANIMATION ================= */
+.social-hub { display: flex; gap: 30px; margin-top: 20px; justify-content: center; }
+.social-hub a { 
+    color: white; font-size: 1.8rem; transition: var(--transition); 
+    display: inline-block; position: relative;
 }
-.live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
-.dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
+.social-hub a:hover { 
+    color: var(--primary); 
+    transform: translateY(-8px) scale(1.2); 
+    filter: drop-shadow(0 0 10px var(--primary));
+}
 
-/* ================= HERO ================= */
-#home { height: 100svh; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-.hero-content { text-align: center; width: 100%; max-width: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#changing-log { color: var(--primary); font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 4px; height: 15px; margin-bottom: 10px; }
-.hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 10px; line-height: 1.1; }
-.hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
-
+/* ================= BUTTONS ================= */
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 45px; }
 .btn-main {
   min-width: 240px; padding: 18px 45px; background: transparent; border: 1px solid var(--primary);
-  color: var(--primary); font-weight: 800; cursor: pointer; transition: var(--transition);
+  color: var(--primary); font-weight: 800; transition: var(--transition);
   text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
 }
-.btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.35); }
+.btn-main.major { background: var(--primary); color: #000; border: none; }
 .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* ================= GFX GRID (16:9 RATIO) ================= */
-#gfx { padding: 120px 8% 80px; position: relative; z-index: 10; }
+/* ================= GFX FULL IMAGE FIX ================= */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
 .gfx-item { 
     aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; 
     background-size: contain; background-repeat: no-repeat; background-position: center; 
-    background-color: rgba(0,0,0,0.3); transition: 0.4s; cursor: zoom-in;
-    image-rendering: -webkit-optimize-contrast; /* Sharper rendering */
+    background-color: rgba(0,0,0,0.5); /* Prevents the 'empty' look */
+    transition: 0.4s; cursor: zoom-in;
 }
-.gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
+.gfx-item:hover { border-color: var(--primary); transform: scale(1.03); }
 
 /* ================= LIGHTBOX ================= */
 #lightbox {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 5000;
   display: none; align-items: center; justify-content: center; padding: 20px;
-  cursor: zoom-out; backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
-#lightbox img {
-  max-width: 95%; max-height: 95%; object-fit: contain;
-  border: 1px solid var(--border); box-shadow: 0 0 50px rgba(0, 209, 255, 0.2);
-}
+#lightbox img { max-width: 95%; max-height: 95%; object-fit: contain; }
 
-/* ================= UPLOADS ================= */
-#uploads { padding: 120px 8% 80px; position: relative; z-index: 10; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
-.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
-.info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-.info h3 { font-size: 0.85rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; color: var(--text); }
+/* ================= ACCESS GATE ================= */
+#access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
+#pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
 
-@media(max-width: 768px) { .hero-content h1 { font-size: 3.2rem; } .btn-main { width: 100%; max-width: 340px; } }
+@media(max-width: 768px) { section { padding: 120px 20px; } }
 </style>
 </head>
 <body oncontextmenu="return false">
 
+<div id="cursor-glow"></div>
 <div id="media-bg"></div>
 
 <div id="access-gate">
   <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
-  <input type="password" id="pass-input" maxlength="4" placeholder="••••">
+  <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
 <nav id="nav">
   <div class="logo" onclick="window.scrollTo(0,0)" style="cursor:pointer;">DORP <span style="color:var(--primary)">PLAYS</span></div>
-  <div id="live-indicator" class="live-badge">
-    <div class="dot"></div> <span id="status-text">NOT LIVE</span>
-  </div>
 </nav>
 
 <section id="home">
   <div class="hero-content">
-    <p id="changing-log"></p>
+    <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.6rem; height:20px;"></p>
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
-    <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
+    <p style="letter-spacing:7px; color:var(--muted); font-size:0.75rem; margin-bottom:45px;">GAMER | STREAMER | DESIGNER</p>
     <div class="hero-btns">
        <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main major">SUBSCRIBE</a>
        <a href="#uploads" class="btn-main">SHOW CONTENT</a>
        <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
-    <div style="display:flex; gap:25px; margin-top:10px;">
-        <a href="https://www.instagram.com/dorpplays/" target="_blank" style="color:white; font-size:1.6rem;"><i class="fab fa-instagram"></i></a>
-        <a href="https://discord.com/invite/dnNk62uebn" target="_blank" style="color:white; font-size:1.6rem;"><i class="fab fa-discord"></i></a>
-        <a href="https://x.com/manush_787" target="_blank" style="color:white; font-size:1.6rem;"><i class="fab fa-x-twitter"></i></a>
+    <div class="social-hub">
+        <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
   </div>
 </section>
@@ -173,17 +161,19 @@ nav.active { transform: translateY(0); }
       <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:4px;"></textarea>
       <button type="submit" class="btn-main major" style="width:100%">SEND SIGNAL</button>
     </form>
-    <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:25px; font-weight:800; font-size:0.75rem;">ENCRYPTION COMPLETE. SIGNAL RECEIVED.</div>
+    <div id="form-status" style="display:none; color:var(--success); text-align:center; margin-top:25px; font-weight:800; font-size:0.75rem;">MESSAGE RECEIVED.</div>
   </div>
 </section>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="Full Scale Design">
-</div>
-
-<footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
+<div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img"></div>
 
 <script>
+const cursor = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
 const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ASSET LOGS...", "OPTIMIZING FEED..."];
 let logIdx = 0; const logEl = document.getElementById('changing-log');
 async function typeLog(text) {
@@ -193,19 +183,13 @@ async function typeLog(text) {
   logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
 }
 
-document.getElementById('pass-input').addEventListener('input', (e) => {
-  const input = e.target;
-  if(input.value.length === 4) {
-    if(input.value === "1111") {
-      document.getElementById('access-gate').style.transform = 'translateY(-100%)';
-      document.body.style.overflow = 'auto';
-      document.getElementById('nav').classList.add('active');
-      typeLog(logs[0]);
-      initMedia();
-    } else {
-      input.classList.add('denied', 'shake');
-      setTimeout(() => { input.value = ""; input.classList.remove('denied', 'shake'); }, 600);
-    }
+document.getElementById('pass-input').addEventListener('input', e => {
+  if(e.target.value === "1111") {
+    document.getElementById('access-gate').style.transform = 'translateY(-100%)';
+    document.body.style.overflow = 'auto';
+    document.getElementById('nav').classList.add('active');
+    typeLog(logs[0]);
+    initMedia();
   }
 });
 
@@ -213,13 +197,8 @@ function openLightbox(bgImg) {
   const url = bgImg.replace('url("', '').replace('")', '');
   document.getElementById('lightbox-img').src = url;
   document.getElementById('lightbox').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
 }
-
-function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
+function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
 async function initMedia() {
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
@@ -238,34 +217,12 @@ async function initMedia() {
         }).join('') + col.innerHTML;
         bgWall.appendChild(col);
     }
-    if(data.items[0].link.includes("/live")) {
-      document.getElementById('live-indicator').classList.add('online');
-      document.getElementById('status-text').innerText = "LIVE NOW";
-    }
     document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
       return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major">WATCH NOW</a></div></div>`;
     }).join("");
   } catch(e) {}
 }
-
-document.getElementById("collabForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const btn = e.target.querySelector("button");
-  btn.innerText = "TRANSMITTING...";
-  try {
-    const res = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ user_name: e.target.user_name.value, user_email: e.target.user_email.value, message: e.target.message.value })
-    });
-    if(res.ok) {
-      btn.innerText = "SENT";
-      document.getElementById('form-status').style.display = "block";
-      e.target.reset();
-    }
-  } catch (err) { btn.innerText = "RETRY"; }
-});
 </script>
 </body>
 </html>
