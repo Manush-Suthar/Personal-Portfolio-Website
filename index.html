@@ -12,7 +12,7 @@
 :root{
   --primary: #00D1FF;
   --bg: #05070a;
-  --glass: rgba(13, 17, 23, 0.92);
+  --glass: rgba(13, 17, 23, 0.94);
   --border: rgba(0, 209, 255, 0.2);
   --text: #e6edf3;
   --muted: #8b949e;
@@ -25,11 +25,11 @@
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= BACKGROUND WALL (DIMMED TO 0.05) ================= */
+/* ================= BACKGROUND WALL (DIMMED) ================= */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
-  opacity: 0.05; 
+  opacity: 0.06; 
   pointer-events: none;
 }
 .bg-column { display: flex; flex-direction: column; gap: 15px; animation: scrollDown 90s linear infinite; }
@@ -78,7 +78,7 @@ nav.active { transform: translateY(0); }
 .hero-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 10px; line-height: 1.1; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
-/* MAJOR BUTTONS */
+/* BUTTONS */
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 45px; }
 .btn-main {
   min-width: 240px; padding: 18px 45px; background: transparent; border: 1px solid var(--primary);
@@ -89,7 +89,7 @@ nav.active { transform: translateY(0); }
 .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
 /* ================= GFX GRID ================= */
-#gfx { padding: 120px 8% 80px; }
+#gfx { padding: 120px 8% 80px; position: relative; z-index: 10; }
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 50px; }
 .gfx-item { 
     aspect-ratio: 1/1; border: 1px solid var(--border); border-radius: 8px; 
@@ -98,7 +98,7 @@ nav.active { transform: translateY(0); }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
 
 /* ================= UPLOADS ================= */
-#uploads { padding: 120px 8% 80px; }
+#uploads { padding: 120px 8% 80px; position: relative; z-index: 10; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
 .card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -116,7 +116,7 @@ nav.active { transform: translateY(0); }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
+  <p>DECRYPTING ACCESS PROTOCOL</p>
   <input type="password" id="pass-input" maxlength="4" placeholder="••••">
 </div>
 
@@ -156,11 +156,11 @@ nav.active { transform: translateY(0); }
 <section id="gfx">
   <h2 style="text-align:center; margin-bottom:40px;">DORP <span style="color:var(--primary)">GFX</span></h2>
   <div class="gfx-grid">
-    <div class="gfx-item" style="background-image: url('https://ibb.co/fYPvbRcF');"></div>
-    <div class="gfx-item" style="background-image: url('https://ibb.co/p6ydqTVS');"></div>
-    <div class="gfx-item" style="background-image: url('https://ibb.co/23DZ4tb3');"></div>
-    <div class="gfx-item" style="background-image: url('https://ibb.co/d4gQMs7M');"></div>
-    <div class="gfx-item" style="background-image: url('https://ibb.co/B8cFxPz');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/fYPvbRcF/design1.jpg');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/p6ydqTVS/design2.jpg');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/23DZ4tb3/design3.jpg');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/d4gQMs7M/design4.jpg');"></div>
+    <div class="gfx-item" style="background-image: url('https://i.ibb.co/B8cFxPz/design5.jpg');"></div>
   </div>
 </section>
 
