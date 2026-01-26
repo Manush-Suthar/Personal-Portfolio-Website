@@ -21,8 +21,8 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; cursor: none !important; }
+/* RESET - FIXED: Removed cursor:none to keep cursor visible */
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
@@ -83,17 +83,18 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 .social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 10px var(--primary)); }
 
-/* ================= GFX GRID (TRUE 16:9 EDGE TO EDGE) ================= */
+/* ================= GFX GRID (16:9 EDGE TO EDGE) ================= */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 60px; }
 .gfx-item { 
     width: 100%;
     aspect-ratio: 16/9; 
     border: 1px solid var(--border); 
     border-radius: 8px; 
-    background-size: cover; /* CHANGED: This makes the image fill the entire 16:9 box */
+    background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
     transition: var(--transition);
+    overflow: hidden;
 }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 0 40px rgba(0,209,255,0.2); }
 
@@ -185,7 +186,7 @@ section { padding: 180px 8% 150px; position: relative; z-index: 10; }
 <footer>© 2026 DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR </footer>
 
 <script>
-/* Cursor Logic */
+/* Cursor logic with visibility restored */
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
@@ -232,7 +233,7 @@ async function initMedia() {
 
     document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
-      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3 style="font-size: 0.85rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; color: var(--text);">${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 15px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 15px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
     }).join("");
   } catch(e) {}
 }
