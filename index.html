@@ -29,6 +29,24 @@ body{
 }
 ::selection{background:var(--c);color:#000}
 
+/* ===== SUBTLE BACKGROUND GRID ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(transparent 95%,rgba(0,209,255,.05) 96%),
+    linear-gradient(90deg,transparent 95%,rgba(0,209,255,.05) 96%);
+  background-size:60px 60px;
+  opacity:.15;
+  pointer-events:none;
+  animation:gridMove 40s linear infinite;
+}
+@keyframes gridMove{
+  from{background-position:0 0}
+  to{background-position:60px 60px}
+}
+
 /* ================= ACCESS GATE ================= */
 #gate{
   position:fixed;
@@ -64,9 +82,7 @@ body{
   text-align:center;
   outline:none;
 }
-#gate input:focus{
-  box-shadow:0 0 35px rgba(0,209,255,.35);
-}
+#gate input:focus{box-shadow:0 0 35px rgba(0,209,255,.35)}
 #gate input.denied{
   border-color:var(--danger);
   color:var(--danger);
@@ -107,9 +123,32 @@ nav.active{transform:none}
 .nav-right{
   display:flex;
   align-items:center;
-  gap:24px;
+  gap:20px;
 }
 
+/* SOCIAL ICONS */
+.nav-social{
+  display:flex;
+  gap:14px;
+}
+.nav-social a{
+  width:36px;height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  border:1px solid var(--border);
+  color:var(--muted);
+  font-size:1rem;
+  transition:.3s;
+}
+.nav-social a:hover{
+  color:var(--c);
+  border-color:var(--c);
+  transform:translateY(-3px);
+}
+
+/* LIVE */
 .live{
   display:flex;
   align-items:center;
@@ -141,11 +180,7 @@ nav.active{transform:none}
   transform:translateY(40px);
   transition:1s var(--ease);
 }
-.panel.active{
-  opacity:1;
-  transform:none;
-}
-
+.panel.active{opacity:1;transform:none}
 .center{text-align:center}
 
 /* ================= HERO ================= */
@@ -207,13 +242,8 @@ nav.active{transform:none}
   background-size:cover;
   background-position:center;
 }
-.info{
-  padding:26px;
-}
-.info h3{
-  font-size:.9rem;
-  line-height:1.5;
-}
+.info{padding:26px}
+.info h3{font-size:.9rem;line-height:1.5}
 
 /* ================= CONTACT ================= */
 .contact{
@@ -260,6 +290,11 @@ footer{
 <nav id="nav">
   <div class="logo" onclick="scrollToSection('home')">DORP <span style="color:var(--c)">PLAYS</span></div>
   <div class="nav-right">
+    <div class="nav-social">
+      <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    </div>
     <div class="live" id="live">
       <div class="dot"></div><span id="liveText">NOT LIVE</span>
     </div>
@@ -304,7 +339,7 @@ footer{
 <footer>© 2026 DORP PLAYS · CONTROLLED ACCESS</footer>
 
 <script>
-/* -------- PASSWORD -------- */
+/* PASSWORD */
 const PASS="1111";
 const gate=document.getElementById("gate");
 const nav=document.getElementById("nav");
@@ -323,7 +358,7 @@ document.getElementById("pass").addEventListener("input",e=>{
   }
 });
 
-/* -------- SCROLL REVEAL -------- */
+/* SCROLL REVEAL */
 function reveal(){
   document.querySelectorAll(".panel").forEach(p=>{
     if(p.getBoundingClientRect().top < window.innerHeight - 120){
@@ -333,7 +368,7 @@ function reveal(){
 }
 window.addEventListener("scroll",reveal);
 
-/* -------- YOUTUBE + LIVE -------- */
+/* YOUTUBE + LIVE */
 async function init(){
   reveal();
   const channelId="UCEmiGP-gPZ0WGAYlGfoXJZw";
@@ -348,7 +383,7 @@ async function init(){
     document.getElementById("liveText").innerText="LIVE NOW";
   }
 
-  document.getElementById("videoGrid").innerHTML=data.items.slice(0,6).map(v=>{
+  document.getElementById("videoGrid").innerHTML=data.items.slice(0,12).map(v=>{
     const id=v.guid.split(":")[2];
     return `
       <div class="card">
@@ -358,14 +393,14 @@ async function init(){
   }).join("");
 }
 
-/* -------- FORM -------- */
+/* FORM (UI only) */
 document.getElementById("collabForm").addEventListener("submit",e=>{
   e.preventDefault();
   document.getElementById("formStatus").style.display="block";
   e.target.reset();
 });
 
-/* -------- NAV SCROLL -------- */
+/* NAV SCROLL */
 function scrollToSection(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
