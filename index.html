@@ -23,8 +23,9 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Prevent Text Selection */
+        /* Security: Disable Text Selection */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
+        
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
         h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
@@ -67,24 +68,26 @@
         .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
         .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section Fix --- */
         #home {
-            height: 100vh; display: flex; flex-direction: column;
+            height: 100vh; width: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
             background: radial-gradient(circle at center, #0a192f 0%, #05070a 100%);
             padding: 0 20px;
         }
         
-        /* Container for typing text to prevent jitter */
-        .hero-log-wrapper { height: 20px; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* Centered log container with fixed height to prevent vertical jitter */
+        .hero-log-wrapper { height: 24px; width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
         #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
 
-        .hero-content h1 { font-size: clamp(2rem, 8vw, 6rem); margin-bottom: 30px; line-height: 1.1; width: 100%; }
+        .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 40px; line-height: 1; width: 100%; }
         
+        /* Centered button container */
         .hero-btns { 
-            display: flex; flex-wrap: wrap; gap: 20px; 
+            display: flex; flex-direction: row; gap: 20px; 
             justify-content: center; align-items: center;
-            width: 100%; max-width: 600px;
+            width: 100%; margin-top: 10px;
         }
 
         /* --- UI Elements --- */
@@ -98,16 +101,18 @@
         .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
 
         .btn-main { 
-            padding: 18px 35px; background: var(--primary); color: var(--bg-dark); 
+            padding: 18px 40px; background: var(--primary); color: var(--bg-dark); 
             font-weight: 700; border: none; cursor: pointer; transition: 0.3s;
             font-family: 'Syncopate'; letter-spacing: 1px; text-decoration: none;
-            display: inline-flex; align-items: center; justify-content: center;
-            font-size: 0.75rem; text-align: center; min-width: 250px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; text-align: center; min-width: 260px;
         }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-main:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+        .btn-main:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-3px); }
 
-        /* --- Mobile Responsiveness --- */
+        footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--glass-border); }
+
+        /* --- Mobile Layout Fix --- */
         @media (max-width: 992px) {
             .nav-links {
                 position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px);
@@ -116,8 +121,8 @@
             .nav-links.active { left: 0; }
             .hamburger { display: block; order: 3; margin-left: 10px; }
             .nav-socials { display: flex; gap: 12px; order: 2; }
-            .hero-btns { flex-direction: column; width: 100%; }
-            .btn-main { width: 90%; min-width: unset; }
+            .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            .btn-main { width: 100%; max-width: 320px; min-width: unset; }
             .video-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -147,7 +152,7 @@
     </nav>
 
     <section id="home">
-        <div class="hero-content reveal" style="width: 100%;">
+        <div class="hero-content reveal">
             <div class="hero-log-wrapper">
                 <p id="changing-log"></p>
             </div>
@@ -182,7 +187,7 @@
     </footer>
 
     <script>
-        // Security: Block Inspect Shortcut Keys
+        // Security Script: Block Inspect Element & Source View
         document.onkeydown = function(e) {
             if(event.keyCode == 123) return false; // F12
             if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
@@ -243,10 +248,14 @@
             try {
                 const res = await fetch(api);
                 const data = await res.json();
-                const isRealLive = data.items[0].link.includes('/live');
+                
+                const isRealLive = data.items[0].link.includes('/live') || 
+                                 (data.items[0].title.toLowerCase().includes('live now') && !data.items[0].title.toLowerCase().includes('vod'));
+                
                 const badge = document.getElementById('live-indicator');
                 const text = document.getElementById('status-text');
                 if(isRealLive) { badge.classList.add('online'); text.innerText = 'LIVE NOW'; }
+
                 document.getElementById('videoGrid').innerHTML = data.items.map(v => {
                     const vId = v.guid.split(':')[2];
                     return `
