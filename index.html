@@ -350,4 +350,148 @@ footer{
 <!-- HOME -->
 <section class="panel center" id="home">
   <h1 class="hero-title">DORP <span style="color:var(--c)">PLAYS</span></h1>
-  <div class="hero-sub">GAM
+  <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
+
+  <div class="cta">
+    <a class="btn primary" href="#content">CONTENT</a>
+    <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
+    <a class="btn" href="#contact">COLLAB</a>
+  </div>
+
+  <div class="hero-social">
+    <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="panel" id="content">
+  <h2 class="center" style="font-family:Syncopate;letter-spacing:4px">FEATURED UPLOADS</h2>
+  <div class="grid" id="videoGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section class="panel" id="contact">
+  <div class="contact">
+    <h2 class="center" style="font-family:Syncopate;margin-bottom:30px">COLLABORATIONS</h2>
+    <form id="collabForm">
+      <input type="text" name="user_name" placeholder="YOUR NAME" required>
+      <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
+      <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required></textarea>
+      <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
+    </form>
+    <div id="formStatus" style="display:none;margin-top:20px;color:var(--success);text-align:center;font-size:.75rem">
+      MESSAGE RECEIVED
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 DORP PLAYS · CONTROLLED ACCESS</footer>
+
+<script>
+/* CURSOR GLOW */
+const glow=document.getElementById("cursor-glow");
+window.addEventListener("mousemove",e=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
+});
+
+/* PASSWORD */
+const PASS="1111";
+const gate=document.getElementById("gate");
+const nav=document.getElementById("nav");
+
+document.getElementById("pass").addEventListener("input",e=>{
+  if(e.target.value.length===4){
+    if(e.target.value===PASS){
+      gate.style.transform="translateY(-100%)";
+      document.body.style.overflow="auto";
+      nav.classList.add("active");
+      init();
+    }else{
+      e.target.classList.add("denied","shake");
+      setTimeout(()=>{e.target.value="";e.target.classList.remove("denied","shake")},600);
+    }
+  }
+});
+
+/* REVEAL */
+function reveal(){
+  document.querySelectorAll(".panel").forEach(p=>{
+    if(p.getBoundingClientRect().top < window.innerHeight - 120){
+      p.classList.add("active");
+    }
+  });
+}
+window.addEventListener("scroll",reveal);
+
+/* YOUTUBE + LIVE */
+async function init(){
+  reveal();
+  const channelId="UCEmiGP-gPZ0WGAYlGfoXJZw";
+  const api=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
+    "https://www.youtube.com/feeds/videos.xml?channel_id="+channelId
+  )}`;
+  const res=await fetch(api);
+  const data=await res.json();
+
+  if(data.items[0].link.includes("/live")){
+    document.getElementById("live").classList.add("online");
+    document.getElementById("liveText").innerText="LIVE NOW";
+  }
+
+  document.getElementById("videoGrid").innerHTML=data.items.slice(0,12).map(v=>{
+    const id=v.guid.split(":")[2];
+    return `
+      <div class="card">
+        <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
+        <div class="info"><h3>${v.title}</h3></div>
+      </div>`;
+  }).join("");
+}
+
+/* FORM */
+document.getElementById("collabForm").addEventListener("submit",async function(e){
+  e.preventDefault();
+  const btn=this.querySelector("button");
+  const status=document.getElementById("formStatus");
+
+  btn.innerText="TRANSMITTING...";
+  btn.disabled=true;
+
+  try{
+    const res=await fetch("/api/send-email",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({
+        user_name:this.user_name.value,
+        user_email:this.user_email.value,
+        message:this.message.value
+      })
+    });
+    if(!res.ok) throw new Error();
+
+    btn.innerText="SENT";
+    status.style.display="block";
+    this.reset();
+
+    setTimeout(()=>{
+      btn.innerText="SEND PROPOSAL";
+      btn.disabled=false;
+      status.style.display="none";
+    },5000);
+  }catch{
+    btn.innerText="RETRY SIGNAL";
+    btn.disabled=false;
+  }
+});
+
+/* NAV SCROLL */
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
