@@ -23,7 +23,8 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        /* Prevent Text Selection */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
         h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
@@ -50,14 +51,10 @@
 
         .nav-right-container { display: flex; align-items: center; gap: 15px; }
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
-        .nav-links a { 
-            text-decoration: none; color: var(--text-light); font-size: 0.8rem; 
-            font-weight: 700; transition: var(--transition);
-        }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.8rem; font-weight: 700; transition: var(--transition); }
         .nav-links a:hover { color: var(--primary); }
 
         .hamburger { display: none; cursor: pointer; font-size: 1.4rem; color: var(--primary); }
-
         .nav-socials { display: flex; gap: 15px; align-items: center; }
         .social-btn { color: var(--text-gray); font-size: 1.25rem; transition: var(--transition); }
         .social-btn:hover { color: var(--primary); transform: translateY(-3px); }
@@ -77,16 +74,17 @@
             background: radial-gradient(circle at center, #0a192f 0%, #05070a 100%);
             padding: 0 20px;
         }
-        .hero-log-container { min-height: 1.5em; margin-bottom: 20px; width: 100%; }
-        #changing-log {
-            color: var(--primary); font-family: 'Syncopate'; font-weight: 700; 
-            letter-spacing: 5px; font-size: 0.65rem; display: inline-block;
-        }
-        .hero-content h1 { font-size: clamp(2rem, 8vw, 6rem); margin-bottom: 30px; line-height: 1.1; }
+        
+        /* Container for typing text to prevent jitter */
+        .hero-log-wrapper { height: 20px; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        #changing-log { color: var(--primary); font-family: 'Syncopate'; font-weight: 700; letter-spacing: 5px; font-size: 0.65rem; }
+
+        .hero-content h1 { font-size: clamp(2rem, 8vw, 6rem); margin-bottom: 30px; line-height: 1.1; width: 100%; }
         
         .hero-btns { 
-            display: flex; gap: 20px; justify-content: center; 
-            width: 100%; max-width: 600px; margin-top: 20px;
+            display: flex; flex-wrap: wrap; gap: 20px; 
+            justify-content: center; align-items: center;
+            width: 100%; max-width: 600px;
         }
 
         /* --- UI Elements --- */
@@ -100,19 +98,14 @@
         .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
 
         .btn-main { 
-            flex: 0 0 auto; /* Prevents resizing from text animation */
-            padding: 18px 30px; background: var(--primary); color: var(--bg-dark); 
+            padding: 18px 35px; background: var(--primary); color: var(--bg-dark); 
             font-weight: 700; border: none; cursor: pointer; transition: 0.3s;
             font-family: 'Syncopate'; letter-spacing: 1px; text-decoration: none;
-            display: inline-block; font-size: 0.75rem; text-align: center;
-            min-width: 220px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; text-align: center; min-width: 250px;
         }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
         .btn-main:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
-
-        /* --- Footer --- */
-        footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--glass-border); }
-        .footer-socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
 
         /* --- Mobile Responsiveness --- */
         @media (max-width: 992px) {
@@ -122,22 +115,14 @@
             }
             .nav-links.active { left: 0; }
             .hamburger { display: block; order: 3; margin-left: 10px; }
-            
-            /* Socials stay visible on mobile navbar now */
             .nav-socials { display: flex; gap: 12px; order: 2; }
-            .social-btn { font-size: 1.1rem; }
-
-            .hero-btns { flex-direction: column; align-items: center; width: 100%; gap: 15px; }
-            .btn-main { width: 100%; max-width: 300px; min-width: unset; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .btn-main { width: 90%; min-width: unset; }
             .video-grid { grid-template-columns: 1fr; }
-            .nav-right-container { gap: 10px; }
-            .live-badge { padding: 5px 10px; font-size: 0.55rem; }
         }
     </style>
 </head>
-<body>
-
-    <div id="access-gate">
+<body oncontextmenu="return false;"> <div id="access-gate">
         <p class="terminal-text" style="color: var(--primary); margin-bottom: 20px;">AUTHORIZATION REQUIRED</p>
         <input type="password" id="pass-input" maxlength="4" placeholder="••••" autofocus>
     </div>
@@ -162,8 +147,8 @@
     </nav>
 
     <section id="home">
-        <div class="hero-content reveal">
-            <div class="hero-log-container">
+        <div class="hero-content reveal" style="width: 100%;">
+            <div class="hero-log-wrapper">
                 <p id="changing-log"></p>
             </div>
             <h1>DORP <span>PLAYS</span></h1>
@@ -183,8 +168,8 @@
         <div class="contact-box reveal" style="max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 40px; border: 1px solid var(--glass-border);">
             <h2 style="text-align: center; margin-bottom: 30px;">PR & COLLABORATIONS</h2>
             <form id="collabForm">
-                <input type="text" name="user_name" placeholder="YOUR NAME" required>
-                <input type="email" name="user_email" placeholder="YOUR GMAIL" required>
+                <input type="text" name="user_name" placeholder="YOUR NAME" required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';">
+                <input type="email" name="user_email" placeholder="YOUR GMAIL" required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';">
                 <textarea name="message" rows="5" placeholder="PROPOSAL DETAILS..." required style="width:100%; padding:15px; background:#05070a; border:1px solid #1a202c; color:white; margin-bottom:20px; outline:none; font-family:'Inter';"></textarea>
                 <button type="submit" class="btn-main" id="sendBtn" style="width:100%; min-width: unset;">SEND PROPOSAL</button>
             </form>
@@ -193,15 +178,19 @@
     </section>
 
     <footer>
-        <div class="footer-socials">
-            <a href="https://www.instagram.com/dorpplays/" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
-            <a href="https://discord.com/invite/dnNk62uebn" target="_blank" class="social-btn"><i class="fab fa-discord"></i></a>
-            <a href="https://www.youtube.com/channel/UCEmiGP-gPZ0WGAYlGfoXJZw" target="_blank" class="social-btn"><i class="fab fa-youtube"></i></a>
-        </div>
-        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4;">&copy; 2026 DORP PLAYS // SECURE ACCESS GRANTED</p>
+        <p style="font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.4; text-align: center; padding: 40px 0;">&copy; 2026 DORP PLAYS // SECURE ACCESS GRANTED</p>
     </footer>
 
     <script>
+        // Security: Block Inspect Shortcut Keys
+        document.onkeydown = function(e) {
+            if(event.keyCode == 123) return false; // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Ctrl+Shift+C
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U (View Source)
+        }
+
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
 
@@ -254,15 +243,10 @@
             try {
                 const res = await fetch(api);
                 const data = await res.json();
-                
-                const firstItem = data.items[0];
-                const isRealLive = firstItem.link.includes('/live') || 
-                                 (firstItem.title.toLowerCase().includes('live now') && !firstItem.title.toLowerCase().includes('vod'));
-                
+                const isRealLive = data.items[0].link.includes('/live');
                 const badge = document.getElementById('live-indicator');
                 const text = document.getElementById('status-text');
                 if(isRealLive) { badge.classList.add('online'); text.innerText = 'LIVE NOW'; }
-
                 document.getElementById('videoGrid').innerHTML = data.items.map(v => {
                     const vId = v.guid.split(':')[2];
                     return `
@@ -270,7 +254,7 @@
                             <div class="video-thumb" style="background-image: url('https://img.youtube.com/vi/${vId}/maxresdefault.jpg')"></div>
                             <div class="video-info" style="padding: 25px;">
                                 <h3 style="font-size: 0.9rem; margin-bottom: 20px;">${v.title}</h3>
-                                <a href="${v.link}" target="_blank" class="btn-main" style="text-decoration:none; padding:10px; display:block; text-align:center; font-size:0.7rem; width:100%; min-width:unset;">WATCH NOW</a>
+                                <a href="${v.link}" target="_blank" class="btn-main" style="text-decoration:none; padding:10px; display:flex; text-align:center; font-size:0.7rem; width:100%; min-width:unset;">WATCH NOW</a>
                             </div>
                         </div>`;
                 }).join('');
