@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>DORP PLAYS | GAMER | STREAMER | CONTENT CREATOR</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,11 +16,17 @@
   --border:rgba(0,209,255,.18);
   --text:#e6edf3;
   --muted:#8b949e;
+  --success:#00ff88;
+  --danger:#ff4d4d;
 }
 
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   font-family:Inter,system-ui;
@@ -30,23 +36,39 @@ body{
   -webkit-overflow-scrolling:touch;
 }
 
-/* ================= SAFE AREA (iOS NOTCH) ================= */
-.safe{
-  padding-left:env(safe-area-inset-left);
-  padding-right:env(safe-area-inset-right);
+/* ================= CURSOR GLOW (DESKTOP ONLY) ================= */
+#cursor-glow{
+  position:fixed;
+  width:420px;height:420px;
+  background:radial-gradient(circle,rgba(0,209,255,.07),transparent 65%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:0;
+}
+@media(max-width:768px){
+  #cursor-glow{display:none}
 }
 
 /* ================= ACCESS GATE ================= */
 #access-gate{
   position:fixed;
   inset:0;
-  background:radial-gradient(circle,rgba(0,209,255,.12),transparent 60%),var(--bg);
+  background:
+    radial-gradient(circle at center,rgba(0,209,255,.12),transparent 60%),
+    var(--bg);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   z-index:10000;
   transition:transform 1s cubic-bezier(.8,0,.2,1);
+}
+#access-gate p{
+  font-family:Syncopate;
+  font-size:.65rem;
+  letter-spacing:4px;
+  margin-bottom:20px;
+  color:var(--primary);
 }
 #pass-input{
   width:260px;
@@ -58,8 +80,17 @@ body{
   font-size:1.4rem;
   letter-spacing:10px;
   text-align:center;
+  outline:none;
 }
-#pass-input.denied{border-color:#ff4d4d;color:#ff4d4d}
+#pass-input.denied{
+  border-color:var(--danger);
+  color:var(--danger);
+}
+@keyframes shake{
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+.shake{animation:shake .2s ease-in-out 2}
 
 /* ================= NAV ================= */
 nav{
@@ -80,7 +111,10 @@ nav{
 }
 nav.active{transform:none}
 
-.logo{font-family:Syncopate;letter-spacing:3px}
+.logo{
+  font-family:Syncopate;
+  letter-spacing:3px;
+}
 
 .nav-links{
   display:flex;
@@ -105,8 +139,16 @@ nav.active{transform:none}
 }
 .nav-links a.active::after{width:100%}
 
-.nav-right{display:flex;align-items:center;gap:14px}
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
 
+.nav-social{
+  display:flex;
+  gap:12px;
+}
 .nav-social a{
   width:32px;height:32px;
   border-radius:8px;
@@ -123,7 +165,7 @@ nav.active{transform:none}
   transform:translateY(-3px);
 }
 
-/* LIVE */
+/* LIVE INDICATOR */
 .live{
   display:flex;
   align-items:center;
@@ -137,12 +179,19 @@ nav.active{transform:none}
 .live.online{color:var(--primary)}
 .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 
-/* ================= MOBILE MENU ================= */
-.hamburger{display:none;color:var(--primary);cursor:pointer}
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  font-size:1.2rem;
+  color:var(--primary);
+  cursor:pointer;
+}
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:block}
 }
+
+/* MOBILE MENU */
 .mobile-menu{
   position:fixed;
   top:72px;left:0;
@@ -155,13 +204,16 @@ nav.active{transform:none}
   text-align:center;
   z-index:999;
 }
+.mobile-menu a{
+  padding:16px;
+  font-family:Syncopate;
+  font-size:.75rem;
+  letter-spacing:3px;
+}
 .mobile-menu.show{display:flex}
 
 /* ================= SECTIONS ================= */
-section{
-  position:relative;
-  z-index:1;
-}
+section,footer{position:relative;z-index:1}
 
 .panel{
   min-height:100svh;
@@ -169,39 +221,40 @@ section{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:32px;
+  gap:36px;
   opacity:0;
   transform:translateY(20px);
-  transition:.6s cubic-bezier(.22,.61,.36,1);
+  transition:
+    opacity .6s ease-out,
+    transform .6s cubic-bezier(.22,.61,.36,1);
   will-change:transform,opacity;
 }
 .panel.active{
   opacity:1;
   transform:none;
 }
-
 @media(max-width:768px){
   .panel{
-    padding:96px 16px 48px;
     min-height:auto;
+    padding:96px 16px 48px;
   }
 }
+
+.center{text-align:center}
 
 /* HERO */
 .hero-title{
   font-family:Syncopate;
-  font-size:clamp(2.4rem,8vw,5rem);
+  font-size:clamp(2.5rem,8vw,5rem);
   letter-spacing:6px;
-  text-align:center;
 }
 .hero-sub{
   font-size:.8rem;
   letter-spacing:4px;
   color:var(--muted);
-  text-align:center;
 }
 
-/* CTA */
+/* CTA BUTTONS */
 .cta{
   display:flex;
   gap:16px;
@@ -225,6 +278,28 @@ section{
 .btn:hover{
   transform:translateY(-4px);
   box-shadow:0 10px 30px rgba(0,209,255,.15);
+}
+
+/* HERO SOCIAL */
+.hero-social{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+.hero-social a{
+  width:48px;height:48px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.3rem;
+  transition:.25s;
+}
+.hero-social a:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+  transform:translateY(-4px);
 }
 
 /* ================= VIDEOS ================= */
@@ -263,6 +338,11 @@ section{
   flex-direction:column;
   flex:1;
 }
+.info h3{
+  font-size:.85rem;
+  margin-bottom:14px;
+  line-height:1.4;
+}
 .watch{
   margin-top:auto;
   padding:12px;
@@ -274,7 +354,7 @@ section{
   font-size:.65rem;
 }
 
-/* CONTACT */
+/* ================= CONTACT ================= */
 .contact{
   max-width:420px;
   margin:0 auto;
@@ -283,12 +363,24 @@ section{
   border-radius:16px;
   padding:22px;
 }
+.contact input,
+.contact textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:14px;
+  background:rgba(0,0,0,.4);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:#fff;
+  font-size:.85rem;
+}
 
 /* FOOTER */
 footer{
   padding:36px 20px;
   text-align:center;
   font-size:.6rem;
+  letter-spacing:3px;
   color:var(--muted);
 }
 
@@ -304,18 +396,24 @@ footer{
 
 <body oncontextmenu="return false">
 
+<div id="cursor-glow"></div>
+
 <!-- ACCESS GATE -->
 <div id="access-gate">
+  <p>AUTHORIZED ACCESS ONLY</p>
   <input id="pass-input" maxlength="4" placeholder="••••" autofocus>
 </div>
 
-<nav id="nav" class="safe">
+<!-- NAV -->
+<nav id="nav">
   <div class="logo">DORP <span style="color:var(--primary)">PLAYS</span></div>
+
   <div class="nav-links">
     <a href="#home">HOME</a>
     <a href="#content">CONTENT</a>
     <a href="#contact">COLLAB</a>
   </div>
+
   <div class="nav-right">
     <div class="nav-social">
       <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -335,98 +433,188 @@ footer{
   <a href="#contact" onclick="closeMenu()">COLLAB</a>
 </div>
 
-<section class="panel" id="home">
+<!-- HOME -->
+<section class="panel center" id="home">
   <h1 class="hero-title">DORP <span style="color:var(--primary)">PLAYS</span></h1>
   <div class="hero-sub">GAMER · STREAMER · CONTENT CREATOR</div>
+
   <div class="cta">
     <a class="btn primary" href="#content">CONTENT</a>
     <a class="btn" href="https://www.youtube.com/@dorpplays" target="_blank">YOUTUBE</a>
     <a class="btn" href="#contact">COLLAB</a>
   </div>
+
+  <div class="hero-social">
+    <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
+  </div>
 </section>
 
+<!-- CONTENT -->
 <section class="panel" id="content">
-  <h2 style="text-align:center;font-family:Syncopate">FEATURED UPLOADS</h2>
+  <h2 class="center" style="font-family:Syncopate;letter-spacing:4px">FEATURED UPLOADS</h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
+<!-- CONTACT -->
 <section class="panel" id="contact">
   <div class="contact">
-    <h2 style="text-align:center;font-family:Syncopate">COLLABORATIONS</h2>
+    <h2 class="center" style="font-family:Syncopate;margin-bottom:12px">COLLABORATIONS</h2>
     <form id="collabForm">
       <input name="user_name" placeholder="YOUR NAME" required>
       <input type="email" name="user_email" placeholder="YOUR EMAIL" required>
       <textarea name="message" rows="4" placeholder="PROPOSAL DETAILS..." required></textarea>
       <button class="btn primary" style="width:100%">SEND PROPOSAL</button>
     </form>
-    <div id="form-status" style="display:none;color:#00ff88;text-align:center;font-size:.7rem">
+    <div id="form-status" style="display:none;color:var(--success);text-align:center;font-size:.7rem">
       MESSAGE RECEIVED
     </div>
   </div>
 </section>
 
-<footer>© 2026 DORP PLAYS</footer>
+<footer>&copy; 2026 DORP PLAYS</footer>
 
 <script>
-/* PASSWORD */
-const PASS="1111";
-passInput.addEventListener("input",e=>{
-  if(e.target.value.length===4){
-    if(e.target.value===PASS){
-      accessGate.style.transform="translateY(-100%)";
-      document.body.style.overflow="auto";
+/* ================= DOM REFERENCES ================= */
+const passInput = document.getElementById("pass-input");
+const accessGate = document.getElementById("access-gate");
+const nav = document.getElementById("nav");
+const mobileMenu = document.getElementById("mobileMenu");
+const liveIndicator = document.getElementById("live-indicator");
+const liveText = document.getElementById("live-text");
+const videoGrid = document.getElementById("videoGrid");
+const cursorGlow = document.getElementById("cursor-glow");
+
+/* ================= CURSOR ================= */
+window.addEventListener("mousemove", e=>{
+  if(cursorGlow){
+    cursorGlow.style.left = e.clientX + "px";
+    cursorGlow.style.top = e.clientY + "px";
+  }
+});
+
+/* ================= PASSWORD ================= */
+const PASS = "1111";
+
+passInput.addEventListener("input", e=>{
+  if(e.target.value.length === 4){
+    if(e.target.value === PASS){
+      accessGate.style.transform = "translateY(-100%)";
+      document.body.style.overflow = "auto";
       nav.classList.add("active");
       init();
     }else{
-      e.target.classList.add("denied");
-      setTimeout(()=>{e.target.value="";e.target.classList.remove("denied")},600);
+      passInput.classList.add("denied","shake");
+      setTimeout(()=>{
+        passInput.value = "";
+        passInput.classList.remove("denied","shake");
+      },600);
     }
   }
 });
 
-/* MENU */
-function toggleMenu(){mobileMenu.classList.toggle("show")}
-function closeMenu(){mobileMenu.classList.remove("show")}
+/* ================= MENU ================= */
+function toggleMenu(){
+  mobileMenu.classList.toggle("show");
+}
+function closeMenu(){
+  mobileMenu.classList.remove("show");
+}
 
-/* SCROLL REVEAL + STAGGER */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("active");
-      if(e.target.id==="content"){
+/* ================= SCROLL REVEAL + NAV ================= */
+const panels = document.querySelectorAll(".panel");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+
+      navLinks.forEach(link=>{
+        link.classList.toggle(
+          "active",
+          link.getAttribute("href") === "#" + entry.target.id
+        );
+      });
+
+      if(entry.target.id === "content"){
         document.querySelectorAll(".card").forEach((c,i)=>{
-          setTimeout(()=>c.classList.add("visible"),i*80);
+          setTimeout(()=>c.classList.add("visible"), i * 80);
         });
       }
     }
   });
-},{threshold:.2});
+},{threshold:0.25});
 
-document.querySelectorAll(".panel").forEach(p=>observer.observe(p));
+panels.forEach(p=>observer.observe(p));
 
-/* INIT */
+/* ================= INIT ================= */
 async function init(){
-  const api="https://api.rss2json.com/v1/api.json?rss_url="+
-    encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=UCEmiGP-gPZ0WGAYlGfoXJZw");
-  const data=await (await fetch(api)).json();
+  const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
+  const api = "https://api.rss2json.com/v1/api.json?rss_url=" +
+    encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId);
 
-  if(data.items[0].link.includes("/live")){
-    liveIndicator.classList.add("online");
-    liveText.innerText="LIVE NOW";
+  try{
+    const res = await fetch(api);
+    const data = await res.json();
+
+    if(data.items[0].link.includes("/live")){
+      liveIndicator.classList.add("online");
+      liveText.innerText = "LIVE NOW";
+    }
+
+    videoGrid.innerHTML = data.items.slice(0,12).map(v=>{
+      const id = v.guid.split(":")[2];
+      return `
+        <div class="card">
+          <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
+          <div class="info">
+            <h3>${v.title}</h3>
+            <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
+          </div>
+        </div>`;
+    }).join("");
+  }catch(err){
+    console.error(err);
   }
-
-  videoGrid.innerHTML=data.items.slice(0,9).map(v=>{
-    const id=v.guid.split(":")[2];
-    return `
-      <div class="card">
-        <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')"></div>
-        <div class="info">
-          <h3>${v.title}</h3>
-          <a href="${v.link}" target="_blank" class="watch">WATCH NOW</a>
-        </div>
-      </div>`;
-  }).join("");
 }
+
+/* ================= FORM ================= */
+document.getElementById("collabForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+  const status = document.getElementById("form-status");
+
+  btn.innerText = "TRANSMITTING...";
+  btn.disabled = true;
+
+  try{
+    const res = await fetch("/api/send-email",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({
+        user_name:e.target.user_name.value,
+        user_email:e.target.user_email.value,
+        message:e.target.message.value
+      })
+    });
+    if(!res.ok) throw new Error();
+
+    btn.innerText = "SENT";
+    status.style.display = "block";
+    e.target.reset();
+
+    setTimeout(()=>{
+      btn.innerText = "SEND PROPOSAL";
+      btn.disabled = false;
+      status.style.display = "none";
+    },5000);
+  }catch{
+    btn.innerText = "RETRY SIGNAL";
+    btn.disabled = false;
+  }
+});
 </script>
 
 </body>
