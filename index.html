@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>DORP | Gamer · Streamer · Designer</title>
+<title>DORP | Gamer · Streamer · Creator</title>
 <meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 <link rel="icon" type="image/png" href="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 
@@ -54,33 +54,51 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* HERO & CENTERED SOCIALS */
+/* UNIFIED PREMIUM BUTTON ANIMATION */
+.btn-main { 
+    min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); 
+    color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); 
+    text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; 
+}
+.btn-main.major { background: var(--primary); color: #000; border: none; }
+
+/* SHARED HOVER STATE */
+.btn-main:hover { 
+    transform: translateY(-8px) scale(1.05); 
+    box-shadow: 0 15px 30px rgba(0, 209, 255, 0.4);
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.btn-main.major:hover { color: #000; background: #fff; box-shadow: 0 15px 35px rgba(255, 255, 255, 0.5); }
+
+/* HERO */
 section { padding: 120px 8%; position: relative; z-index: 10; }
 #home { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
 .hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; }
 .hero-sub { letter-spacing: 8px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; text-transform: uppercase; }
-.hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-.btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
-.btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
 
+.hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+
+/* SOCIAL HUB */
 .social-hub { display: flex; gap: 40px; margin-top: 20px; justify-content: center; width: 100%; }
 .social-hub a { color: white; font-size: 2.2rem; transition: var(--transition); text-decoration: none; }
-.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.1); filter: drop-shadow(0 0 10px var(--primary)); }
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 15px var(--primary)); }
+
+/* VIDEO GRID SYSTEM */
+.section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+.video-box { background: var(--glass); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
+.video-box:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+.video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; border-bottom: 1px solid var(--border); }
+.video-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
+.video-title-text { font-size: 0.9rem; font-weight: 700; margin-bottom: 25px; color: #fff; line-height: 1.6; flex-grow: 1; }
 
 /* GFX GRID */
-.section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
-.gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 10px; background-size: cover; background-position: center; transition: var(--transition); cursor: pointer; }
-.gfx-item:hover { border-color: var(--primary); transform: translateY(-5px); }
-
-/* VIDEO BOX SYSTEM */
-.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-.video-box { background: var(--glass); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
-.video-box:hover { border-color: var(--primary); transform: translateY(-5px); }
-.video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; border-bottom: 1px solid var(--border); }
-.video-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
-.video-title-text { font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; color: #fff; line-height: 1.5; flex-grow: 1; }
+.gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 12px; background-size: cover; background-position: center; transition: var(--transition); cursor: pointer; }
+.gfx-item:hover { border-color: var(--primary); transform: translateY(-10px); }
 
 /* FOOTER */
 footer { width: 100%; padding: 50px 0; background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(15px); border-top: 1px solid var(--border); display: flex; justify-content: center; align-items: center; font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
@@ -156,7 +174,6 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
-  <div class="carousel-dots" id="dotsContainer"></div>
   <div style="display:flex; justify-content:center; margin-top:60px;" class="reveal">
     <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:320px;">GET YOURS HERE</a>
   </div>
@@ -167,7 +184,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
     <h2 style="text-align:center; margin-bottom:45px;">SEND <span>MESSAGE</span></h2>
     <form id="collabForm">
       <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
-      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:15px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
+      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
       <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;"></textarea>
       <button type="submit" class="btn-main major" style="width:100%">SEND MESSAGE</button>
     </form>
@@ -246,7 +263,6 @@ async function initMedia() {
   } catch(e) { console.error(e); }
 }
 
-/* FORM */
 document.getElementById("collabForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector("button");
