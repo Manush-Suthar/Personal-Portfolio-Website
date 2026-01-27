@@ -24,6 +24,17 @@
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
+/* ================= PRE-ANIMATION STATES ================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ================= CUSTOM CURSOR GLOW ================= */
 #cursor-glow {
   position: fixed; width: 450px; height: 450px;
@@ -107,7 +118,7 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .info h3 { font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
-/* ================= CENTERED TRANSPARENT FOOTER ================= */
+/* ================= CENTERED FOOTER ================= */
 footer {
     width: 100%; padding: 40px 0; margin-top: 80px; display: flex; justify-content: center; align-items: center;
     background: rgba(13, 17, 23, 0.6); backdrop-filter: blur(10px); border-top: 1px solid var(--border);
@@ -155,7 +166,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 </nav>
 
 <section id="home">
-  <div class="hero-content">
+  <div class="hero-content reveal">
     <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.6rem; height:20px; letter-spacing:4px;"></p>
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
@@ -174,26 +185,26 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 </section>
 
 <section id="uploads">
-  <h2 style="text-align:center; margin-bottom:60px; letter-spacing:5px;">TOP <span>UPLOADS</span></h2>
+  <h2 style="text-align:center; margin-bottom:60px; letter-spacing:5px;" class="reveal">TOP <span>UPLOADS</span></h2>
   <div class="grid" id="videoGrid"></div>
 </section>
 
 <section id="gfx">
-  <h2 style="text-align:center; margin-bottom:40px; letter-spacing:5px;">DORP <span style="color:var(--primary)">GFX</span></h2>
+  <h2 style="text-align:center; margin-bottom:40px; letter-spacing:5px;" class="reveal">DORP <span style="color:var(--primary)">GFX</span></h2>
   <div class="gfx-grid">
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
-    <div class="gfx-item" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
-  <div style="display:flex; justify-content:center; margin-top:50px;">
+  <div style="display:flex; justify-content:center; margin-top:50px;" class="reveal">
     <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:300px;">GET YOURS HERE</a>
   </div>
 </section>
 
 <section id="contact">
-  <div style="max-width:550px; margin:0 auto; background:var(--glass); padding:50px; border-radius:12px; border:1px solid var(--border);">
+  <div style="max-width:550px; margin:0 auto; background:var(--glass); padding:50px; border-radius:12px; border:1px solid var(--border);" class="reveal">
     <h2 style="text-align:center; margin-bottom:40px;">SEND <span>MESSAGE</span></h2>
     <form id="collabForm">
       <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none; border-radius:4px;">
@@ -211,6 +222,23 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 </footer>
 
 <script>
+/* SCROLL REVEAL OBSERVER */
+const observerOptions = { threshold: 0.15 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      // Small staggered delay for grid items
+      setTimeout(() => {
+        entry.target.classList.add('active');
+      }, index * 100); 
+    }
+  });
+}, observerOptions);
+
+function startObserving() {
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
@@ -255,11 +283,13 @@ async function initMedia() {
     }
     document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
       const vid = v.guid.split(":")[2];
-      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
     }).join("");
+    
+    // Start observing after items are loaded
+    startObserving();
   } catch(e) {}
 }
 </script>
 </body>
 </html>
-
