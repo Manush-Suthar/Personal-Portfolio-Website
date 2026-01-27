@@ -5,12 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>DORP | Gamer · Streamer · Designer</title>
-<meta name="description" content="Official portfolio of DORP PLAYS. High-end GFX design and professional gaming content.">
-<meta property="og:title" content="DORP | Gamer · Streamer · Designer">
-<meta property="og:description" content="Explore my latest GFX work and gaming content.">
 <meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
-<meta property="og:type" content="website">
-
 <link rel="icon" type="image/png" href="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -47,11 +42,13 @@ h1, h2, .logo-text, .btn-main { font-family: 'Syncopate', sans-serif; text-trans
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* NAV */
+/* NAV FIX */
 nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 5000; }
-.nav-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-.nav-logo { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--primary); }
-.nav-links { display: flex; gap: 25px; align-items: center; }
+.nav-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+.nav-logo { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--primary); object-fit: cover; }
+.logo-text { font-size: 0.9rem; letter-spacing: 2px; color: #fff; }
+
+.nav-links { display: flex; gap: 30px; align-items: center; }
 .nav-links a { color: var(--text); text-decoration: none; font-family: 'Syncopate'; font-size: 0.65rem; letter-spacing: 2px; transition: 0.3s; opacity: 0.7; }
 .nav-links a:hover { opacity: 1; color: var(--primary); }
 
@@ -59,37 +56,41 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* SPACING FIXES */
-section { padding: 100px 8%; position: relative; z-index: 10; min-height: auto; }
-#home { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 80px; }
-.hero-content { text-align: center; width: 100%; max-width: 1100px; }
-.hero-content h1 { font-size: clamp(2.5rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1.2; }
-.hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.7rem; margin-bottom: 40px; }
+/* SPACING & LAYOUT RECOVERY */
+section { padding: 120px 8%; position: relative; z-index: 10; }
+#home { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.hero-content { width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
+.hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; }
+.hero-sub { letter-spacing: 8px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; }
 
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-.btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
+.btn-main { min-width: 260px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
-.btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* GFX & VIDEO GRIDS */
-.section-header { text-align: center; margin-bottom: 60px; letter-spacing: 5px; }
-.gfx-grid, .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 20px; }
-.gfx-item, .card { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); overflow: hidden; }
-.gfx-item:hover, .card:hover { border-color: var(--primary); transform: scale(1.02); }
+/* SOCIALS */
+.social-hub { display: flex; gap: 35px; margin-top: 15px; }
+.social-hub a { color: white; font-size: 2rem; transition: var(--transition); text-decoration: none; }
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.1); filter: drop-shadow(0 0 10px var(--primary)); }
 
-/* FOOTER */
-footer { width: 100%; padding: 40px 0; background: rgba(13, 17, 23, 0.6); backdrop-filter: blur(10px); border-top: 1px solid var(--border); font-size: 0.75rem; letter-spacing: 2px; color: var(--muted); display: flex; justify-content: center; align-items: center; }
-footer span { color: var(--text); font-weight: 700; }
-footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
+/* GRIDS FIX */
+.section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
+.item-box { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 10px; background-size: cover; background-position: center; transition: var(--transition); position: relative; cursor: pointer; }
+.item-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 209, 255, 0.15); }
+
+/* FOOTER FIX (AS PER SCREENSHOT) */
+footer { width: 100%; padding: 50px 0; background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(15px); border-top: 1px solid var(--border); display: flex; justify-content: center; align-items: center; font-family: 'Inter'; font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+footer span { color: #fff; font-weight: 700; }
+footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
 /* ACCESS GATE */
-#access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
+#access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
 
 @media(max-width: 768px) {
-    nav { padding: 0 20px; height: 60px; } .nav-links { display: none; }
-    .gfx-grid { display: flex; overflow-x: auto; padding: 10px 0; gap: 20px; scrollbar-width: none; }
-    .gfx-item { min-width: 85%; }
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    .grid-container { display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; gap: 20px; }
+    .item-box { min-width: 90%; scroll-snap-align: center; }
 }
 </style>
 </head>
@@ -99,8 +100,8 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <img src="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg" style="width:80px; border-radius:50%; margin-bottom:20px; border:1px solid var(--primary);">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">AUTHENTICATION REQUIRED</p>
+  <img src="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg" style="width:90px; height:90px; border-radius:50%; border:2px solid var(--primary); margin-bottom:25px; object-fit:cover;">
+  <p style="font-family:Syncopate; font-size:0.65rem; letter-spacing:5px; margin-bottom:25px; color:var(--primary)">RESTRICTED ACCESS</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
@@ -113,18 +114,18 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
     <a href="#home">HOME</a> <a href="#uploads">VIDEOS</a> <a href="#gfx">GFX</a> <a href="#contact">CONTACT</a>
   </div>
   <div id="live-indicator" class="live-badge">
-    <div class="dot"></div> <span id="status-text">NOT LIVE</span>
+    <div class="dot"></div> <span id="status-text">OFFLINE</span>
   </div>
 </nav>
 
 <section id="home">
   <div class="hero-content reveal">
-    <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.6rem; height:20px; margin-bottom:10px;"></p>
+    <p id="changing-log" style="color:var(--primary); font-family:Syncopate; font-size:0.65rem; height:20px; margin-bottom:15px;"></p>
     <h1>DORP <span style="color:var(--primary)">PLAYS</span></h1>
     <p class="hero-sub">GAMER | STREAMER | DESIGNER</p>
     <div class="hero-btns">
        <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main major">SUBSCRIBE</a>
-       <a href="#gfx" class="btn-main">VIEW WORK</a>
+       <a href="#gfx" class="btn-main">EXPLORE GFX</a>
     </div>
     <div class="social-hub">
         <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -135,51 +136,51 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 </section>
 
 <section id="uploads">
-  <h2 class="section-header reveal">TOP <span>UPLOADS</span></h2>
-  <div class="grid" id="videoGrid"></div>
+  <h2 class="section-header reveal">LATEST <span>UPLOADS</span></h2>
+  <div class="grid-container" id="videoGrid"></div>
 </section>
 
 <section id="gfx">
-  <h2 class="section-header reveal">DORP <span style="color:var(--primary)">GFX</span></h2>
-  <div class="gfx-grid">
-    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
-    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
-    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
-    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
-    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
+  <h2 class="section-header reveal">DESIGN <span>STUDIO</span></h2>
+  <div class="grid-container">
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
-  <div style="display:flex; justify-content:center; margin-top:50px;" class="reveal">
-    <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:300px;">GET YOURS HERE</a>
+  <div style="display:flex; justify-content:center; margin-top:60px;" class="reveal">
+    <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:320px;">GET YOURS HERE</a>
   </div>
 </section>
 
 <section id="contact">
-  <div style="max-width:550px; margin:0 auto; background:var(--glass); padding:50px; border-radius:12px; border:1px solid var(--border);" class="reveal">
-    <h2 style="text-align:center; margin-bottom:40px;">SEND <span>MESSAGE</span></h2>
+  <div style="max-width:600px; margin:0 auto; background:var(--glass); padding:60px; border-radius:15px; border:1px solid var(--border);" class="reveal">
+    <h2 style="text-align:center; margin-bottom:45px;">SEND <span>MESSAGE</span></h2>
     <form id="collabForm">
-      <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none; border-radius:4px;">
-      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none; border-radius:4px;">
-      <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none; border-radius:4px;"></textarea>
+      <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
+      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
+      <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;"></textarea>
       <button type="submit" class="btn-main major" style="width:100%">SEND MESSAGE</button>
     </form>
-    <div id="form-status" style="display:none; color:var(--primary); text-align:center; margin-top:20px; font-weight:800; font-size:0.7rem;">MESSAGE RECEIVED.</div>
+    <div id="form-status" style="display:none; color:var(--primary); text-align:center; margin-top:25px; font-weight:800; font-size:0.75rem; letter-spacing:1px;">MESSAGE TRANSMITTED SUCCESSFULLY.</div>
   </div>
 </section>
 
 <footer> © 2026 <span>DORP PLAYS</span> <span class="separator">|</span> GAMER <span class="separator">|</span> STREAMER </footer>
 
 <script>
-/* SECURITY & CORE LOGIC */
+/* SECURITY & INTERFACE */
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
 
-const observer = new IntersectionObserver((entries) => { entries.forEach((entry, index) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('active'); }, index * 100); } }); }, { threshold: 0.15 });
+const observer = new IntersectionObserver((entries) => { entries.forEach((entry, index) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('active'); }, index * 100); } }); }, { threshold: 0.1 });
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
 
-const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ASSET LOGS...", "OPTIMIZING FEED..."];
+const logs = ["ESTABLISHING SECURE CONNECTION...", "DECRYPTING ASSET LOGS...", "SYNCING LIVE FEED..."];
 let logIdx = 0; const logEl = document.getElementById('changing-log');
 async function typeLog(text) {
   for (let i = 0; i <= text.length; i++) { logEl.innerText = text.slice(0, i); await new Promise(r => setTimeout(r, 60)); }
@@ -205,7 +206,10 @@ async function initMedia() {
     const liveApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=${API_KEY}`;
     const liveRes = await fetch(liveApi);
     const liveData = await liveRes.json();
-    if(liveData.items && liveData.items.length > 0) { document.getElementById('live-indicator').classList.add('online'); document.getElementById('status-text').innerText = "LIVE NOW"; }
+    if(liveData.items && liveData.items.length > 0) { 
+        document.getElementById('live-indicator').classList.add('online'); 
+        document.getElementById('status-text').innerText = "LIVE NOW"; 
+    }
 
     const videoApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=12&order=date&type=video&key=${API_KEY}`;
     const vidRes = await fetch(videoApi);
@@ -220,7 +224,7 @@ async function initMedia() {
         bgWall.appendChild(col);
     }
     document.getElementById('videoGrid').innerHTML = vidData.items.map(v => {
-      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg')" loading="lazy"></div><div class="info"><h3>${v.snippet.title}</h3><a href="https://youtube.com/watch?v=${v.id.videoId}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+      return `<div class="item-box reveal"><div class="thumb" style="height:100%; background-size:cover; background-image:url('https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg')" loading="lazy"></div><div style="position:absolute; bottom:15px; left:15px; width:calc(100% - 30px);"><a href="https://youtube.com/watch?v=${v.id.videoId}" target="_blank" class="btn-main major" style="min-width: unset; padding: 12px; font-size: 0.65rem; border-radius:4px;">WATCH NOW</a></div></div>`;
     }).join("");
     startObserving();
   } catch(e) { console.error(e); }
