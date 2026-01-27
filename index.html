@@ -6,20 +6,19 @@
 <title>DORP | Gamer · Streamer · Designer</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --primary: #ffffff;
   --accent: #00D1FF;
   --bg: #000000;
-  --glass: rgba(22, 22, 23, 0.8);
+  --liquid-glass: rgba(22, 22, 23, 0.7); /* Official 2026 Translucency */
   --text: #f5f5f7;
   --muted: #86868b;
-  --transition: all 0.6s cubic-bezier(0.28, 0.11, 0.32, 1);
+  --apple-ease: cubic-bezier(0.28, 0.11, 0.32, 1);
 }
 
-/* APPLE RESET */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 body { 
     font-family: 'Inter', sans-serif; 
@@ -29,80 +28,88 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ================= ULTRA-THIN NAV ================= */
+/* ================= LIQUID GLASS NAV ================= */
 nav {
-  position: fixed; top: 0; width: 100%; height: 48px; 
+  position: fixed; top: 0; width: 100%; height: 52px; 
   display: flex; justify-content: center; align-items: center;
-  background: var(--glass); backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: var(--liquid-glass); 
+  backdrop-filter: saturate(180%) blur(25px); /* Liquid Glass effect */
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   z-index: 5000;
+  transition: height 0.4s var(--apple-ease);
 }
-.nav-container { width: 100%; max-width: 1000px; display: flex; justify-content: space-between; padding: 0 20px; }
-.nav-links { display: flex; gap: 30px; }
+.nav-container { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-links a { 
     color: var(--text); text-decoration: none; font-size: 12px; font-weight: 400;
     opacity: 0.8; transition: 0.3s; letter-spacing: -0.01em;
 }
 .nav-links a:hover { opacity: 1; }
 
-/* ================= APPLE HERO ================= */
-section { position: relative; z-index: 10; width: 100%; }
+/* ================= CINEMATIC HERO ================= */
 #home { 
     height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    text-align: center; background: linear-gradient(180deg, #000 0%, #111 100%);
+    text-align: center; background: radial-gradient(circle at center, #1a1a1c 0%, #000 100%);
+    padding: 0 20px;
 }
-.hero-content h1 { 
-    font-size: clamp(3rem, 12vw, 5.5rem); font-weight: 900; letter-spacing: -0.03em;
-    margin-bottom: 10px; line-height: 1.05;
+#home h1 { 
+    font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 900; letter-spacing: -0.04em;
+    margin-bottom: 12px; line-height: 1.02;
 }
-.hero-sub { font-size: 1.5rem; font-weight: 600; color: var(--text); margin-bottom: 25px; }
-.hero-links { display: flex; gap: 30px; font-size: 1.2rem; }
-.hero-links a { color: var(--accent); text-decoration: none; font-weight: 500; transition: 0.3s; }
+.hero-sub { font-size: 1.6rem; font-weight: 600; color: var(--text); margin-bottom: 30px; opacity: 0.9; }
+.hero-links { display: flex; gap: 35px; }
+.hero-links a { 
+    color: var(--accent); text-decoration: none; font-size: 1.3rem; 
+    font-weight: 500; display: flex; align-items: center; gap: 6px;
+}
 .hero-links a:hover { text-decoration: underline; }
-.hero-links a i { font-size: 0.9rem; margin-left: 5px; }
 
-/* ================= GFX SHOWCASE (APPLE STYLE) ================= */
-.gfx-showcase { 
-    display: flex; flex-direction: column; gap: 15px; padding: 15px; background: #fff;
+/* ================= PRODUCT SHOWCASE (GFX) ================= */
+.gfx-showcase { background: #fff; padding: 20px 0; display: flex; flex-direction: column; gap: 20px; }
+.product-card {
+    height: 90vh; width: 96%; max-width: 1400px; margin: 0 auto;
+    border-radius: 30px; overflow: hidden; position: relative;
+    background: #000; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-start; padding-top: 80px; text-align: center;
 }
-.gfx-card {
-    height: 600px; width: 100%; background-color: #000;
-    position: relative; overflow: hidden; display: flex; flex-direction: column;
-    align-items: center; text-align: center; padding-top: 60px;
-}
-.gfx-card h2 { font-size: 2.5rem; font-weight: 700; color: #f5f5f7; margin-bottom: 10px; }
-.gfx-card p { font-size: 1.2rem; color: #86868b; margin-bottom: 20px; }
-.gfx-img-container {
-    width: 80%; max-width: 900px; height: 100%;
+.product-card.light { background: #f5f5f7; color: #1d1d1f; }
+.product-card h2 { font-size: 3.5rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+.product-card p { font-size: 1.4rem; font-weight: 400; margin-bottom: 40px; opacity: 0.8; }
+
+.gfx-media {
+    width: 85%; height: 100%; 
     background-size: cover; background-position: center;
     border-radius: 20px 20px 0 0;
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+    transition: transform 0.8s var(--apple-ease);
 }
+.product-card:hover .gfx-media { transform: scale(1.03); }
 
-/* ================= VIDEO GRID ================= */
-#uploads { padding: 100px 5%; background: #000; }
-.section-title { font-size: 3rem; font-weight: 700; text-align: center; margin-bottom: 50px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+/* ================= SPATIAL VIDEO LOGS ================= */
+#uploads { padding: 120px 5%; background: #000; }
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+    gap: 25px; max-width: 1400px; margin: 0 auto;
+}
 .card { 
-    background: #161617; border-radius: 18px; overflow: hidden; 
-    transition: transform 0.5s ease;
+    background: #161617; border-radius: 24px; overflow: hidden; 
+    transition: transform 0.5s var(--apple-ease); position: relative;
 }
 .card:hover { transform: scale(1.02); }
-.info { padding: 30px; text-align: center; }
-.info h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; height: 50px; overflow: hidden; }
-
-/* FOOTER */
-footer { padding: 60px 0; text-align: center; font-size: 12px; color: var(--muted); background: #000; }
-
-/* MOBILE */
-@media(max-width: 768px) {
-    .nav-links { display: none; }
-    .gfx-card { height: 500px; }
-    .hero-content h1 { font-size: 3.5rem; }
-}
+.card-info { padding: 35px; }
+.card-info h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; line-height: 1.3; }
 
 /* ACCESS GATE */
-#access-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
-#pass-input { width: 200px; padding: 15px; background: transparent; border-bottom: 2px solid #fff; color: #fff; font-size: 2rem; text-align: center; outline: none; border-top:none; border-left:none; border-right:none; }
+#access-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#pass-input { width: 220px; padding: 15px; background: transparent; border-bottom: 2px solid #fff; color: #fff; font-size: 2.2rem; text-align: center; outline: none; border-top:none; border-left:none; border-right:none; font-family: 'Inter'; font-weight: 700; }
+
+@media(max-width: 768px) {
+    .nav-links { display: none; }
+    .product-card { height: 70vh; border-radius: 20px; }
+    .product-card h2 { font-size: 2.2rem; }
+    .grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -113,51 +120,45 @@ footer { padding: 60px 0; text-align: center; font-size: 12px; color: var(--mute
 
 <nav id="nav" style="display: none;">
   <div class="nav-container">
-    <div class="logo" style="font-weight:900; letter-spacing:-1px;">DORP</div>
+    <div class="logo" style="font-weight:900; font-size:18px;">DORP</div>
     <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#gfx">Design</a>
         <a href="#uploads">Video</a>
         <a href="#contact">Contact</a>
     </div>
-    <div class="nav-right" style="font-size:12px; color:var(--accent);">Live</div>
+    <div class="nav-right" style="font-size:12px; font-weight:600; color:var(--accent);">
+        <i class="fas fa-circle" style="font-size:8px; margin-right:5px;"></i> LIVE
+    </div>
   </div>
 </nav>
 
 <section id="home">
-  <div class="hero-content">
-    <h1 id="hero-title">Creative.</h1>
-    <p class="hero-sub">Pro Gaming & High-End Design.</p>
-    <div class="hero-links">
-        <a href="#gfx">View Work <i class="fas fa-chevron-right"></i></a>
-        <a href="https://www.youtube.com/@dorpplays">Subscribe <i class="fas fa-chevron-right"></i></a>
-    </div>
+  <h1>Pro Content.</h1>
+  <p class="hero-sub">The future of gaming and design integration.</p>
+  <div class="hero-links">
+      <a href="#gfx">View the work <i class="fas fa-chevron-right" style="font-size:0.8rem;"></i></a>
+      <a href="https://www.youtube.com/@dorpplays">Join the feed <i class="fas fa-chevron-right" style="font-size:0.8rem;"></i></a>
   </div>
 </section>
 
 <section id="gfx" class="gfx-showcase">
-  <div class="gfx-card" style="background-color:#000;">
-    <h2>Dorp GFX</h2>
-    <p>Visual excellence for creators.</p>
-    <div class="gfx-img-container" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
+  <div class="product-card">
+    <h2>Thumbnail Mastery.</h2>
+    <p>High-conversion visuals for the world's top creators.</p>
+    <div class="gfx-media" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
   </div>
-  <div class="gfx-card" style="background-color:#f5f5f7;">
-    <h2 style="color:#000;">Ayakashi</h2>
-    <p>Premium branding solutions.</p>
-    <div class="gfx-img-container" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
+  
+  <div class="product-card light">
+    <h2>Ayakashi Identity.</h2>
+    <p>Premium branding that defines the elite experience.</p>
+    <div class="gfx-media" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
   </div>
 </section>
 
 <section id="uploads">
-    <h2 class="section-title">Video Logs.</h2>
     <div class="grid" id="videoGrid"></div>
 </section>
-
-<footer>
-    <div style="max-width:1000px; margin:0 auto; padding: 0 20px; border-top: 1px solid #424245; padding-top:20px;">
-        Copyright © 2026 DORP PLAYS. All rights reserved.
-    </div>
-</footer>
 
 <script>
 document.getElementById('pass-input').addEventListener('input', e => {
@@ -174,9 +175,9 @@ async function initMedia() {
   try {
     const res = await fetch(api);
     const data = await res.json();
-    document.getElementById('videoGrid').innerHTML = data.items.slice(0,4).map(v => {
+    document.getElementById('videoGrid').innerHTML = data.items.slice(0,6).map(v => {
       const vid = v.guid.split(":")[2];
-      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:500;">Watch now <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i></a></div></div>`;
+      return `<div class="card"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="card-info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:600; font-size:1.1rem; display:flex; align-items:center; gap:5px;">Watch now <i class="fas fa-chevron-right" style="font-size:0.75rem;"></i></a></div></div>`;
     }).join("");
   } catch(e) {}
 }
