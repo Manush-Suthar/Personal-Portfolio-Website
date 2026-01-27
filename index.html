@@ -5,11 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>DORP | Gamer · Streamer · Designer</title>
-<meta name="description" content="Official portfolio of DORP PLAYS. High-end GFX design and professional gaming content.">
-<meta property="og:title" content="DORP | Gamer · Streamer · Designer">
-<meta property="og:description" content="Explore my latest GFX work and gaming content.">
 <meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
-<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -25,7 +22,7 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* LIVE MODE OVERRIDES */
+/* LIVE MODE THEME OVERRIDES */
 body.live-mode {
   --primary: #FF0000;
   --bg: #000000;
@@ -35,7 +32,7 @@ body.live-mode {
 /* RESET & SECURITY */
 * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
 input, textarea { -webkit-user-select: text; user-select: text; }
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 1s ease; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.8s ease; }
 h1, h2, .logo-text, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
 /* CINEMA REVEAL */
@@ -64,7 +61,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* UNIFIED PREMIUM BUTTONS */
+/* PREMIUM BUTTON ANIMATIONS */
 .btn-main { 
     min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); 
     color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); 
@@ -74,15 +71,15 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .btn-main.major { background: var(--primary); color: #000; border: none; }
 .btn-main.major:hover { color: #000; background: #fff; box-shadow: 0 15px 35px rgba(255, 255, 255, 0.5); }
 
-/* SPECIAL LIVE BUTTON */
-#watch-live-btn { display: none; background: #FF0000; color: #fff; border: none; animation: pulse-red 2s infinite; margin-bottom: 20px; width: 100%; max-width: 540px; }
+/* LIVE ALERT BUTTON */
+#watch-live-btn { display: none; background: #FF0000; color: #fff; animation: pulse-red 2s infinite; margin-bottom: 25px; width: 100%; max-width: 540px; }
 @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
 
-/* HERO */
+/* LAYOUT */
 section { padding: 120px 8%; position: relative; z-index: 10; }
 #home { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
-.hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; transition: color 0.5s ease; }
+.hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; }
 .hero-sub { letter-spacing: 8px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; text-transform: uppercase; }
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 
@@ -91,9 +88,13 @@ section { padding: 120px 8%; position: relative; z-index: 10; }
 .social-hub a { color: white; font-size: 2.2rem; transition: var(--transition); text-decoration: none; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 15px var(--primary)); }
 
-/* VIDEO BOX SYSTEM */
+/* GRIDS */
 .section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
-.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; }
+.item-box { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 12px; background-size: cover; background-position: center; transition: var(--transition); cursor: pointer; overflow: hidden; }
+.item-box:hover { border-color: var(--primary); transform: translateY(-10px); }
+
+/* VIDEO BOX */
 .video-box { background: var(--glass); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
 .video-box:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
 .video-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; border-bottom: 1px solid var(--border); }
@@ -109,7 +110,11 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; border-radius: 12px; outline: none; }
 
-@media(max-width: 768px) { nav { padding: 0 20px; } .nav-links { display: none; } }
+@media(max-width: 768px) {
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    .grid-container { display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; gap: 20px; scrollbar-width: none; }
+    .item-box { min-width: 90%; scroll-snap-align: center; }
+}
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -127,7 +132,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
     <div class="logo-text">DORP <span style="color:var(--primary)">PLAYS</span></div>
   </div>
   <div class="nav-links">
-    <a href="#home">HOME</a> <a href="#uploads">VIDEOS</a> <a href="#contact">CONTACT</a>
+    <a href="#home">HOME</a> <a href="#uploads">VIDEOS</a> <a href="#gfx">GFX</a> <a href="#contact">CONTACT</a>
   </div>
   <div id="live-indicator" class="live-badge">
     <div class="dot"></div> <span id="status-text">OFFLINE</span>
@@ -145,6 +150,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
     <div class="hero-btns">
        <a href="https://www.youtube.com/@dorpplays?sub_confirmation=1" target="_blank" class="btn-main major">SUBSCRIBE</a>
        <a href="#uploads" class="btn-main">SHOW CONTENT</a>
+       <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
     <div class="social-hub">
@@ -157,7 +163,34 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
 <section id="uploads">
   <h2 class="section-header reveal">LATEST <span>UPLOADS</span></h2>
-  <div class="video-grid" id="videoGrid"></div>
+  <div class="grid-container" id="videoGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px;"></div>
+</section>
+
+<section id="gfx">
+  <h2 class="section-header reveal">DESIGN <span>STUDIO</span></h2>
+  <div class="grid-container">
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
+    <div class="item-box reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
+  </div>
+  <div style="display:flex; justify-content:center; margin-top:60px;" class="reveal">
+    <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:320px;">GET YOURS HERE</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div style="max-width:600px; margin:0 auto; background:var(--glass); padding:60px; border-radius:15px; border:1px solid var(--border);" class="reveal">
+    <h2 style="text-align:center; margin-bottom:45px;">SEND <span>MESSAGE</span></h2>
+    <form id="collabForm">
+      <input type="text" name="user_name" placeholder="NAME" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
+      <input type="email" name="user_email" placeholder="EMAIL" required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;">
+      <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:18px; background:rgba(0,0,0,0.4); border:1px solid var(--border); color:white; margin-bottom:25px; outline:none; border-radius:6px;"></textarea>
+      <button type="submit" class="btn-main major" style="width:100%">SEND MESSAGE</button>
+    </form>
+    <div id="form-status" style="display:none; color:var(--primary); text-align:center; margin-top:25px; font-weight:800; font-size:0.75rem;">MESSAGE RECEIVED.</div>
+  </div>
 </section>
 
 <footer> © 2026 <span>DORP PLAYS</span> <span class="separator">|</span> GAMER <span class="separator">|</span> STREAMER </footer>
@@ -193,18 +226,17 @@ document.getElementById('pass-input').addEventListener('input', e => {
   }
 });
 
-/* LIVE-REACTIVE API LOGIC */
+/* LIVE-REACTIVE API */
 async function initMedia() {
   const API_KEY = "AIzaSyC8DcTMbRZJyxs-nocj7zhIydV62D2uSM4"; 
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
   try {
-    // 1. CHECK LIVE STATUS
     const liveApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=${API_KEY}`;
     const liveRes = await fetch(liveApi);
     const liveData = await liveRes.json();
     
     if(liveData.items && liveData.items.length > 0) { 
-        // ACTIVATE RED ALERT THEME
+        // TRIGGER LIVE THEME
         document.body.classList.add('live-mode');
         document.getElementById('live-indicator').classList.add('online'); 
         document.getElementById('status-text').innerText = "LIVE NOW"; 
@@ -212,7 +244,6 @@ async function initMedia() {
         logEl.innerText = "CRITICAL: LIVE STREAM DETECTED...";
     }
 
-    // 2. FETCH CONTENT
     const videoApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=12&order=date&type=video&key=${API_KEY}`;
     const vidRes = await fetch(videoApi);
     const vidData = await vidRes.json();
@@ -240,9 +271,18 @@ async function initMedia() {
     startObserving();
   } catch(e) { console.error(e); }
 }
-  
+
+/* FORM */
+document.getElementById("collabForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+  const status = document.getElementById('form-status');
+  btn.innerText = "TRANSMITTING...";
+  try {
+    const res = await fetch("/api/send-email", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ user_name: e.target.user_name.value, user_email: e.target.user_email.value, message: e.target.message.value }) });
+    if(res.ok) { btn.innerText = "SENT"; status.style.display = "block"; e.target.reset(); }
+  } catch (err) { btn.innerText = "RETRY"; }
+});
 </script>
 </body>
 </html>
-
-
