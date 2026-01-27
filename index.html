@@ -19,24 +19,20 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET & SELECTION DISABLE (SECURITY) */
+/* RESET & SECURITY */
 * { 
     margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; 
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -webkit-user-select: none; user-select: none;
 }
-
-input, textarea { -webkit-user-select: text; -ms-user-select: text; user-select: text; }
-
+input, textarea { -webkit-user-select: text; user-select: text; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
 
-/* ================= CINEMA REVEAL ================= */
+/* CINEMA REVEAL */
 .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
-/* ================= CURSOR GLOW ================= */
+/* CURSOR GLOW */
 #cursor-glow {
   position: fixed; width: 450px; height: 450px;
   background: radial-gradient(circle, rgba(0, 209, 255, 0.07) 0%, transparent 70%);
@@ -44,7 +40,7 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
   transform: translate(-50%, -50%);
 }
 
-/* ================= BACKGROUND WALL ================= */
+/* BG WALL */
 #media-bg {
   position: fixed; inset: 0; z-index: 0;
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
@@ -55,25 +51,21 @@ h1, h2, .logo, .btn-main { font-family: 'Syncopate', sans-serif; text-transform:
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* ================= NAVIGATION ================= */
+/* NAV */
 nav {
   position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
   padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
   z-index: 5000;
 }
 .nav-links { display: flex; gap: 25px; align-items: center; }
-.nav-links a { 
-    color: var(--text); text-decoration: none; font-family: 'Syncopate'; font-size: 0.65rem; 
-    letter-spacing: 2px; transition: 0.3s; opacity: 0.7;
-    line-height: 1; padding: 5px 0;
-}
+.nav-links a { color: var(--text); text-decoration: none; font-family: 'Syncopate'; font-size: 0.65rem; letter-spacing: 2px; transition: 0.3s; opacity: 0.7; }
 .nav-links a:hover { opacity: 1; color: var(--primary); }
 
 .live-badge { display: flex; align-items: center; gap: 8px; font-size: 0.65rem; font-weight: 900; border: 1px solid var(--border); padding: 8px 15px; border-radius: 30px; line-height: 1; }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* ================= HERO SECTION ================= */
+/* HERO */
 section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 100vh; }
 #home { display: flex; align-items: center; justify-content: center; padding-top: 80px; }
 .hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
@@ -83,32 +75,24 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 .btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
-.btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* ================= SOCIAL HUB (ANIMATION RESTORED) ================= */
+/* SOCIALS */
 .social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
-.social-hub a { 
-    color: white; font-size: 2rem; transition: var(--transition); 
-    display: inline-block; text-decoration: none;
-}
-.social-hub a:hover { 
-    color: var(--primary); 
-    transform: translateY(-8px) scale(1.15); 
-    filter: drop-shadow(0 0 12px var(--primary)); 
-}
+.social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; text-decoration: none; }
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.15); filter: drop-shadow(0 0 12px var(--primary)); }
 
-/* ================= GFX GRID ================= */
+/* GFX CAROUSEL */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; margin-top: 40px; }
-.gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); }
+.gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); flex-shrink: 0; }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.02); }
 
-/* ================= VIDEO GRID ================= */
+/* VIDEOS */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 .card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .info h3 { font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 footer { width: 100%; padding: 40px 0; margin-top: 80px; display: flex; justify-content: center; align-items: center; background: rgba(13, 17, 23, 0.6); backdrop-filter: blur(10px); border-top: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; position: relative; z-index: 10; }
 footer span { color: var(--text); font-weight: 700; }
 footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
@@ -117,7 +101,16 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
 
-@media(max-width: 768px) { nav { padding: 0 20px; height: 60px; } .nav-links { display: none; } section { padding: 100px 5% 60px; } .hero-btns { flex-direction: column; width: 100%; align-items: center; } .btn-main { width: 100%; max-width: 320px; } .gfx-grid { grid-template-columns: 1fr; } }
+@media(max-width: 768px) { 
+    nav { padding: 0 20px; height: 60px; } 
+    .nav-links { display: none; } 
+    section { padding: 100px 5% 60px; } 
+    .hero-btns { flex-direction: column; width: 100%; align-items: center; } 
+    .btn-main { width: 100%; max-width: 320px; } 
+    .gfx-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; scrollbar-width: none; }
+    .gfx-grid::-webkit-scrollbar { display: none; }
+    .gfx-item { min-width: 85%; scroll-snap-align: center; }
+}
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -133,10 +126,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 <nav id="nav" style="display: none;">
   <div class="logo" onclick="window.scrollTo(0,0)" style="cursor:pointer;">DORP <span style="color:var(--primary)">PLAYS</span></div>
   <div class="nav-links">
-    <a href="#home">HOME</a>
-    <a href="#uploads">VIDEOS</a>
-    <a href="#gfx">GFX</a>
-    <a href="#contact">CONTACT</a>
+    <a href="#home">HOME</a> <a href="#uploads">VIDEOS</a> <a href="#gfx">GFX</a> <a href="#contact">CONTACT</a>
   </div>
   <div id="live-indicator" class="live-badge">
     <div class="dot"></div> <span id="status-text">NOT LIVE</span>
@@ -190,29 +180,29 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
       <textarea name="message" rows="5" placeholder="PROPOSAL..." required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid var(--border); color:white; margin-bottom:20px; outline:none; border-radius:4px;"></textarea>
       <button type="submit" class="btn-main major" style="width:100%">SEND MESSAGE</button>
     </form>
+    <div id="form-status" style="display:none; color:var(--primary); text-align:center; margin-top:20px; font-weight:800; font-size:0.7rem;">MESSAGE RECEIVED.</div>
   </div>
 </section>
 
 <footer> © 2026 <span>DORP PLAYS</span> <span class="separator">|</span> GAMER <span class="separator">|</span> STREAMER </footer>
 
 <script>
-/* ================= SECURITY SCRIPT ================= */
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.onkeydown = function(e) {
-  if (e.keyCode == 123) { return false; } 
-  if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) { return false; } 
-  if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } 
+/* SECURITY */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = e => {
+  if (e.keyCode == 123) return false;
+  if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+  if (e.ctrlKey && e.keyCode == 85) return false;
 };
 
-/* ================= REVEAL & CORE LOGIC ================= */
-const observerOptions = { threshold: 0.15 };
+/* REVEAL LOGIC */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
       setTimeout(() => { entry.target.classList.add('active'); }, index * 100); 
     }
   });
-}, observerOptions);
+}, { threshold: 0.15 });
 
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
@@ -262,6 +252,33 @@ async function initMedia() {
     startObserving();
   } catch(e) {}
 }
+
+/* ================= VERCEL FORM LOGIC FIXED ================= */
+document.getElementById("collabForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+  const status = document.getElementById('form-status');
+  btn.innerText = "TRANSMITTING...";
+  
+  try {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ 
+        user_name: e.target.user_name.value, 
+        user_email: e.target.user_email.value, 
+        message: e.target.message.value 
+      })
+    });
+    if(res.ok) {
+      btn.innerText = "SENT";
+      status.style.display = "block";
+      e.target.reset();
+    }
+  } catch (err) { 
+    btn.innerText = "RETRY"; 
+  }
+});
 </script>
 </body>
 </html>
