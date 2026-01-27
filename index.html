@@ -53,14 +53,13 @@ nav {
 .nav-links a { 
     color: var(--text); text-decoration: none; font-family: 'Syncopate'; font-size: 0.65rem; 
     letter-spacing: 2px; transition: 0.3s; opacity: 0.7;
-    line-height: 1; padding: 5px 0; /* Vertical Centering */
+    line-height: 1; padding: 5px 0;
 }
 .nav-links a:hover { opacity: 1; color: var(--primary); }
 
 .live-badge {
   display: flex; align-items: center; gap: 8px; font-size: 0.65rem; font-weight: 900;
-  border: 1px solid var(--border); padding: 8px 15px; border-radius: 30px;
-  line-height: 1;
+  border: 1px solid var(--border); padding: 8px 15px; border-radius: 30px; line-height: 1;
 }
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
@@ -72,19 +71,28 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 .hero-content h1 { font-size: clamp(2.5rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1.2; }
 .hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.7rem; margin-bottom: 40px; }
 
-/* FIXED BUTTONS FONT & PADDING */
+/* BUTTONS */
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 .btn-main {
-  min-width: 240px; 
-  padding: 22px 40px; /* Increased vertical padding */
-  background: transparent; border: 1px solid var(--primary);
+  min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary);
   color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition);
   text-decoration: none; display: flex; align-items: center; justify-content: center; 
-  font-size: 0.75rem;
-  line-height: 1; /* Fixes text touching borders */
+  font-size: 0.75rem; line-height: 1;
 }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
 .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
+
+/* ================= SOCIAL HUB (ANIMATED) ================= */
+.social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
+.social-hub a { 
+    color: white; font-size: 2rem; transition: var(--transition); 
+    display: inline-block; text-decoration: none;
+}
+.social-hub a:hover { 
+    color: var(--primary); 
+    transform: translateY(-8px) scale(1.15); 
+    filter: drop-shadow(0 0 12px var(--primary)); 
+}
 
 /* ================= GFX GRID ================= */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; margin-top: 40px; }
@@ -96,7 +104,7 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 
 /* ================= VIDEO GRID ================= */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
 .info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .info h3 { font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
@@ -106,7 +114,7 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
     .nav-links { display: none; }
     section { padding: 100px 5% 60px; }
     .hero-btns { flex-direction: column; width: 100%; align-items: center; }
-    .btn-main { width: 100%; max-width: 320px; padding: 20px 30px; }
+    .btn-main { width: 100%; max-width: 320px; }
     .gfx-grid { grid-template-columns: 1fr; }
 }
 
@@ -149,10 +157,10 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
        <a href="#gfx" class="btn-main">GFX STUDIO</a>
        <a href="#contact" class="btn-main">COLLABORATE</a>
     </div>
-    <div style="display:flex; gap:30px; margin-top:10px;">
-        <a href="https://www.instagram.com/dorpplays/" target="_blank" style="color:white; font-size:1.8rem;"><i class="fab fa-instagram"></i></a>
-        <a href="https://discord.com/invite/dnNk62uebn" target="_blank" style="color:white; font-size:1.8rem;"><i class="fab fa-discord"></i></a>
-        <a href="https://x.com/manush_787" target="_blank" style="color:white; font-size:1.8rem;"><i class="fab fa-x-twitter"></i></a>
+    <div class="social-hub">
+        <a href="https://www.instagram.com/dorpplays/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.com/invite/dnNk62uebn" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="https://x.com/manush_787" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
   </div>
 </section>
@@ -242,24 +250,6 @@ async function initMedia() {
     }).join("");
   } catch(e) {}
 }
-
-document.getElementById("collabForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const btn = e.target.querySelector("button");
-  btn.innerText = "TRANSMITTING...";
-  try {
-    const res = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ user_name: e.target.user_name.value, user_email: e.target.user_email.value, message: e.target.message.value })
-    });
-    if(res.ok) {
-      btn.innerText = "SENT";
-      document.getElementById('form-status').style.display = "block";
-      e.target.reset();
-    }
-  } catch (err) { btn.innerText = "RETRY"; }
-});
 </script>
 </body>
 </html>
