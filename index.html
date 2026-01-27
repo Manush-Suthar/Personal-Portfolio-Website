@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>DORP | Gamer · Streamer · Designer</title>
-<meta property="og:image" content="https://i.ibb.co/DPWwvyrg/DSC06176.jpg">
-
-<link rel="icon" type="image/jpg" href="https://i.ibb.co/DPWwvyrg/DSC06176.jpg">
-<link rel="apple-touch-icon" href="https://i.ibb.co/DPWwvyrg/DSC06176.jpg">
+<meta name="description" content="Official portfolio of DORP PLAYS. High-end GFX design and professional gaming content.">
+<meta property="og:title" content="DORP | Gamer · Streamer · Designer">
+<meta property="og:description" content="Explore my latest GFX work and gaming content.">
+<meta property="og:type" content="website">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -44,10 +44,10 @@ h1, h2, .logo-text, .btn-main { font-family: 'Syncopate', sans-serif; text-trans
 @keyframes scrollDown { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .bg-thumb { width: 100%; aspect-ratio: 16/9; background-size: cover; border: 1px solid var(--border); border-radius: 4px; }
 
-/* NAV LOGO CENTERING */
+/* NAV */
 nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 5000; }
 .nav-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
-.nav-logo { width: 42px; height: 52px; border-radius: 50%; border: 1.5px solid var(--primary); object-fit: cover; object-position: center; }
+.nav-logo { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--primary); object-fit: cover; object-position: center; background: rgba(255,255,255,0.05); }
 .logo-text { font-size: 0.9rem; letter-spacing: 2px; color: #fff; }
 
 .nav-links { display: flex; gap: 30px; align-items: center; }
@@ -58,18 +58,14 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* PREMIUM BUTTON ANIMATION */
+/* UNIFIED PREMIUM BUTTON ANIMATION */
 .btn-main { 
     min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); 
     color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); 
     text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; 
 }
+.btn-main:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.4); color: #fff; background: var(--primary); border-color: var(--primary); }
 .btn-main.major { background: var(--primary); color: #000; border: none; }
-.btn-main:hover { 
-    transform: translateY(-8px) scale(1.05); 
-    box-shadow: 0 15px 30px rgba(0, 209, 255, 0.4);
-    color: #fff; background: var(--primary); border-color: var(--primary);
-}
 .btn-main.major:hover { color: #000; background: #fff; box-shadow: 0 15px 35px rgba(255, 255, 255, 0.5); }
 
 /* HERO */
@@ -78,15 +74,14 @@ section { padding: 120px 8%; position: relative; z-index: 10; }
 .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
 .hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; }
 .hero-sub { letter-spacing: 8px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; text-transform: uppercase; }
-
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 
-/* SOCIALS */
+/* SOCIAL HUB */
 .social-hub { display: flex; gap: 40px; margin-top: 20px; justify-content: center; width: 100%; }
 .social-hub a { color: white; font-size: 2.2rem; transition: var(--transition); text-decoration: none; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 15px var(--primary)); }
 
-/* VIDEO BOX */
+/* VIDEO GRID SYSTEM */
 .section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
 .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
 .video-box { background: var(--glass); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
@@ -95,17 +90,26 @@ section { padding: 120px 8%; position: relative; z-index: 10; }
 .video-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
 .video-title-text { font-size: 0.9rem; font-weight: 700; margin-bottom: 25px; color: #fff; line-height: 1.6; flex-grow: 1; }
 
+/* GFX GRID */
+.gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
+.gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 12px; background-size: cover; background-position: center; transition: var(--transition); cursor: pointer; }
+.gfx-item:hover { border-color: var(--primary); transform: translateY(-10px); }
+
 /* FOOTER */
 footer { width: 100%; padding: 50px 0; background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(15px); border-top: 1px solid var(--border); display: flex; justify-content: center; align-items: center; font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
 footer span { color: #fff; font-weight: 700; }
 footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
-/* ACCESS GATE LOGO */
+/* ACCESS GATE */
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.gate-logo { width: 95px; height: 105px; border-radius: 50%; border: 2.5px solid var(--primary); margin-bottom: 30px; object-fit: cover; object-position: center; box-shadow: 0 0 20px rgba(0, 209, 255, 0.2); }
-#pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
+.gate-logo-box { width: 95px; height: 95px; border-radius: 50%; border: 2.5px solid var(--primary); margin-bottom: 30px; object-fit: cover; object-position: center; background: rgba(255,255,255,0.05); }
+#pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; border-radius: 12px; outline: none; }
 
-@media(max-width: 768px) { nav { padding: 0 20px; } .nav-links { display: none; } }
+@media(max-width: 768px) {
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    .gfx-grid { display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; gap: 20px; scrollbar-width: none; }
+    .gfx-item { min-width: 90%; scroll-snap-align: center; }
+}
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -114,14 +118,14 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <img src="https://i.ibb.co/DPWwvyrg/DSC06176.jpg" class="gate-logo">
+  <div class="gate-logo-box"></div>
   <p style="font-family:Syncopate; font-size:0.65rem; letter-spacing:5px; margin-bottom:25px; color:var(--primary)">SECURE LOGIN</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
 <nav id="nav" style="display: none;">
   <div class="nav-brand" onclick="window.scrollTo(0,0)">
-    <img src="https://i.ibb.co/DPWwvyrg/DSC06176.jpg" class="nav-logo">
+    <div class="nav-logo"></div>
     <div class="logo-text">DORP <span style="color:var(--primary)">PLAYS</span></div>
   </div>
   <div class="nav-links">
@@ -158,12 +162,12 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
 <section id="gfx">
   <h2 class="section-header reveal">DESIGN <span>STUDIO</span></h2>
-  <div class="grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:35px;">
-    <div class="reveal" style="aspect-ratio:16/9; border:1px solid var(--border); border-radius:12px; background-size:cover; background-position:center; transition:var(--transition); background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
-    <div class="reveal" style="aspect-ratio:16/9; border:1px solid var(--border); border-radius:12px; background-size:cover; background-position:center; transition:var(--transition); background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
-    <div class="reveal" style="aspect-ratio:16/9; border:1px solid var(--border); border-radius:12px; background-size:cover; background-position:center; transition:var(--transition); background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
-    <div class="reveal" style="aspect-ratio:16/9; border:1px solid var(--border); border-radius:12px; background-size:cover; background-position:center; transition:var(--transition); background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
-    <div class="reveal" style="aspect-ratio:16/9; border:1px solid var(--border); border-radius:12px; background-size:cover; background-position:center; transition:var(--transition); background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
+  <div class="gfx-grid">
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
+    <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
   <div style="display:flex; justify-content:center; margin-top:60px;" class="reveal">
     <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:320px;">GET YOURS HERE</a>
@@ -190,7 +194,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
 
-/* INTERFACE & REVEAL */
+/* REVEAL */
 const observer = new IntersectionObserver((entries) => { entries.forEach((entry, index) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('active'); }, index * 100); } }); }, { threshold: 0.1 });
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
@@ -267,4 +271,3 @@ document.getElementById("collabForm").addEventListener("submit", async (e) => {
 </script>
 </body>
 </html>
-
