@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DORP | Gamer · Streamer · Creator</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>DORP | Gamer · Streamer · Designer</title>
+<meta name="description" content="Official portfolio of DORP PLAYS. High-end GFX design and professional gaming content.">
+<meta property="og:title" content="DORP | Gamer · Streamer · Designer">
+<meta property="og:description" content="Explore my latest GFX work and gaming content.">
+<meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg"> <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
@@ -65,57 +71,35 @@ nav {
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* HERO */
-section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 100vh; }
-#home { display: flex; align-items: center; justify-content: center; padding-top: 80px; }
-.hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
-.hero-content h1 { font-size: clamp(2.5rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1.2; }
-.hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.7rem; margin-bottom: 40px; }
-
-.hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-.btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
-.btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
-
-/* SOCIAL HUB */
-.social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
-.social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; text-decoration: none; }
-.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.15); filter: drop-shadow(0 0 12px var(--primary)); }
-
-/* GFX GRID */
+/* GFX GRID (LAZY LOADING APPLIED IN HTML) */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; margin-top: 40px; }
 .gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); flex-shrink: 0; }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.02); }
-
-.carousel-dots { display: none; justify-content: center; gap: 10px; margin-top: 25px; }
-.c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: 0.3s; }
-.c-dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); width: 20px; border-radius: 10px; }
-
-/* VIDEOS */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
-.info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-.info h3 { font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 
 /* FOOTER */
 footer { width: 100%; padding: 40px 0; margin-top: 80px; display: flex; justify-content: center; align-items: center; background: rgba(13, 17, 23, 0.6); backdrop-filter: blur(10px); border-top: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; position: relative; z-index: 10; }
 footer span { color: var(--text); font-weight: 700; }
 footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 
-/* ACCESS GATE */
+/* ... remaining hero, video cards, access gate, and media-query CSS ... */
+#home { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 80px; }
+.hero-content { text-align: center; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; }
+.hero-content h1 { font-size: clamp(2.5rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1.2; }
+.hero-sub { letter-spacing: 7px; color: var(--muted); font-size: 0.7rem; margin-bottom: 40px; }
+.hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
+.btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
+.btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
+.social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
+.social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; text-decoration: none; }
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.15); filter: drop-shadow(0 0 12px var(--primary)); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.card { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
+.info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+.info h3 { font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; color: var(--text); }
 #access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
 #pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; outline: none; border-radius: 12px; }
-
-@media(max-width: 768px) { 
-    nav { padding: 0 20px; height: 60px; } 
-    .nav-links { display: none; } 
-    section { padding: 100px 5% 60px; } 
-    .hero-btns { flex-direction: column; width: 100%; align-items: center; } 
-    .btn-main { width: 100%; max-width: 320px; } 
-    .gfx-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; scrollbar-width: none; }
-    .gfx-grid::-webkit-scrollbar { display: none; }
-    .gfx-item { min-width: 85%; scroll-snap-align: center; }
-    .carousel-dots { display: flex; }
-}
+@media(max-width: 768px) { nav { padding: 0 20px; height: 60px; } .nav-links { display: none; } section { padding: 100px 5% 60px; } .hero-btns { flex-direction: column; width: 100%; align-items: center; } .btn-main { width: 100%; max-width: 320px; } .gfx-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; scrollbar-width: none; } .gfx-grid::-webkit-scrollbar { display: none; } .gfx-item { min-width: 85%; scroll-snap-align: center; } .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 25px; } .c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: 0.3s; } .c-dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); width: 20px; border-radius: 10px; } }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -124,7 +108,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 <div id="media-bg"></div>
 
 <div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">ENTER MEMBERS EXCLUSIVE CODE</p>
+  <p style="font-family:Syncopate; font-size:0.6rem; letter-spacing:4px; margin-bottom:20px; color:var(--primary)">SECURE ACCESS GRANTED</p>
   <input id="pass-input" type="password" maxlength="4" placeholder="••••">
 </div>
 
@@ -212,17 +196,15 @@ const observer = new IntersectionObserver((entries) => {
 
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
-/* CAROUSEL DOTS LOGIC */
+/* DOTS LOGIC */
 const carousel = document.getElementById('gfxCarousel');
 const dotsContainer = document.getElementById('dotsContainer');
 const items = carousel.querySelectorAll('.gfx-item');
-
 items.forEach((_, i) => {
   const dot = document.createElement('div');
   dot.className = `c-dot ${i === 0 ? 'active' : ''}`;
   dotsContainer.appendChild(dot);
 });
-
 carousel.addEventListener('scroll', () => {
   const scrollPos = carousel.scrollLeft;
   const itemWidth = carousel.querySelector('.gfx-item').offsetWidth + 20;
@@ -255,31 +237,24 @@ document.getElementById('pass-input').addEventListener('input', e => {
   }
 });
 
-/* ================= UPDATED REAL-TIME API LOGIC ================= */
+/* REAL-TIME API */
 async function initMedia() {
   const API_KEY = "AIzaSyC8DcTMbRZJyxs-nocj7zhIydV62D2uSM4"; 
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
-  
   try {
-    // 1. LIVE CHECK
     const liveApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=${API_KEY}`;
     const liveRes = await fetch(liveApi);
     const liveData = await liveRes.json();
-    
-    const liveIndicator = document.getElementById('live-indicator');
-    const statusText = document.getElementById('status-text');
-
     if(liveData.items && liveData.items.length > 0) {
-      liveIndicator.classList.add('online');
-      statusText.innerText = "LIVE NOW";
+      document.getElementById('live-indicator').classList.add('online');
+      document.getElementById('status-text').innerText = "LIVE NOW";
     }
 
-    // 2. FETCH LATEST VIDEOS
     const videoApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=12&order=date&type=video&key=${API_KEY}`;
     const vidRes = await fetch(videoApi);
     const vidData = await vidRes.json();
     
-    // Background Wall
+    // Background Wall & Video Grid (Performance: Using MQ Thumbnails for BG)
     const bgWall = document.getElementById('media-bg');
     bgWall.innerHTML = '';
     for(let i=0; i<5; i++) {
@@ -288,12 +263,9 @@ async function initMedia() {
         col.innerHTML = columnData.map(v => `<div class="bg-thumb" style="background-image:url('https://img.youtube.com/vi/${v.id.videoId}/mqdefault.jpg')"></div>`).join('') + col.innerHTML;
         bgWall.appendChild(col);
     }
-
-    // Video Grid
     document.getElementById('videoGrid').innerHTML = vidData.items.map(v => {
-      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg')"></div><div class="info"><h3>${v.snippet.title}</h3><a href="https://youtube.com/watch?v=${v.id.videoId}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg')" loading="lazy"></div><div class="info"><h3>${v.snippet.title}</h3><a href="https://youtube.com/watch?v=${v.id.videoId}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
     }).join("");
-
     startObserving();
   } catch(e) { console.error(e); }
 }
