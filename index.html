@@ -75,23 +75,17 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 .btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
-.btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* SOCIAL HUB (HOVER RESTORED) */
+/* SOCIAL HUB */
 .social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
 .social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; text-decoration: none; }
-.social-hub a:hover { 
-    color: var(--primary); 
-    transform: translateY(-8px) scale(1.15); 
-    filter: drop-shadow(0 0 12px var(--primary)); 
-}
+.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.15); filter: drop-shadow(0 0 12px var(--primary)); }
 
 /* GFX GRID */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; margin-top: 40px; }
 .gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); flex-shrink: 0; }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.02); }
 
-/* MOBILE CAROUSEL DOTS */
 .carousel-dots { display: none; justify-content: center; gap: 10px; margin-top: 25px; }
 .c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: 0.3s; }
 .c-dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); width: 20px; border-radius: 10px; }
@@ -233,7 +227,6 @@ carousel.addEventListener('scroll', () => {
   const scrollPos = carousel.scrollLeft;
   const itemWidth = carousel.querySelector('.gfx-item').offsetWidth + 20;
   const activeIndex = Math.round(scrollPos / itemWidth);
-  
   dotsContainer.querySelectorAll('.c-dot').forEach((dot, i) => {
     dot.classList.toggle('active', i === activeIndex);
   });
@@ -262,29 +255,47 @@ document.getElementById('pass-input').addEventListener('input', e => {
   }
 });
 
+/* ================= UPDATED REAL-TIME API LOGIC ================= */
 async function initMedia() {
+  const API_KEY = "AIzaSyC8DcTMbRZJyxs-nocj7zhIydV62D2uSM4"; 
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
-  const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id='+channelId)}`;
+  
   try {
-    const res = await fetch(api);
-    const data = await res.json();
+    // 1. LIVE CHECK
+    const liveApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=${API_KEY}`;
+    const liveRes = await fetch(liveApi);
+    const liveData = await liveRes.json();
+    
+    const liveIndicator = document.getElementById('live-indicator');
+    const statusText = document.getElementById('status-text');
+
+    if(liveData.items && liveData.items.length > 0) {
+      liveIndicator.classList.add('online');
+      statusText.innerText = "LIVE NOW";
+    }
+
+    // 2. FETCH LATEST VIDEOS
+    const videoApi = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=12&order=date&type=video&key=${API_KEY}`;
+    const vidRes = await fetch(videoApi);
+    const vidData = await vidRes.json();
+    
+    // Background Wall
     const bgWall = document.getElementById('media-bg');
+    bgWall.innerHTML = '';
     for(let i=0; i<5; i++) {
         const col = document.createElement('div'); col.className = 'bg-column';
-        const columnData = [...data.items].sort(() => Math.random() - 0.5);
-        col.innerHTML = columnData.map(v => `<div class="bg-thumb" style="background-image:url('https://img.youtube.com/vi/${v.guid.split(":")[2]}/mqdefault.jpg')"></div>`).join('') + col.innerHTML;
+        const columnData = [...vidData.items].sort(() => Math.random() - 0.5);
+        col.innerHTML = columnData.map(v => `<div class="bg-thumb" style="background-image:url('https://img.youtube.com/vi/${v.id.videoId}/mqdefault.jpg')"></div>`).join('') + col.innerHTML;
         bgWall.appendChild(col);
     }
-    if(data.items[0].link.includes("/live")) {
-      document.getElementById('live-indicator').classList.add('online');
-      document.getElementById('status-text').innerText = "LIVE NOW";
-    }
-    document.getElementById('videoGrid').innerHTML = data.items.slice(0,12).map(v => {
-      const vid = v.guid.split(":")[2];
-      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${vid}/maxresdefault.jpg')"></div><div class="info"><h3>${v.title}</h3><a href="${v.link}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
+
+    // Video Grid
+    document.getElementById('videoGrid').innerHTML = vidData.items.map(v => {
+      return `<div class="card reveal"><div class="thumb" style="aspect-ratio:16/9; background-size:cover; background-image:url('https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg')"></div><div class="info"><h3>${v.snippet.title}</h3><a href="https://youtube.com/watch?v=${v.id.videoId}" target="_blank" class="btn-main major" style="min-width: unset; padding: 18px; font-size: 0.75rem;">WATCH NOW</a></div></div>`;
     }).join("");
+
     startObserving();
-  } catch(e) {}
+  } catch(e) { console.error(e); }
 }
 
 document.getElementById("collabForm").addEventListener("submit", async (e) => {
