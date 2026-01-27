@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>DORP | Gamer · Streamer · Creator</title>
+<title>DORP | Gamer · Streamer · Designer</title>
 <meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 <link rel="icon" type="image/png" href="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
 
@@ -54,7 +54,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* UNIFIED PREMIUM BUTTON ANIMATION */
+/* SHARED BUTTON ANIMATION */
 .btn-main { 
     min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); 
     color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); 
@@ -62,7 +62,6 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 }
 .btn-main.major { background: var(--primary); color: #000; border: none; }
 
-/* SHARED HOVER STATE */
 .btn-main:hover { 
     transform: translateY(-8px) scale(1.05); 
     box-shadow: 0 15px 30px rgba(0, 209, 255, 0.4);
@@ -72,7 +71,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 }
 .btn-main.major:hover { color: #000; background: #fff; box-shadow: 0 15px 35px rgba(255, 255, 255, 0.5); }
 
-/* HERO */
+/* HERO SECTION */
 section { padding: 120px 8%; position: relative; z-index: 10; }
 #home { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
@@ -81,12 +80,12 @@ section { padding: 120px 8%; position: relative; z-index: 10; }
 
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 
-/* SOCIAL HUB */
+/* CENTERED SOCIAL HUB */
 .social-hub { display: flex; gap: 40px; margin-top: 20px; justify-content: center; width: 100%; }
 .social-hub a { color: white; font-size: 2.2rem; transition: var(--transition); text-decoration: none; }
 .social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 15px var(--primary)); }
 
-/* VIDEO GRID SYSTEM */
+/* VIDEO BOX SYSTEM (RESTACKED) */
 .section-header { text-align: center; margin-bottom: 70px; letter-spacing: 6px; font-size: 1.8rem; }
 .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
 .video-box { background: var(--glass); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
@@ -105,7 +104,7 @@ footer { width: 100%; padding: 50px 0; background: rgba(5, 7, 10, 0.8); backdrop
 footer span { color: #fff; font-weight: 700; }
 footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
-/* MOBILE */
+/* MOBILE RESPONSIVENESS */
 @media(max-width: 768px) {
     nav { padding: 0 20px; } .nav-links { display: none; }
     .gfx-grid { display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; gap: 20px; scrollbar-width: none; }
@@ -199,7 +198,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
 
-/* REVEAL */
+/* REVEAL LOGIC */
 const observer = new IntersectionObserver((entries) => { entries.forEach((entry, index) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('active'); }, index * 100); } }); }, { threshold: 0.1 });
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
