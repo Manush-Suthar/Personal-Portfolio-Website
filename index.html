@@ -75,16 +75,26 @@ section { padding: 140px 8% 100px; position: relative; z-index: 10; min-height: 
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 .btn-main { min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; line-height: 1; }
 .btn-main.major { background: var(--primary); color: #000; border: none; box-shadow: 0 0 25px rgba(0, 209, 255, 0.3); }
+.btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 209, 255, 0.25); }
 
-/* SOCIALS */
+/* SOCIAL HUB (HOVER RESTORED) */
 .social-hub { display: flex; gap: 30px; margin-top: 10px; justify-content: center; }
 .social-hub a { color: white; font-size: 2rem; transition: var(--transition); display: inline-block; text-decoration: none; }
-.social-hub a:hover { color: var(--primary); transform: translateY(-8px) scale(1.15); filter: drop-shadow(0 0 12px var(--primary)); }
+.social-hub a:hover { 
+    color: var(--primary); 
+    transform: translateY(-8px) scale(1.15); 
+    filter: drop-shadow(0 0 12px var(--primary)); 
+}
 
-/* GFX CAROUSEL */
+/* GFX GRID */
 .gfx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; margin-top: 40px; }
 .gfx-item { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); border-radius: 8px; background-size: cover; background-position: center; transition: var(--transition); flex-shrink: 0; }
 .gfx-item:hover { border-color: var(--primary); transform: scale(1.02); }
+
+/* MOBILE CAROUSEL DOTS */
+.carousel-dots { display: none; justify-content: center; gap: 10px; margin-top: 25px; }
+.c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: 0.3s; }
+.c-dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); width: 20px; border-radius: 10px; }
 
 /* VIDEOS */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
@@ -110,6 +120,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
     .gfx-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; scrollbar-width: none; }
     .gfx-grid::-webkit-scrollbar { display: none; }
     .gfx-item { min-width: 85%; scroll-snap-align: center; }
+    .carousel-dots { display: flex; }
 }
 </style>
 </head>
@@ -159,13 +170,14 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.5; }
 
 <section id="gfx">
   <h2 style="text-align:center; margin-bottom:40px; letter-spacing:5px;" class="reveal">DORP <span style="color:var(--primary)">GFX</span></h2>
-  <div class="gfx-grid">
+  <div class="gfx-grid" id="gfxCarousel">
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg');"></div>
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/gbVJY8qx/macdaking-2.jpg');"></div>
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/0ygsbMwy/Surve-vs-Binks-Final.jpg');"></div>
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/r2sZ0Kv0/AYAKASHI-BUNDLE-EN.jpg');"></div>
     <div class="gfx-item reveal" style="background-image: url('https://i.ibb.co/QsptRcb/GOT-LIVE-THUMBNAIL.jpg');"></div>
   </div>
+  <div class="carousel-dots" id="dotsContainer"></div>
   <div style="display:flex; justify-content:center; margin-top:50px;" class="reveal">
     <a href="https://www.instagram.com/dorp_gfx/" target="_blank" class="btn-main" style="min-width:300px;">GET YOURS HERE</a>
   </div>
@@ -206,6 +218,28 @@ const observer = new IntersectionObserver((entries) => {
 
 function startObserving() { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
 
+/* CAROUSEL DOTS LOGIC */
+const carousel = document.getElementById('gfxCarousel');
+const dotsContainer = document.getElementById('dotsContainer');
+const items = carousel.querySelectorAll('.gfx-item');
+
+items.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = `c-dot ${i === 0 ? 'active' : ''}`;
+  dotsContainer.appendChild(dot);
+});
+
+carousel.addEventListener('scroll', () => {
+  const scrollPos = carousel.scrollLeft;
+  const itemWidth = carousel.querySelector('.gfx-item').offsetWidth + 20;
+  const activeIndex = Math.round(scrollPos / itemWidth);
+  
+  dotsContainer.querySelectorAll('.c-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === activeIndex);
+  });
+});
+
+/* CORE LOGIC */
 const cursor = document.getElementById('cursor-glow');
 document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
 
@@ -253,31 +287,23 @@ async function initMedia() {
   } catch(e) {}
 }
 
-/* ================= VERCEL FORM LOGIC FIXED ================= */
 document.getElementById("collabForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector("button");
   const status = document.getElementById('form-status');
   btn.innerText = "TRANSMITTING...";
-  
   try {
     const res = await fetch("/api/send-email", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ 
-        user_name: e.target.user_name.value, 
-        user_email: e.target.user_email.value, 
-        message: e.target.message.value 
-      })
+      body: JSON.stringify({ user_name: e.target.user_name.value, user_email: e.target.user_email.value, message: e.target.message.value })
     });
     if(res.ok) {
       btn.innerText = "SENT";
       status.style.display = "block";
       e.target.reset();
     }
-  } catch (err) { 
-    btn.innerText = "RETRY"; 
-  }
+  } catch (err) { btn.innerText = "RETRY"; }
 });
 </script>
 </body>
