@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>DORP | Gamer · Streamer · Designer</title>
+<meta name="description" content="Official portfolio of DORP PLAYS. High-end GFX design and professional gaming content.">
+<meta property="og:title" content="DORP | Gamer · Streamer · Designer">
+<meta property="og:description" content="Explore my latest GFX work and gaming content.">
+<meta property="og:image" content="https://i.ibb.co/6RfB2hdw/Dorp-X-Penguin-Thumbnail.jpg">
+<meta property="og:type" content="website">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -59,7 +64,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .live-badge.online { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-/* PREMIUM BUTTON ANIMATIONS */
+/* PREMIUM BUTTONS */
 .btn-main { 
     min-width: 240px; padding: 22px 40px; background: transparent; border: 1px solid var(--primary); 
     color: var(--primary); font-weight: 700; cursor: pointer; transition: var(--transition); 
@@ -73,11 +78,11 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 #watch-live-btn { display: none; background: #FF0000; color: #fff; animation: pulse-red 2s infinite; margin-bottom: 25px; width: 100%; max-width: 540px; }
 @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
 
-/* LAYOUT */
+/* HERO */
 section { padding: 120px 8%; position: relative; z-index: 10; }
 #home { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .hero-content { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; }
-.hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; }
+.hero-content h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); margin-bottom: 25px; line-height: 1.1; transition: color 0.5s ease; }
 .hero-sub { letter-spacing: 8px; color: var(--muted); font-size: 0.75rem; margin-bottom: 45px; text-transform: uppercase; }
 .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
 
@@ -104,10 +109,6 @@ footer { width: 100%; padding: 50px 0; background: rgba(5, 7, 10, 0.8); backdrop
 footer span { color: #fff; font-weight: 700; }
 footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 
-/* ACCESS GATE */
-#access-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#pass-input { width: 260px; padding: 20px; background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 1.6rem; letter-spacing: 12px; text-align: center; border-radius: 12px; outline: none; }
-
 @media(max-width: 768px) {
     nav { padding: 0 20px; } .nav-links { display: none; }
     .grid-container { display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; gap: 20px; scrollbar-width: none; }
@@ -120,13 +121,7 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 <div id="cursor-glow"></div>
 <div id="media-bg"></div>
 
-<div id="access-gate">
-  <p style="font-family:Syncopate; font-size:0.65rem; letter-spacing:5px; margin-bottom:25px; color:var(--primary)">SECURE LOGIN</p>
-  <input id="pass-input" type="password" maxlength="4" placeholder="••••">
-</div>
-
-
-<nav id="nav" style="display: none;">
+<nav id="nav">
   <div class="nav-brand" onclick="window.scrollTo(0,0)">
     <div class="logo-text">DORP <span style="color:var(--primary)">PLAYS</span></div>
   </div>
@@ -195,6 +190,12 @@ footer .separator { margin: 0 15px; color: var(--primary); opacity: 0.6; }
 <footer> © 2026 <span>DORP PLAYS</span> <span class="separator">|</span> GAMER <span class="separator">|</span> STREAMER </footer>
 
 <script>
+/* RUN ON LOAD */
+window.onload = () => {
+    typeLog(logs[0]);
+    initMedia();
+};
+
 /* SECURITY */
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
@@ -215,17 +216,7 @@ async function typeLog(text) {
   logIdx = (logIdx + 1) % logs.length; typeLog(logs[logIdx]);
 }
 
-document.getElementById('pass-input').addEventListener('input', e => {
-  if(e.target.value === "1111") {
-    document.getElementById('access-gate').style.transform = 'translateY(-100%)';
-    document.body.style.overflowY = 'auto';
-    document.getElementById('nav').style.display = 'flex';
-    typeLog(logs[0]);
-    initMedia();
-  }
-});
-
-/* LIVE-REACTIVE API */
+/* LIVE-REACTIVE API LOGIC */
 async function initMedia() {
   const API_KEY = "AIzaSyC8DcTMbRZJyxs-nocj7zhIydV62D2uSM4"; 
   const channelId = "UCEmiGP-gPZ0WGAYlGfoXJZw";
@@ -235,7 +226,6 @@ async function initMedia() {
     const liveData = await liveRes.json();
     
     if(liveData.items && liveData.items.length > 0) { 
-        // TRIGGER LIVE THEME
         document.body.classList.add('live-mode');
         document.getElementById('live-indicator').classList.add('online'); 
         document.getElementById('status-text').innerText = "LIVE NOW"; 
@@ -285,6 +275,3 @@ document.getElementById("collabForm").addEventListener("submit", async (e) => {
 </script>
 </body>
 </html>
-
-
-
